@@ -36,6 +36,7 @@ pub fn decode_jwt(token: &str) -> Result<Claims, jsonwebtoken::errors::Error> {
     Ok(token_data.claims)
 }
 
+
 mod tests {
     use super::*;
 
@@ -91,4 +92,4 @@ mod tests {
         let result = decode_jwt(&token);
         assert!(result.is_err());
     }
-}
+} 
