@@ -62,7 +62,7 @@ async fn main() -> std::io::Result<()> {
             &mut pool_clone.get().expect("Unable to get db connection"),
             search_state_clone,
         );
-    }).await.unwrap();
+    }).await.expect("Failed to initialize typesense client.");
 
     let server = chat_server::ChatServer::new(app_state.clone()).start();
     log::debug!("Starting HTTP server at http://127.0.0.1:8080");
