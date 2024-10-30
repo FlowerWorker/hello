@@ -1,5 +1,10 @@
 use crate::{
-    auth::auth_middleware, database::{db::DbPool, error::DatabaseError}, handlers::{error::ApiError, search_handler::search_jobs}, models::{job::NewJob, user::UserSub}, run_async_query, run_async_typesense_query, search::{error::ReqError, state::SearchState}, services::{job_service, search_service::insert_single_doc, user_service::get_user_id_by_email}
+    auth::auth_middleware,
+    database::db::DbPool,
+    handlers::{error::ApiError, search_handler::search_jobs},
+    models::{job::NewJob, user::UserSub}, run_async_query, run_async_typesense_query,
+    search::state::SearchState,
+    services::{job_service, user_service::get_user_id_by_email, search_service::insert_single_doc}
 };
 use actix_web::{get, post, web, HttpResponse, Responder, ResponseError};
 use serde::Deserialize;
