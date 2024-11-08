@@ -49,4 +49,6 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           TYPESENSE_API_KEY: ${{ secrets.TYPESENSE_API_KEY }}
           TYPESENSE_URL: ${{ secrets.TYPESENSE_URL }}
-        run: cd webserver && cargo test --verbose
+        run: |
+          echo "Connecting to Typesense at: $TYPESENSE_URL" 
+          cd webserver && cargo test --verbose
