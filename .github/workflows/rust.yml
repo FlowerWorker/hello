@@ -47,4 +47,5 @@ jobs:
       - name: Run Tests
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          TYPESENSE_API_KEY: ${{ secrets.TYPESENSE_API_KEY }}
         run: cd webserver && cargo test --verbose
