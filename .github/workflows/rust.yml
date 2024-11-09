@@ -7,7 +7,7 @@ on:
     paths:
       - "webserver/**"
       - ".github/workflows/rust.yml"
-  pull_request:
+  pull_request_target:
     paths:
       - "webserver/**"
       - ".github/workflows/rust.yml"
