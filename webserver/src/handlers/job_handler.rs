@@ -1,10 +1,5 @@
 use crate::{
-    auth::auth_middleware,
-    database::db::DbPool,
-    handlers::error::ApiError,
-    models::{job::NewJob, user::UserSub},
-    run_async_query,
-    services::{job_service, user_service::get_user_id_by_email},
+    auth::auth_middleware, database::{db::DbPool, error::DatabaseError}, handlers::{error::ApiError, search_handler::search_jobs}, models::{job::NewJob, user::UserSub}, run_async_query, run_async_typesense_query, search::{error::ReqError, state::SearchState}, services::{job_service, search_service::insert_single_doc, user_service::get_user_id_by_email}
 };
 use actix_web::{get, post, web, HttpResponse, Responder, ResponseError};
 use serde::Deserialize;
@@ -120,6 +115,7 @@ pub async fn create_job(
     user_sub: UserSub,
     pool: web::Data<DbPool>,
     job_req: web::Json<CreateJobRequest>,
+    search_state: web::Data<SearchState>,
 ) -> Result<impl Responder, impl ResponseError> {
     // let user = web::block(move || {
     //             let mut conn = pool.clone().get().expect("Failed to get DB connection.");
@@ -134,6 +130,18 @@ pub async fn create_job(
         let new_job: NewJob = job_req.copy_request(&user_id);
         job_service::create_job(conn, &new_job).map_err(DatabaseError::from)
     })?;
+
+    let url = format!("{}/collections/jobs/documents", search_state.typesense_url);
+    let typesense_job = serde_json::json!(user);
+    
+    run_async_typesense_query!(
+        search_state, |state: &SearchState, url: String, body: serde_json::Value| insert_single_doc(
+            &state,
+            url,
+            body.clone()
+        ).map_err(ReqError::from), url, typesense_job
+    )?;
+    
     Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(user))
 }
 
@@ -164,6 +172,7 @@ pub fn job_routes_auth(cfg: &mut web::ServiceConfig) {
             .wrap(auth_middleware::Auth)
             .service(get_jobs)
             .service(create_job)
-            .service(get_my_jobs),
+            .service(get_my_jobs)
+            .service(search_jobs),
     );
 }

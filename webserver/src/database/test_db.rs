@@ -3,14 +3,20 @@
 
 use std::env;
 use std::sync::atomic::{AtomicU32, Ordering};
+use std::sync::Mutex;
 
 use diesel::backend::Backend;
 use diesel::{sql_query, Connection, PgConnection, RunQueryDsl};
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use log::warn;
+use uuid::Uuid;
 
 static TEST_DB_COUNTER: AtomicU32 = AtomicU32::new(0);
 const TEST_MIGRATIONS: EmbeddedMigrations = embed_migrations!("./migrations");
+
+lazy_static::lazy_static! {
+    static ref DB_CREATION_LOCK: Mutex<()> = Mutex::new(());
+}
 
 pub struct TestDb {
     default_db_url: String,
@@ -21,11 +27,14 @@ pub struct TestDb {
 
 impl TestDb {
     pub fn new() -> Self {
+        let _lock = DB_CREATION_LOCK.lock().unwrap();
+        let unique_suffix = Uuid::new_v4().to_string();
         // Generate a unique database name
         let name = format!(
-            "test_db_{}_{}",
+            "test_db_{}_{}_{}",
             std::process::id(),
-            TEST_DB_COUNTER.fetch_add(1, Ordering::SeqCst)
+            TEST_DB_COUNTER.fetch_add(1, Ordering::SeqCst),
+            unique_suffix
         );
 
         let default_db_url = "postgres://myuser:mypassword@localhost/postgres";
