@@ -48,5 +48,5 @@ jobs:
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           TYPESENSE_API_KEY: ${{ secrets.TYPESENSE_API_KEY }}
-          TYPESENSE_URL: ${{ secrets.TYPESENSE_URL }}
+          TYPESENSE_URL: http://typesense:8108
         run: cd webserver && cargo test --verbose
