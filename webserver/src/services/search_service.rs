@@ -149,7 +149,7 @@ mod tests {
         let insertion_result  = insert_single_doc(&search_state.clone(),insertion_url, body.clone());
         assert!(
             insertion_result.is_ok(),
-            "Schema deletion failed when it should have succeeded"
+            "Schema insertion failed when it should have succeeded"
         );
         let insertion_response :ResponseStruct= insertion_result.expect("Doc insertion failed").json().expect("Parsing failed");
         assert_eq!(insertion_response.id, body.get("id").unwrap().as_i64().unwrap().to_string());
@@ -180,7 +180,7 @@ mod tests {
         let batch_insertion_result  = insert_batch_docs(&search_state.clone(),insertion_url, body.clone());
         assert!(
             batch_insertion_result.is_ok(),
-            "Schema deletion failed when it should have succeeded"
+            "Schema batch insertion failed when it should have succeeded"
         );
 
         clear_test_environment(search_state, schema_name);
@@ -226,7 +226,7 @@ mod tests {
         let search_result = get_search_results(&search_state, insertion_url, search_query);
         assert!(
             search_result.is_ok(),
-            "Schema deletion failed when it should have succeeded"
+            "Schema search failed when it should have succeeded"
         );
         let search_response :SearchResult= search_result.expect("Doc insertion failed").json().expect("Parsing failed");
         assert_eq!(
