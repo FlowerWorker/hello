@@ -238,7 +238,7 @@ mod tests {
 
 
     fn setup_test_environment(schema_name: &str) -> Result<SearchState, Box<dyn std::error::Error>> {
-        let mut typesense_url = "http://localhost:8108".to_string();
+        let mut typesense_url = "http://127.0.0.1:8108".to_string();
         typesense_url.push_str("/collections/");
         println!("Connecting to Typesense at: {}", typesense_url);
         let client = Client::new();
@@ -258,7 +258,7 @@ mod tests {
     }
 
     fn clear_test_environment(search_state: SearchState, schema_name: &str)-> Result<(), Box<dyn std::error::Error>> {
-        let mut deletion_url = "http://localhost:8108".to_string();
+        let mut deletion_url = "http://127.0.0.1:8108".to_string();
         deletion_url.push_str("/collections/");
         deletion_url.push_str(schema_name);
         let _ = delete_collection_schema(&search_state.clone(), deletion_url.clone())?;
