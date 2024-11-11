@@ -238,7 +238,7 @@ mod tests {
 
 
     fn setup_test_environment(schema_name: &str) -> Result<SearchState, Box<dyn std::error::Error>> {
-        let mut typesense_url = "http://127.0.0.1:8108".to_string();
+        let mut typesense_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         typesense_url.push_str("/collections/");
         println!("Connecting to Typesense at: {}", typesense_url);
         let client = Client::new();
