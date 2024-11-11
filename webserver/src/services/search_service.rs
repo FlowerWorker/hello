@@ -240,7 +240,6 @@ mod tests {
     fn setup_test_environment(schema_name: &str) -> Result<SearchState, Box<dyn std::error::Error>> {
         let mut typesense_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         typesense_url.push_str("/collections/");
-        println!("Connecting to Typesense at: {}", typesense_url);
         let client = Client::new();
         let typesense_api_key = env::var("TYPESENSE_API_KEY").expect("TYPESENSE_API_KEY must be set");
         let search_state = SearchState { client, typesense_url, typesense_api_key};
