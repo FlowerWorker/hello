@@ -2,7 +2,7 @@ use crate::auth::error::AuthError;
 use diesel::prelude::*;
 use diesel::result::Error;
 
-use crate::models::user::{NewUser, User};
+use crate::models::user::{NewUser, PublicUser, User};
 use crate::schema::users;
 
 pub fn register_user(
@@ -41,8 +41,16 @@ pub(crate) fn get_user_id_by_email(email: &str, conn: &mut PgConnection) -> Resu
         .first(conn)
 }
 
-pub(crate) fn get_users(conn: &mut PgConnection) -> Result<Vec<User>, Error> {
-    users::table.load::<User>(conn)
+pub(crate) fn get_users(conn: &mut PgConnection) -> Result<Vec<PublicUser>, Error> {
+    let users = users::table.load::<User>(conn)?;
+    let public_users = users.into_iter().map(|user| PublicUser {
+        id: user.id,
+        created_at: user.created_at,
+        email: user.email,
+        username: user.username,
+    }).collect();
+
+    Ok(public_users)
 }
 
 pub fn login(conn: &mut PgConnection, email: &str, password: &str) -> Result<User, AuthError> {

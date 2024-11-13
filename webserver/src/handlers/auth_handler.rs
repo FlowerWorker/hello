@@ -58,7 +58,10 @@ pub async fn register(
     .map_err(DatabaseError::from))?;
 
     let url = format!("{}/collections/users/documents", search_state.typesense_url);
-    let typesense_user = serde_json::json!(user);
+    let mut typesense_user = serde_json::json!(user);
+    
+    // Remove the password_hash key
+    typesense_user.as_object_mut().unwrap().remove("password_hash");
 
     run_async_typesense_query!(
         search_state, |state: &SearchState, url: String, body: serde_json::Value| insert_single_doc(
