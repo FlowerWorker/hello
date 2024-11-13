@@ -160,7 +160,7 @@ mod tests {
         let insertion_result  = insert_single_doc(&search_state.clone(),insertion_url, body.clone());
         assert!(
             insertion_result.is_ok(),
-            "Schema deletion failed when it should have succeeded"
+            "Schema insertion failed when it should have succeeded"
         );
         let insertion_response :ResponseStruct= insertion_result.expect("Doc insertion failed").json().expect("Parsing failed");
         assert_eq!(insertion_response.id, body.get("id").unwrap().as_i64().unwrap().to_string());
