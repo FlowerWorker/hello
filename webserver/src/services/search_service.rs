@@ -119,7 +119,7 @@ mod tests {
         );
         let response :ResponseStruct= result.expect("Schema creation failed").json().expect("Parsing failed");
         assert_eq!(response.name, schema_name);
-        
+
         let mut deletion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         deletion_url.push_str("/collections/");
         deletion_url.push_str(schema_name);
@@ -141,8 +141,6 @@ mod tests {
             pub id: String,
         }
         
-        let schema_name = "test2";
-        let setup_result = setup_test_environment(schema_name);
         let schema_name = "test2";
         let setup_result = setup_test_environment(schema_name);
         
@@ -302,7 +300,6 @@ mod tests {
 
         clear_test_environment(search_state, schema_name);
     }
-
 
     fn setup_test_environment(schema_name: &str) -> Result<SearchState, Box<dyn std::error::Error>> {
         let mut typesense_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
