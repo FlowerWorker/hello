@@ -101,8 +101,6 @@ mod tests {
 
         let mut typesense_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         typesense_url.push_str("/collections/");
-        let mut typesense_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
-        typesense_url.push_str("/collections/");
         let client = Client::new();
         let typesense_api_key = env::var("TYPESENSE_API_KEY").expect("TYPESENSE_API_KEY must be set");
         let search_state = SearchState { client, typesense_url, typesense_api_key};
@@ -122,9 +120,6 @@ mod tests {
         let response :ResponseStruct= result.expect("Schema creation failed").json().expect("Parsing failed");
         assert_eq!(response.name, schema_name);
         
-        let mut deletion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
-        deletion_url.push_str("/collections/");
-
         let mut deletion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         deletion_url.push_str("/collections/");
         deletion_url.push_str(schema_name);
@@ -155,8 +150,6 @@ mod tests {
 
         let search_state = setup_result.unwrap();
 
-        let mut insertion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
-        insertion_url.push_str("/collections/");
         let mut insertion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         insertion_url.push_str("/collections/");
         insertion_url.push_str(schema_name);
