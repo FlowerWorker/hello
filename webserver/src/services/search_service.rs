@@ -131,7 +131,8 @@ mod tests {
             pub id: String,
         }
         
-        let schema_name = "test2";let setup_result = setup_test_environment(schema_name);
+        let schema_name = "test2";
+        let setup_result = setup_test_environment(schema_name);
         
         assert!(setup_result.is_ok(), "Failed to set up test environment: {:?}", setup_result.err());
 
