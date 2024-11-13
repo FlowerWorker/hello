@@ -91,7 +91,8 @@ mod tests {
     #[actix_rt::test]
     async fn test_login_with_correct_credentials() {
         use actix_web::http::StatusCode;
-
+        
+        dotenv::dotenv().ok();
         let db = TestDb::new();
         let pool = db::establish_connection(&db.url());
 
@@ -144,6 +145,7 @@ mod tests {
     async fn test_login_with_incorrect_credentials() {
         use actix_web::http::StatusCode;
 
+        dotenv::dotenv().ok();
         let db = TestDb::new();
         let pool = db::establish_connection(&db.url());
 
