@@ -5,7 +5,6 @@ use crate::{
     models::{job::NewJob, user::UserSub}, run_async_query, run_async_typesense_query,
     search::state::SearchState,
     services::{job_service, search_service::{insert_single_doc, update_single_doc}, user_service::get_user_id_by_email}
-
 };
 use actix_web::{get, post, put, web, HttpResponse, Responder, ResponseError};
 use serde::Deserialize;
