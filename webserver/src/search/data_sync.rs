@@ -8,7 +8,6 @@ use crate::{search::{index::index_docs, state::SearchState}, services::{job_serv
 pub fn init_tpyesense(connection: &mut PgConnection, search_state : SearchState){
     let schema_names = vec!["jobs", "users", "projects"];
 
-
     for schema_name in schema_names{
         match create_collection(search_state.clone(), schema_name){
             Ok(response) =>

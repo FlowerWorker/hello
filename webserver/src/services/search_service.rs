@@ -62,7 +62,6 @@ pub fn update_single_doc(search_state: &SearchState, url: String, mut body: Valu
         .send()
 }
 
-
 fn json_array_to_jsonl(json_array: &Value) -> String {
     json_array
         .as_array()
