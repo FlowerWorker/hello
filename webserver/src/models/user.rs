@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::schema::users;
 
-#[derive(Queryable, Selectable, Debug)]
+#[derive(Queryable, Selectable, Serialize, Debug)]
 #[diesel(table_name = users)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct User {
@@ -45,4 +45,12 @@ impl From<User> for UserResponse {
             created_at: user.created_at,
         }
     }
+}
+
+#[derive(Serialize)]
+pub struct PublicUser {
+    pub id: i32,
+    pub username: String,
+    pub email: String,
+    pub created_at: NaiveDateTime,
 }

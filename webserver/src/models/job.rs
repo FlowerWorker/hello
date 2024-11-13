@@ -40,7 +40,7 @@ pub struct Job {
     pub created_at: NaiveDateTime,
 }
 
-#[derive(Insertable, Debug)]
+#[derive(Insertable, Debug, AsChangeset)]
 #[diesel(table_name = jobs)]
 pub struct NewJob<'a> {
     pub user_id: &'a i32,

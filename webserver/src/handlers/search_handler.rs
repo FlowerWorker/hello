@@ -29,7 +29,7 @@ struct Highlight {
 }
 
 #[get("/search")]
-pub async fn search_jobs(
+pub async fn search_docs(
     search_state: web::Data<SearchState>,
     query: web::Query<SearchQuery>,
     req: HttpRequest

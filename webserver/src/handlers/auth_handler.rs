@@ -6,8 +6,10 @@ use crate::database::error::DatabaseError;
 use crate::handlers::auth_handler;
 use crate::handlers::error::ApiError;
 use crate::models::user::UserResponse;
-use crate::run_async_query;
+use crate::services::search_service::insert_single_doc;
+use crate::{run_async_query, run_async_typesense_query};
 use crate::{auth::jwt_auth_service::create_jwt, database::db::DbPool, services::user_service};
+use crate::search::state::SearchState;
 
 #[derive(Serialize, Deserialize)]
 pub struct LoginRequest {
@@ -45,6 +47,7 @@ pub async fn login(
 pub async fn register(
     pool: web::Data<DbPool>,
     credentials: web::Json<RegisterRequest>,
+    search_state: web::Data<SearchState>,
 ) -> Result<impl Responder, impl ResponseError> {
     let user = run_async_query!(pool, |conn| user_service::register_user(
         conn,
@@ -53,6 +56,20 @@ pub async fn register(
         &credentials.email,
     )
     .map_err(DatabaseError::from))?;
+
+    let url = format!("{}/collections/users/documents", search_state.typesense_url);
+    let mut typesense_user = serde_json::json!(user);
+    
+    // Remove the password_hash key
+    typesense_user.as_object_mut().unwrap().remove("password_hash");
+
+    run_async_typesense_query!(
+        search_state, |state: &SearchState, url: String, body: serde_json::Value| insert_single_doc(
+            &state,
+            url,
+            body.clone()
+        ).map_err(ReqError::from), url, typesense_user
+    )?;
 
     let public_user: UserResponse = user.into();
     Ok::<HttpResponse, ApiError>(HttpResponse::Created().json(public_user))
@@ -63,10 +80,11 @@ pub fn auth_routes(cfg: &mut web::ServiceConfig) {
 }
 
 mod tests {
-    use crate::database::db;
+    use crate::{config::Config, database::db};
     use crate::database::test_db::TestDb;
     use crate::services::user_service::register_user;
     use actix_web::{test, App};
+    use reqwest::blocking::Client;
 
     use super::*;
 
@@ -77,9 +95,17 @@ mod tests {
         let db = TestDb::new();
         let pool = db::establish_connection(&db.url());
 
+        let typesense_url = Config::from_env().typesense_url;
+        let typesense_api_key = Config::from_env().typesense_api_key;
+        let client = web::block(|| {
+            Client::new()
+        }).await.expect("Failed to initialize typesense client.");
+        let search_state = SearchState { client, typesense_url, typesense_api_key};
+        
         let app = test::init_service(
             App::new()
                 .app_data(web::Data::new(pool.clone()))
+                .app_data(web::Data::new(search_state.clone()))
                 .configure(auth_routes),
         )
         .await;
@@ -121,9 +147,17 @@ mod tests {
         let db = TestDb::new();
         let pool = db::establish_connection(&db.url());
 
+        let typesense_url = Config::from_env().typesense_url;
+        let typesense_api_key = Config::from_env().typesense_api_key;
+        let client = web::block(|| {
+            Client::new()
+        }).await.expect("Failed to initialize typesense client.");
+        let search_state = SearchState { client, typesense_url, typesense_api_key};
+
         let app = test::init_service(
             App::new()
                 .app_data(web::Data::new(pool.clone()))
+                .app_data(web::Data::new(search_state.clone()))
                 .configure(auth_routes),
         )
         .await;
