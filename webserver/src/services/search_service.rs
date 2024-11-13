@@ -170,7 +170,6 @@ mod tests {
         assert!(
             insertion_result.is_ok(),
             "Schema insertion failed when it should have succeeded"
-            "Schema insertion failed when it should have succeeded"
         );
         let insertion_response :ResponseStruct= insertion_result.expect("Doc insertion failed").json().expect("Parsing failed");
         assert_eq!(insertion_response.id, body.get("id").unwrap().as_i64().unwrap().to_string());
@@ -202,7 +201,6 @@ mod tests {
         assert!(
             batch_insertion_result.is_ok(),
             "Schema batch insertion failed when it should have succeeded"
-            "Schema batch insertion failed when it should have succeeded"
         );
 
         clear_test_environment(search_state, schema_name);
@@ -231,8 +229,6 @@ mod tests {
 
         let mut insertion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         insertion_url.push_str("/collections/");
-        let mut insertion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
-        insertion_url.push_str("/collections/");
         insertion_url.push_str(schema_name);
         insertion_url.push_str("/documents");
         let body = json!({
@@ -250,7 +246,6 @@ mod tests {
         let search_result = get_search_results(&search_state, insertion_url, search_query);
         assert!(
             search_result.is_ok(),
-            "Schema search failed when it should have succeeded"
             "Schema search failed when it should have succeeded"
         );
         let search_response :SearchResult= search_result.expect("Doc insertion failed").json().expect("Parsing failed");
@@ -319,8 +314,6 @@ mod tests {
     fn setup_test_environment(schema_name: &str) -> Result<SearchState, Box<dyn std::error::Error>> {
         let mut typesense_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         typesense_url.push_str("/collections/");
-        let mut typesense_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
-        typesense_url.push_str("/collections/");
         let client = Client::new();
         let typesense_api_key = env::var("TYPESENSE_API_KEY").expect("TYPESENSE_API_KEY must be set");
         let search_state = SearchState { client, typesense_url, typesense_api_key};
@@ -338,8 +331,6 @@ mod tests {
     }
 
     fn clear_test_environment(search_state: SearchState, schema_name: &str)-> Result<(), Box<dyn std::error::Error>> {
-        let mut deletion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
-        deletion_url.push_str("/collections/");
         let mut deletion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         deletion_url.push_str("/collections/");
         deletion_url.push_str(schema_name);
