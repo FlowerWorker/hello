@@ -77,10 +77,11 @@ pub fn auth_routes(cfg: &mut web::ServiceConfig) {
 }
 
 mod tests {
-    use crate::database::db;
+    use crate::{config::Config, database::db};
     use crate::database::test_db::TestDb;
     use crate::services::user_service::register_user;
     use actix_web::{test, App};
+    use reqwest::blocking::Client;
 
     use super::*;
 
@@ -91,9 +92,17 @@ mod tests {
         let db = TestDb::new();
         let pool = db::establish_connection(&db.url());
 
+        let typesense_url = Config::from_env().typesense_url;
+        let typesense_api_key = Config::from_env().typesense_api_key;
+        let client = web::block(|| {
+            Client::new()
+        }).await.expect("Failed to initialize typesense client.");
+        let search_state = SearchState { client, typesense_url, typesense_api_key};
+        
         let app = test::init_service(
             App::new()
                 .app_data(web::Data::new(pool.clone()))
+                .app_data(web::Data::new(search_state.clone()))
                 .configure(auth_routes),
         )
         .await;
@@ -135,9 +144,17 @@ mod tests {
         let db = TestDb::new();
         let pool = db::establish_connection(&db.url());
 
+        let typesense_url = Config::from_env().typesense_url;
+        let typesense_api_key = Config::from_env().typesense_api_key;
+        let client = web::block(|| {
+            Client::new()
+        }).await.expect("Failed to initialize typesense client.");
+        let search_state = SearchState { client, typesense_url, typesense_api_key};
+
         let app = test::init_service(
             App::new()
                 .app_data(web::Data::new(pool.clone()))
+                .app_data(web::Data::new(search_state.clone()))
                 .configure(auth_routes),
         )
         .await;

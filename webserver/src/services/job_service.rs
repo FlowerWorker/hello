@@ -169,7 +169,7 @@ mod tests {
     }
 
     #[test]
-    fn get_jobs_success() {
+    fn test_get_jobs_success() {
         let db = TestDb::new();
 
         let user_id = register_user(&mut db.conn(), "test job", "testpassword", "test@test.com")
@@ -201,5 +201,40 @@ mod tests {
         let last_stored_job = stored_jobs_list.last().unwrap();
 
         assert_eq!(*last_stored_job, new_job);
+    }
+
+    #[test]
+    fn test_update_job_success() {
+        let db = TestDb::new();
+
+        let user_id = register_user(&mut db.conn(), "test job", "testpassword", "test@test.com")
+            .expect("Failed to register user")
+            .id;
+
+        let required_skills_vec = &vec!["tall".to_string()];
+        let preferred_skills_vec = &vec!["not short".to_string()];
+        let jobs_screening_vec: &Vec<String> = &vec![
+            "what is your name?".to_string(),
+            "where do you live?".to_string(),
+        ];
+        let new_job = create_test_job(
+            &user_id,
+            required_skills_vec,
+            preferred_skills_vec,
+            jobs_screening_vec,
+        );
+
+        let creation_result = create_job(&mut db.conn(), &new_job)
+            .expect("Job creation failed when it should have succeeded");
+
+        let update_result = update_job(&mut db.conn(), &creation_result.id, &new_job);
+        assert!(
+            update_result.is_ok(),
+            "Job retrieval failed when it should have succeeded"
+        );
+        let updated_job = update_result.unwrap();
+        
+        assert_eq!(updated_job, new_job);
+
     }
 }
