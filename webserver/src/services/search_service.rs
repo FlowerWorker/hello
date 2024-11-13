@@ -89,7 +89,7 @@ mod tests {
             pub name: String,
         }
 
-        let mut typesense_url = "http://localhost:8108".to_string();
+        let mut typesense_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         typesense_url.push_str("/collections/");
         let client = Client::new();
         let typesense_api_key = env::var("TYPESENSE_API_KEY").expect("TYPESENSE_API_KEY must be set");
@@ -110,7 +110,7 @@ mod tests {
         let response :ResponseStruct= result.expect("Schema creation failed").json().expect("Parsing failed");
         assert_eq!(response.name, schema_name);
 
-        let mut deletion_url = "http://localhost:8108".to_string();
+        let mut deletion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         deletion_url.push_str("/collections/");
         deletion_url.push_str(schema_name);
         let deletion_result = delete_collection_schema(&search_state.clone(), deletion_url);
@@ -137,7 +137,7 @@ mod tests {
 
         let search_state = setup_result.unwrap();
 
-        let mut insertion_url = "http://localhost:8108".to_string();
+        let mut insertion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         insertion_url.push_str("/collections/");
         insertion_url.push_str(schema_name);
         insertion_url.push_str("/documents");
@@ -149,7 +149,7 @@ mod tests {
         let insertion_result  = insert_single_doc(&search_state.clone(),insertion_url, body.clone());
         assert!(
             insertion_result.is_ok(),
-            "Schema deletion failed when it should have succeeded"
+            "Schema insertion failed when it should have succeeded"
         );
         let insertion_response :ResponseStruct= insertion_result.expect("Doc insertion failed").json().expect("Parsing failed");
         assert_eq!(insertion_response.id, body.get("id").unwrap().as_i64().unwrap().to_string());
@@ -168,7 +168,7 @@ mod tests {
 
         let search_state = setup_result.unwrap();
         
-        let mut insertion_url = "http://localhost:8108".to_string();
+        let mut insertion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         insertion_url.push_str("/collections/");
         insertion_url.push_str(schema_name);
         insertion_url.push_str("/documents");
@@ -180,7 +180,7 @@ mod tests {
         let batch_insertion_result  = insert_batch_docs(&search_state.clone(),insertion_url, body.clone());
         assert!(
             batch_insertion_result.is_ok(),
-            "Schema deletion failed when it should have succeeded"
+            "Schema batch insertion failed when it should have succeeded"
         );
 
         clear_test_environment(search_state, schema_name);
@@ -207,7 +207,7 @@ mod tests {
 
         let search_state = setup_result.unwrap();
 
-        let mut insertion_url = "http://localhost:8108".to_string();
+        let mut insertion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         insertion_url.push_str("/collections/");
         insertion_url.push_str(schema_name);
         insertion_url.push_str("/documents");
@@ -226,7 +226,7 @@ mod tests {
         let search_result = get_search_results(&search_state, insertion_url, search_query);
         assert!(
             search_result.is_ok(),
-            "Schema deletion failed when it should have succeeded"
+            "Schema search failed when it should have succeeded"
         );
         let search_response :SearchResult= search_result.expect("Doc insertion failed").json().expect("Parsing failed");
         assert_eq!(
@@ -238,7 +238,7 @@ mod tests {
 
 
     fn setup_test_environment(schema_name: &str) -> Result<SearchState, Box<dyn std::error::Error>> {
-        let mut typesense_url = "http://127.0.0.1:8108".to_string();
+        let mut typesense_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         typesense_url.push_str("/collections/");
         println!("Connecting to Typesense at: {}", typesense_url);
         let client = Client::new();
@@ -258,7 +258,7 @@ mod tests {
     }
 
     fn clear_test_environment(search_state: SearchState, schema_name: &str)-> Result<(), Box<dyn std::error::Error>> {
-        let mut deletion_url = "http://127.0.0.1:8108".to_string();
+        let mut deletion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         deletion_url.push_str("/collections/");
         deletion_url.push_str(schema_name);
         let _ = delete_collection_schema(&search_state.clone(), deletion_url.clone())?;
