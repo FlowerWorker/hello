@@ -1,7 +1,7 @@
 use crate::{
     auth::auth_middleware,
     database::db::DbPool,
-    handlers::{error::ApiError, search_handler::search_jobs},
+    handlers::{error::ApiError, search_handler::search_docs},
     models::{job::NewJob, user::UserSub}, run_async_query, run_async_typesense_query,
     search::state::SearchState,
     services::{job_service, search_service::{insert_single_doc, update_single_doc}, user_service::get_user_id_by_email}
@@ -208,6 +208,6 @@ pub fn job_routes_auth(cfg: &mut web::ServiceConfig) {
             .service(create_job)
             .service(get_my_jobs)
             .service(update_job)
-            .service(search_jobs),
+            .service(search_docs),
     );
 }

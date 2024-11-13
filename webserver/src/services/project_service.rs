@@ -34,6 +34,10 @@ pub fn get_projects(conn: &mut PgConnection, user: &i32) -> Result<Vec<Project>,
     return projects;
 }
 
+pub fn get_all_projects(conn: &mut PgConnection) -> Result<Vec<Project>, Error> {
+    projects::table.load::<Project>(conn)
+}
+
 fn get_project_with_tasks(
     conn: &mut PgConnection,
     project_id: &i32,

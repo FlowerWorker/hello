@@ -41,6 +41,10 @@ pub(crate) fn get_user_id_by_email(email: &str, conn: &mut PgConnection) -> Resu
         .first(conn)
 }
 
+pub(crate) fn get_users(conn: &mut PgConnection) -> Result<Vec<User>, Error> {
+    users::table.load::<User>(conn)
+}
+
 pub fn login(conn: &mut PgConnection, email: &str, password: &str) -> Result<User, AuthError> {
     let user = get_user_by_email(email, conn);
 

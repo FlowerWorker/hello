@@ -6,8 +6,10 @@ use crate::database::error::DatabaseError;
 use crate::handlers::auth_handler;
 use crate::handlers::error::ApiError;
 use crate::models::user::UserResponse;
-use crate::run_async_query;
+use crate::services::search_service::insert_single_doc;
+use crate::{run_async_query, run_async_typesense_query};
 use crate::{auth::jwt_auth_service::create_jwt, database::db::DbPool, services::user_service};
+use crate::search::state::SearchState;
 
 #[derive(Serialize, Deserialize)]
 pub struct LoginRequest {
@@ -45,6 +47,7 @@ pub async fn login(
 pub async fn register(
     pool: web::Data<DbPool>,
     credentials: web::Json<RegisterRequest>,
+    search_state: web::Data<SearchState>,
 ) -> Result<impl Responder, impl ResponseError> {
     let user = run_async_query!(pool, |conn| user_service::register_user(
         conn,
@@ -53,6 +56,17 @@ pub async fn register(
         &credentials.email,
     )
     .map_err(DatabaseError::from))?;
+
+    let url = format!("{}/collections/users/documents", search_state.typesense_url);
+    let typesense_user = serde_json::json!(user);
+
+    run_async_typesense_query!(
+        search_state, |state: &SearchState, url: String, body: serde_json::Value| insert_single_doc(
+            &state,
+            url,
+            body.clone()
+        ).map_err(ReqError::from), url, typesense_user
+    )?;
 
     let public_user: UserResponse = user.into();
     Ok::<HttpResponse, ApiError>(HttpResponse::Created().json(public_user))

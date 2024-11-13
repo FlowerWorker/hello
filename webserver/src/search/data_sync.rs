@@ -2,11 +2,11 @@ use diesel::prelude::*;
 use reqwest::{blocking::Response, Error};
 use serde::Serialize;
 use serde_json::json;
-use crate::{search::index::index_docs, services::{job_service, search_service}, search::state::SearchState};
+use crate::{search::{index::index_docs, state::SearchState}, services::{job_service, project_service, search_service, user_service}};
 
 
 pub fn init_tpyesense(connection: &mut PgConnection, search_state : SearchState){
-    let schema_names = vec!["jobs"];
+    let schema_names = vec!["jobs", "users", "projects"];
 
     for schema_name in schema_names{
         match create_collection(search_state.clone(), schema_name){
@@ -40,6 +40,8 @@ fn create_collection(search_state : SearchState, schema_name : &str) -> Result<R
 fn fetch_and_index(connection: &mut PgConnection, search_state : SearchState, schema_name : &str) {
     match schema_name{
         "jobs" => fetch_and_index_docs(job_service::get_jobs(connection) , search_state, schema_name),
+        "users" => fetch_and_index_docs(user_service::get_users(connection) , search_state, schema_name),
+        "projects" => fetch_and_index_docs(project_service::get_all_projects(connection) , search_state, schema_name),
         _ => ()
     }
 }
