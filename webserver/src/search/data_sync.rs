@@ -42,8 +42,6 @@ fn fetch_and_index(connection: &mut PgConnection, search_state : SearchState, sc
         "jobs" => fetch_and_index_docs(job_service::get_jobs(connection) , search_state, schema_name),
         "users" => fetch_and_index_docs(user_service::get_users(connection) , search_state, schema_name),
         "projects" => fetch_and_index_docs(project_service::get_all_projects(connection) , search_state, schema_name),
-        "users" => fetch_and_index_docs(user_service::get_users(connection) , search_state, schema_name),
-        "projects" => fetch_and_index_docs(project_service::get_all_projects(connection) , search_state, schema_name),
         _ => ()
     }
 }
