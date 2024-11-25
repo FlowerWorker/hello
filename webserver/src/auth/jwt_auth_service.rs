@@ -11,8 +11,16 @@ pub struct Claims {
 }
 
 pub fn create_jwt(user_id: &str) -> String {
+    create_jwt_with_expiration(user_id, chrono::Duration::days(1))
+}
+
+pub fn create_reset_jwt(user_id: &str) -> String {
+    create_jwt_with_expiration(user_id, chrono::Duration::hours(1))
+}
+
+fn create_jwt_with_expiration(user_id: &str, duration: chrono::Duration) -> String {
     let expiration = chrono::Utc::now()
-        .checked_add_signed(chrono::Duration::days(1))
+        .checked_add_signed(duration)
         .expect("valid timestamp")
         .timestamp() as usize;
 

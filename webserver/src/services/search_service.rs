@@ -299,7 +299,7 @@ mod tests {
 
         clear_test_environment(search_state, schema_name);
     }
-
+    
     fn setup_test_environment(schema_name: &str) -> Result<SearchState, Box<dyn std::error::Error>> {
         let mut typesense_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
         typesense_url.push_str("/collections/");
