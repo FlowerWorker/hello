@@ -1,14 +1,15 @@
-use actix_web::{post, web, HttpResponse, Responder, ResponseError};
+use actix_web::{post, put, web, HttpResponse, Responder, ResponseError};
 use serde::{Deserialize, Serialize};
 
 use crate::auth::error::AuthError;
+use crate::auth::jwt_auth_service::decode_jwt;
 use crate::database::error::DatabaseError;
 use crate::handlers::auth_handler;
 use crate::handlers::error::ApiError;
 use crate::models::user::UserResponse;
 use crate::services::search_service::insert_single_doc;
 use crate::{run_async_query, run_async_typesense_query};
-use crate::{auth::jwt_auth_service::create_jwt, database::db::DbPool, services::user_service};
+use crate::{auth::jwt_auth_service::create_jwt, database::db::DbPool, services::user_service, auth::jwt_auth_service::create_reset_jwt};
 use crate::search::state::SearchState;
 
 #[derive(Serialize, Deserialize)]
@@ -22,6 +23,17 @@ pub struct RegisterRequest {
     pub username: String,
     pub email: String,
     pub password: String,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct RequestPasswordReset{
+    pub email: String,
+}
+
+#[derive(Serialize, Deserialize)]
+struct CompletePasswordReset {
+    token: String,
+    new_password: String,
 }
 
 #[post("/login")]
@@ -75,8 +87,44 @@ pub async fn register(
     Ok::<HttpResponse, ApiError>(HttpResponse::Created().json(public_user))
 }
 
+#[post("/reset-password")]
+pub async fn send_pass_reset_req(
+    reset_request: web::Json<RequestPasswordReset>,
+) -> Result<impl Responder, impl ResponseError> {
+
+    let token = create_reset_jwt(&reset_request.email);
+
+    println!("Token for {}: {}", reset_request.email, token);
+    run_async_typesense_query!(
+        &reset_request.email,
+        |email: &str, token: &str| {
+            user_service::send_reset_email(email, &token).map_err(ReqError::from)
+        },
+        &token
+    )?;
+    
+    Ok::<HttpResponse, ApiError>(HttpResponse::Created().json("Password reset email sent"))
+}
+
+#[put("/reset-password")]
+pub async fn reset_pass_complete_req(
+    pool: web::Data<DbPool>,
+    payload: web::Json<CompletePasswordReset>
+) -> Result<impl Responder, impl ResponseError> {
+    let claim =
+        decode_jwt(&payload.token).map_err(|err: jsonwebtoken::errors::Error| {
+            actix_web::error::ErrorUnauthorized(format!("Unauthorized: {}", err))
+        })?;
+
+    let public_user = run_async_query!(pool, |conn| {
+        user_service::update_user_password(conn, &claim.sub, &payload.new_password).map_err(DatabaseError::from)
+    })?;
+    
+    Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(public_user))
+}
+
 pub fn auth_routes(cfg: &mut web::ServiceConfig) {
-    cfg.service(web::scope("/auth").service(login).service(register));
+    cfg.service(web::scope("/auth").service(login).service(register).service(send_pass_reset_req).service(reset_pass_complete_req));
 }
 
 mod tests {

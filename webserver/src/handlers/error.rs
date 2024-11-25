@@ -47,8 +47,7 @@ impl From<actix_web::Error> for ApiError {
 
 impl From<actix_web::Error> for ReqError {
     fn from(err: actix_web::Error) -> Self {
-        // Customize this to convert `actix_web::Error` into `ReqError`
-        ReqError::RequestError  // Example conversion
+        ReqError::RequestError
     }
 }
 

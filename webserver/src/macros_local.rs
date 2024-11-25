@@ -49,4 +49,16 @@ macro_rules! run_async_typesense_query {
         .await
         .map_err(ErrorInternalServerError)?
     }};
+
+    ($email:expr, $query:expr, $token:expr) => {{
+        use crate::search::error::ReqError;
+        use actix_web::error::ErrorInternalServerError;
+
+        web::block(move || {
+            let result = $query($email, $token).map_err(ReqError::from);
+            result
+        })
+        .await
+        .map_err(ErrorInternalServerError)?
+    }};
 }
