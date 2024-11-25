@@ -62,7 +62,6 @@ pub fn update_single_doc(search_state: &SearchState, url: String, mut body: Valu
         .send()
 }
 
-
 fn json_array_to_jsonl(json_array: &Value) -> String {
     json_array
         .as_array()
@@ -141,6 +140,8 @@ mod tests {
             pub id: String,
         }
         
+        let schema_name = "test2";
+        let setup_result = setup_test_environment(schema_name);
         let schema_name = "test2";
         let setup_result = setup_test_environment(schema_name);
         
@@ -247,6 +248,59 @@ mod tests {
         clear_test_environment(search_state, schema_name);
     }
 
+    #[test]
+    fn test_update_doc_success() {
+        dotenv::dotenv().ok();
+
+        #[derive(Debug, Deserialize)]
+        struct ResponseStruct {
+            pub id: String,
+            pub company_name : String,
+        }
+        
+        let schema_name = "test5";
+        let setup_result = setup_test_environment(schema_name);
+        
+        assert!(setup_result.is_ok(), "Failed to set up test environment: {:?}", setup_result.err());
+
+        let search_state = setup_result.unwrap();
+
+        let mut insertion_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
+        insertion_url.push_str("/collections/");
+        insertion_url.push_str(schema_name);
+        insertion_url.push_str("/documents");
+        let body = json!({
+                "id": 12,
+                "company_name": "Stark Industries",
+                "num_employees": 5215
+        });
+        let insertion_result  = insert_single_doc(&search_state.clone(), insertion_url, body.clone());
+        assert!(
+            insertion_result.is_ok(),
+            "Schema insertion failed when it should have succeeded"
+        );
+        let insertion_response :ResponseStruct= insertion_result.expect("Doc insertion failed").json().expect("Parsing failed");
+        assert_eq!(insertion_response.id, body.get("id").unwrap().as_i64().unwrap().to_string());
+
+        let update_body = json!({
+            "id": 12,
+            "company_name": "Stark Industries Updated",
+            "num_employees": 5215
+        });
+        let mut update_url = env::var("TYPESENSE_URL").expect("TYPESENSE_API_KEY must be set");
+        update_url.push_str("/collections/");
+        update_url.push_str(schema_name);
+        update_url.push_str("/documents/12");
+        let update_result  = update_single_doc(&search_state.clone(), update_url, update_body.clone());
+        assert!(
+            update_result.is_ok(),
+            "Schema update failed when it should have succeeded"
+        );
+        let update_response :ResponseStruct= update_result.expect("Doc update failed").json().expect("Parsing failed");
+        assert_eq!(update_response.company_name, update_body.get("company_name").unwrap().as_str().unwrap().to_string());
+
+        clear_test_environment(search_state, schema_name);
+    }
     #[test]
     fn test_update_doc_success() {
         dotenv::dotenv().ok();

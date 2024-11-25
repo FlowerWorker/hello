@@ -1,44 +1,41 @@
 import Image from "next/image";
-import { Footer, Hero, Navbar, Welcome } from "./components";
-import sample from "./public/sample1.jpg"; 
-import bgImage from "./public/landing-page.jpg";
+import { Footer, Hero, Navbar, HeroOverlay, Welcome } from "./components";
+import heroimage from "./public/landingpagehero.jpg";
+import bigtext from "./public/text_logo_big.png";
 
 export default function Home() {
   return (
-    <div
-      className="min-h-screen w-full flex flex-col justify-center bg-no-repeat bg-cover"
-      style={{ backgroundImage: `url(${bgImage.src})` }}
-    >
-      {/* Main Content Area */}
-      <div className="flex flex-col lg:gap-4 lg:px-14 lg:py-5 md:gap-4 md:px-14 md:py-5 w-full">
-        {/* Header Section */}
-        <header>
-          <Navbar />
-        </header>
+    <div className="w-full">
+      {/* Header Section */}
+      <header className="relative z-30">
+        <Navbar className="z-40" />
+      </header>
 
-        {/* Main Section */}
-        <main className="flex flex-col px-6 py-4 gap-10 lg:rounded-3xl lg:px-10 lg:gap-8 bg-white ">
-          <div className="hidden md:block w-full">
-            <Image
-              src={sample}
-              alt="sample-image"
-              className="w-full rounded-3xl object-cover"
-            />
-          </div>
-          <Welcome />
-          <Hero />
-        </main>
+      {/* Hero Image Container */}
+      <div className="relative w-full max-h-[1020px]">
+        {/* Background Image */}
+        <Image
+          src={heroimage}
+          alt="sample-image"
+          width={1920}
+          height={1080}
+          className="w-full object-cover"
+        />
 
-        {/* Footer Section */}
-        <footer>
-          <div className="hidden lg:inline-block md:inline-block items-center justify-center w-full">
-            <Footer />
-          </div>
-          <div className="lg:hidden md:hidden inline-block w-full">
-            <Footer />
-          </div>
-        </footer>
+        {/* Content Overlay */}
+        <HeroOverlay />
       </div>
+
+      {/* Main Content */}
+      <main className="bg-neutral-400">
+        <Welcome />
+        <Hero />
+      </main>
+
+      {/* Footer */}
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }
