@@ -87,7 +87,7 @@ pub async fn register(
     Ok::<HttpResponse, ApiError>(HttpResponse::Created().json(public_user))
 }
 
-#[post("/reset-password")]
+#[post("/forgot-password")]
 pub async fn send_pass_reset_req(
     reset_request: web::Json<RequestPasswordReset>,
 ) -> Result<impl Responder, impl ResponseError> {
