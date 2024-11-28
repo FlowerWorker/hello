@@ -61,8 +61,7 @@ export default function SignUpForm() {
    * @param {string} password - The password to validate.
    */
   const validatePassword = (password: string) => {
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d\W_]{8,}$/;
 
     if (!passwordRegex.test(password)) {
       setPasswordError(
@@ -161,12 +160,14 @@ export default function SignUpForm() {
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
       <div className="flex justify-center items-center h-[55px] bg-white">
-        <Image
-          src={navLogo}
-          alt="Logo linking to the homepage"
-          className="w-[40px] h-[40px]"
-          priority
-        />
+        <Link href="/">
+          <Image
+            src={navLogo}
+            alt="Logo linking to the homepage"
+            className="w-[40px] h-[40px]"
+            priority
+          />
+        </Link>
       </div>
 
       <hr className="border-gray-300" />

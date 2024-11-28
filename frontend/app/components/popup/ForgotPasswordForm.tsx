@@ -20,25 +20,59 @@ import signupWallpaper from "@/app/public/signupWallpaper.png";
 
 export default function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // Handle form submission (e.g., to send the recovery link)
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Handle the password reset request logic here (e.g., call API)
-    console.log(email);
-    alert("A recovery link has been sent to your email.");
+    // Show loading state
+    setLoading(true);
+    setError(""); // Reset error message
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/forgot-password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }), // Send the email in the request body
+        }
+      );
+
+      if (!response.ok) {
+        // Handle error if the response is not OK (status code is not 2xx)
+        const errorData = await response.json();
+        setError(
+          errorData.message || "Something went wrong, please try again."
+        );
+      } else {
+        // Success: Show an alert or message
+        alert("A recovery link has been sent to your email.");
+      }
+    } catch (error) {
+      // Handle any network or unexpected errors
+      setError("An error occurred. Please try again.");
+    } finally {
+      // Hide loading state after request is done
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col ">
       {/* Navbar */}
       <div className="flex justify-center items-center h-[55px] bg-white">
-        <Image
-          src={navLogo}
-          alt="Logo linking to the homepage"
-          className="w-[40px] h-[40px]"
-        />
+        <Link href="/">
+          <Image
+            src={navLogo}
+            alt="Logo linking to the homepage"
+            className="w-[40px] h-[40px]"
+          />
+        </Link>
       </div>
 
       <hr className="border-gray-300" />
@@ -84,12 +118,19 @@ export default function ForgotPasswordForm() {
                 />
               </div>
 
+              {/* Error Message */}
+              {error && (
+                <div className="text-red-500 text-center mb-4 -mt-2">
+                  {error}
+                </div>
+              )}
+
               {/* Send Button */}
               <button
                 type="submit"
                 className="w-full py-2 bg-[#BD71D4] text-white rounded-md hover:bg-[#a361b8] transition"
               >
-                Send recovery link
+                {loading ? "Sending..." : "Send recovery link"}
               </button>
             </form>
 
