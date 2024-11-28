@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install ca-certificates
-        run: apt-get install -y ca-certificates
+        run: sudo apt-get install -y ca-certificates
         
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: cd webserver && flyctl deploy --app webserver-flowerwork-develop --remote-only --config fly-develop.toml
