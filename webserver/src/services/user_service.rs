@@ -10,9 +10,9 @@ use crate::schema::users;
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EmailRequest {
     pub to: Vec<Recipient>,
-    pub from: Sender,
+    pub sender: Sender,
     pub subject: String,
-    pub text: String,
+    pub textContent: String,
 }
 
 #[derive(Clone, serde::Serialize, serde::Deserialize)]
@@ -91,8 +91,8 @@ pub fn update_user_password(conn: &mut PgConnection, email: &str, new_password: 
 }
 
 pub fn send_reset_email(email: &str, token: &str) -> Result<Response, ReqwestErr> {
-    let mailersend_api_token = env::var("MAILERSEND_API_TOKEN").expect("MAILERSEND_API_TOKEN must be set");
-    let mailersend_email = env::var("MAILERSEND_FROM_EMAIL").expect("MAILERSEND_FROM_EMAIL must be set");
+    let smtp_api_token = env::var("SMTP_API_TOKEN").expect("SMTP_API_TOKEN must be set");
+    let from_email = env::var("SMTP_FROM_EMAIL").expect("SMTP_FROM_EMAIL must be set");
     let root_url = env::var("BASE_URL").expect("BASE_URL must be set");
 
     let reset_url = format!("{}/reset-password?token={}", root_url, token);
@@ -102,15 +102,15 @@ pub fn send_reset_email(email: &str, token: &str) -> Result<Response, ReqwestErr
         name: "FlowerWork Client".to_string(),
     };
     let sender = Sender {
-        email: mailersend_email.to_string(),
+        email: from_email.to_string(),
         name: "FlowerWork".to_string(),
     };
 
     let email_body = EmailRequest {
-        from: sender,
+        sender,
         to: [recipient].to_vec(),
         subject: "FlowerWork Password Reset Request".to_string(),
-        text: format!(
+        textContent: format!(
             "You requested a password reset. Please click the link to reset your password:\n\n{}",
             reset_url
         ),
@@ -120,11 +120,15 @@ pub fn send_reset_email(email: &str, token: &str) -> Result<Response, ReqwestErr
         .timeout(std::time::Duration::from_secs(10))
         .build()?;
     
-    client
-        .post("https://api.mailersend.com/v1/email")
-        .bearer_auth(mailersend_api_token) 
+    let response = client
+        .post("https://api.brevo.com/v3/smtp/email")
+        .header("Content-Type", "application/json")
+        .header("api-key", smtp_api_token) // Use Brevo's API key
         .json(&email_body)
-        .send()
+        .send();
+
+    log::info!("{:?}", response);
+    response
 }
 
 fn hash_password(plain: &str) -> Result<String, bcrypt::BcryptError> {
