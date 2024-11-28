@@ -46,7 +46,7 @@ const Footer = () => {
 
       {/* Footer Links Section (Centered) */}
       <div className="flex flex-wrap justify-center w-full text-white text-base font-light gap-x-10 sm:gap-x-20 -mt-4 sm:-mt-20">
-        <Link href="#" className="hover:underline">About FlowerWork</Link>
+        <Link href="/about-us" className="hover:underline">About FlowerWork</Link>
         <Link href="#" className="hover:underline">Jobs</Link>
         <Link href="#" className="hover:underline">Contact us</Link>
         <Link href="#" className="hover:underline">Help & support</Link>
