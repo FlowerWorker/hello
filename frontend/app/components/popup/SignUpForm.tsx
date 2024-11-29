@@ -18,8 +18,17 @@ import { useRouter } from "next/navigation";
  *
  * @returns The SignUpForm component.
  */
+
+interface FormData {
+  username: string;
+  email: string;
+  password: string;
+  acceptTerms: boolean;
+  receiveUpdates: boolean;
+}
+
 export default function SignUpForm() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     username: "",
     email: "",
     password: "",
@@ -27,9 +36,9 @@ export default function SignUpForm() {
     receiveUpdates: false,
   });
 
-  const [passwordError, setPasswordError] = useState("");
-  const [generalError, setGeneralError] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [generalError, setGeneralError] = useState<string>("");
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   const router = useRouter();
   /**
@@ -143,7 +152,7 @@ export default function SignUpForm() {
    * Redirects the user to the Google Sign-In page. This function is called
    * when the user clicks the "Sign up with Google" button.
    */
-  const handleGoogleSignUp = () => {
+  const handleGoogleSignUp = (): void => {
     console.log("Redirecting to Google Sign-In...");
   };
 
@@ -152,7 +161,7 @@ export default function SignUpForm() {
    * "Show password" button, this function is called to toggle the state of the
    * `passwordVisible` state variable.
    */
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (): void => {
     setPasswordVisible(!passwordVisible);
   };
 
