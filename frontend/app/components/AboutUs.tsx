@@ -58,46 +58,34 @@ const AboutUs = () => {
 
         {/* Main Content */}
         <main className="w-full flex flex-col items-center">
-          <section className="p-8 text-center max-w-4xl">
+          <section className="p-8 text-center max-w-6xl">
             <h1 className="text-white text-lg md:text-2xl leading-relaxed">
-              <span className="text-purple-400 font-bold">FlowerWork</span> is an innovative platform that gives you full control of your projects, enabling effortless collaboration and easy access to the talent you need — all in one place.
+              <span className="text-purplev1 font-bold">FlowerWork</span> is an innovative platform that gives you full control of your projects, enabling effortless collaboration and easy access to the talent you need — all in one place.
             </h1>
           </section>
 
           {/* Mission Section */}
-          <section className="p-8 flex flex-row items-center">
-            <div>
+          <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
+            <div  className="flex-[2] space-y-6">
               <h2 className="text-3xl font-bold mb-4">
-                Our <span className="text-purple-400 font-bold">Mission</span>
+                Our <span className="text-purplev1 font-bold">Mission</span>
               </h2>
-              <hr className="mb-4"></hr>
-              {/* <div className="flex flex-row pb-4">
-                <ul>
-                  <li className="pb-2">{MISSION1_TITLE}</li>
-                  <li className="pb-2">{MISSION2_TITLE}</li>
-                  <li className="pb-2">{MISSION3_TITLE}</li>
-                </ul>
-                <ul>
-                  <li className="pb-2">{MISSION1_DESCRIPTION}</li>
-                  <li className="pb-2">{MISSION2_DESCRIPTION}</li>
-                  <li className="pb-2">{MISSION3_DESCRIPTION}</li>
-                </ul>
-              </div> */}
+              <hr className="border-t my-4"></hr>
               <div className="flex flex-row pb-2">
-                <p>{MISSION1_TITLE}</p>
-                <p>{MISSION1_DESCRIPTION}</p>
+                <p className="flex-[1]">{MISSION1_TITLE}</p>
+                <p className="flex-[2]">{MISSION1_DESCRIPTION}</p>
               </div>
               <div className="flex flex-row pb-2">
-                <p>{MISSION2_TITLE}</p>
-                <p>{MISSION2_DESCRIPTION}</p>
+                <p className="flex-[1]">{MISSION2_TITLE}</p>
+                <p className="flex-[2]">{MISSION2_DESCRIPTION}</p>
               </div>
               <div className="flex flex-row pb-2">
-                <p>{MISSION3_TITLE}</p>
-                <p>{MISSION3_DESCRIPTION}</p>
+                <p className="flex-[1]">{MISSION3_TITLE}</p>
+                <p className="flex-[2]">{MISSION3_DESCRIPTION}</p>
               </div>
             </div>
-            <div className="relative w-full">
-              {/* Background Image */}
+            {/* Background Image */}
+            <div className="flex-[1.5] relative w-full">
               <Image
                 src={heroimage}
                 alt="sample-image"
@@ -107,64 +95,64 @@ const AboutUs = () => {
             </div>
           </section>
 
-          <section className="p-8 flex flex-row items-center">
-            <div className="relative w-full">
-              {/* Background Image */}
+          <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
+            {/* Background Image */}
+            <div className="flex-[1.5] relative w-full">
               <Image
                 src={heroimage}
                 alt="sample-image"
-                height={360}
-                className="w-full object-cover"
+                className="w-full h-auto object-cover"
               />
             </div>
-            <div>
+            <div className="flex-[2] space-y-6">
               <h2 className="text-3xl font-bold mb-4">
-                What <span className="text-purple-400 font-bold">We Offer</span>
+                What <span className="text-purplev1 font-bold">We Offer</span>
+              </h2>
+              <hr className="border-t mb-4"></hr>
+              <div className="flex flex-row pb-2">
+                <p className="flex-[1]">{OFFER1_TITLE}</p>
+                <p className="flex-[2]">Organize tasks, timelines, and resources in one place. Track deadlines and progress effirtlessly with <span className="text-purplev1"> FlowerWork's </span> intuitive dashboard.</p>
+              </div>
+              <div className="flex flex-row pb-2">
+                <p className="flex-[1]">{OFFER2_TITLE}</p>
+                <p className="flex-[2]">{OFFER2_DESCRIPTION}</p>
+              </div>
+              <div className="flex flex-row pb-2">
+                <p className="flex-[1]">{OFFER3_TITLE}</p>
+                <p className="flex-[2]">{OFFER3_DESCRIPTION}</p>
+              </div>
+              <div className="flex flex-row pb-2">
+                <p className="flex-[1]">{OFFER4_TITLE}</p>
+                <p className="flex-[2]">{OFFER4_DESCRIPTION}</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
+            <div className="flex-[2] space-y-6">
+              <h2 className="text-3xl font-semibold">
+                Coming soon to <span className="text-purplev1 font-bold">FlowerWork</span>
               </h2>
               <hr className="mb-4"></hr>
               <div className="flex flex-row pb-2">
-                <p className="leading-relaxed">{OFFER1_TITLE}</p>
-                <p>{OFFER1_DESCRIPTION}</p>
+                <p className="flex-[1]">{FLOWERWORK1_TITLE}</p>
+                <p className="flex-[2]">{FLOWERWORK1_DESCRIPTION}</p>
               </div>
               <div className="flex flex-row pb-2">
-                <p>{OFFER2_TITLE}</p>
-                <p>{OFFER2_DESCRIPTION}</p>
+                <p className="flex-[1]">{FLOWERWORK2_TITLE}</p>
+                <p className="flex-[2]">{FLOWERWORK2_DESCRIPTION}</p>
               </div>
               <div className="flex flex-row pb-2">
-                <p>{OFFER3_TITLE}</p>
-                <p>{OFFER3_DESCRIPTION}</p>
+                <p className="flex-[1]">{FLOWERWORK3_TITLE}</p>
+                <p className="flex-[2]">{FLOWERWORK3_DESCRIPTION}</p>
               </div>
               <div className="flex flex-row pb-2">
-                <p>{OFFER4_TITLE}</p>
-                <p>{OFFER4_DESCRIPTION}</p>
+                <p className="flex-[1]">{FLOWERWORK4_TITLE}</p>
+                <p className="flex-[2]">{FLOWERWORK4_DESCRIPTION}</p>
               </div>
             </div>
-            
-          </section>
-
-          <section className="p-8 flex flex-row items-center">
-            <div>
-              <h2 className="text-3xl font-semibold">Coming soon to <span className="text-purple-400 font-bold">FlowerWork</span></h2>
-              <hr className="mb-4"></hr>
-              <div className="flex flex-row pb-2">
-                <p>{FLOWERWORK1_TITLE}</p>
-                <p>{FLOWERWORK1_DESCRIPTION}</p>
-              </div>
-              <div className="flex flex-row pb-2">
-                <p>{FLOWERWORK2_TITLE}</p>
-                <p>{FLOWERWORK2_DESCRIPTION}</p>
-              </div>
-              <div className="flex flex-row pb-2">
-                <p>{FLOWERWORK3_TITLE}</p>
-                <p>{FLOWERWORK3_DESCRIPTION}</p>
-              </div>
-              <div className="flex flex-row pb-2">
-                <p>{FLOWERWORK4_TITLE}</p>
-                <p>{FLOWERWORK4_DESCRIPTION}</p>
-              </div>
-            </div>
-            <div className="relative w-full">
-              {/* Background Image */}
+            {/* Background Image */}
+            <div className="flex-[1.5] relative w-full">             
               <Image
                 src={heroimage}
                 alt="sample-image"
@@ -180,7 +168,7 @@ const AboutUs = () => {
           <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
             {JOIN_TEXT}
           </h1>          
-          <Button type="submit" className="bg-purplev1 hover:bg-purple-500 text-white font-bold px-6 py-3">
+          <Button type="submit" className="bg-purplev1 hover:bg-purplev2 text-white font-bold px-6 py-3">
             {JOIN_BUTTON_TEXT}
           </Button>
         </div>
