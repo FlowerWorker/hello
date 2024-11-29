@@ -8,6 +8,7 @@ import signupLogo from "@/app/public/signupLogo.svg";
 import signupWallpaper from "@/app/public/signupWallpaper.png";
 import showPasswordIcon from "@/app/public/showPasswordIcon.svg";
 import { useRouter } from "next/navigation";
+import PasswordConfirmationPopup from "./PasswordConfirmationPopup";
 
 /**
  * A form component that renders a form for users to set a new password
@@ -30,6 +31,8 @@ const SetNewPasswordForm: React.FC = () => {
   const [confirmPasswordVisible, setConfirmPasswordVisible] =
     useState<boolean>(false);
   const [token, setToken] = useState<string | null>(null);
+  const [generalError, setGeneralError] = useState<string | null>(null);
+  const [showPopup, setShowPopup] = useState<boolean>(false);
 
   const router = useRouter(); // Hook for programmatic navigation
 
@@ -88,7 +91,8 @@ const SetNewPasswordForm: React.FC = () => {
     }
 
     if (!token) {
-      alert("Token is missing. Please try again.");
+      setGeneralError("Token is missing. Please try again.");
+
       return;
     }
 
@@ -112,7 +116,8 @@ const SetNewPasswordForm: React.FC = () => {
         throw new Error("Password reset failed.");
       }
 
-      alert("Your password has been successfully updated.");
+      // Show the confirmation popup instead of the alert
+      setShowPopup(true);
 
       // Reset the form and error states after successful submit
       setPassword("");
@@ -120,10 +125,12 @@ const SetNewPasswordForm: React.FC = () => {
       setPasswordError("");
       setPasswordMatch(true);
 
-      // Redirect user to the login page after the alert
-      router.push("/login");
+      // Redirect user to the login page after a short delay (popup visibility)
+      setTimeout(() => {
+        router.push("/login");
+      }, 3000);
     } catch (error) {
-      alert("An error occurred. Please try again.");
+      setGeneralError("An error occurred. Please try again.");
     }
   };
 
@@ -159,6 +166,14 @@ const SetNewPasswordForm: React.FC = () => {
         </Link>
       </div>
 
+      {/* Popup confirmation */}
+      {showPopup && (
+        <div className="px-4 sm:px-10">
+          <div className="fixed top-0 left-0 w-full h-full bg-gray-300 bg-opacity-30 z-20"></div>
+          <PasswordConfirmationPopup />
+        </div>
+      )}
+
       <hr className="border-gray-300" />
 
       <div className="flex flex-1 flex-col md:flex-row">
@@ -179,6 +194,16 @@ const SetNewPasswordForm: React.FC = () => {
                 Set your new password
               </h1>
             </div>
+
+            {generalError && (
+              <div
+                className="bg-red-200 text-red-800 p-3 rounded-md mb-4"
+                role="alert"
+                aria-live="assertive"
+              >
+                {generalError}
+              </div>
+            )}
 
             <form onSubmit={handleSubmit}>
               {/* Password Input */}
