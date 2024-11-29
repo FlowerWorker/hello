@@ -8,6 +8,31 @@ import heroimage from "../public/aboutpagehero.png";
 import bigtext from "./public/text_logo_big.png";
 import logo from '../../public/_Logo.png';
 
+export const MISSION1_TITLE = "Empower Teams and Individuals";
+export const MISSION1_DESCRIPTION = "Enable Efficient project management and collaboration, helping users focus on what matters and achieve their goals.";
+export const MISSION2_TITLE = "Connect Talent with Opportunity";
+export const MISSION2_DESCRIPTION = "Connect teams with skilled professionals for quick and effective project outsourcing.";
+export const MISSION3_TITLE = "Enhance Flexibility and Scalability";
+export const MISSION3_DESCRIPTION = "Offer adaptable tools that scale from single projects to complex workflows, supporting teams of all sizes.";
+
+export const OFFER1_TITLE = "Efficient Project Management";
+export const OFFER1_DESCRIPTION = "Organize tasks, timelines, and resources in one place. Track deadlines and progress effirtlessly with FlowerWork's intuitive dashboard.";
+export const OFFER2_TITLE = "Flexible Talent and Scalability";
+export const OFFER2_DESCRIPTION = "Quickly connect with verified professionals for outsourcing and scake your projects effortlessly, from solo ventures to multitea workflows.";
+export const OFFER3_TITLE = "Seamless Collaboration";
+export const OFFER3_DESCRIPTION = "Enhance team communication with real-time updates, file sharing, and feedback tools, keeping everyone aligned and contributing effectively.";
+export const OFFER4_TITLE = "Secure Data and Goal Tracking";
+export const OFFER4_DESCRIPTION = "Ensure data security and track all project actions with clear documentation. Set and reach your goals with customizable, user-friendly tools."
+
+export const FLOWERWORK1_TITLE = "AI-Driven Task Management";
+export const FLOWERWORK1_DESCRIPTION = "Experience enhanced project planning with AI tools for task optimization, priority setting, and accurate forecasting.";
+export const FLOWERWORK2_TITLE = "Blockchain-Powered Talent Verification";
+export const FLOWERWORK2_DESCRIPTION = "Ensure trust and transparency with blockchain-based profiles and credentials for verified talent connections.";
+export const FLOWERWORK3_TITLE = "Automated Talent Matching";
+export const FLOWERWORK3_DESCRIPTION = "Leverage AI to intelligently match projects with the best-fit professionals based on skills, availability, and past performance.";
+export const FLOWERWORK4_TITLE = "Smart Contract Onboarding";
+export const FLOWERWORK4_DESCRIPTION = "Use blockchain smart contracts for streamlined onboarding and clear collaboration agreements.";
+
 export const JOIN_TEXT = "Become a part of our team";
 export const JOIN_BUTTON_TEXT = "Collaborate with us";
 export const TEAM_TEXT = "Our Success Team";
@@ -33,7 +58,7 @@ const AboutUs = () => {
 
         {/* Main Content */}
         <main className="w-full flex flex-col items-center">
-          <section className="p-8 text-center max-w-6xl">
+          <section className="p-8 text-center max-w-4xl">
             <h1 className="text-white text-lg md:text-2xl leading-relaxed">
               <span className="text-purple-400 font-bold">FlowerWork</span> is an innovative platform that gives you full control of your projects, enabling effortless collaboration and easy access to the talent you need — all in one place.
             </h1>
@@ -42,18 +67,33 @@ const AboutUs = () => {
           {/* Mission Section */}
           <section className="p-8 flex flex-row items-center">
             <div>
-              <h2 className="text-3xl font-semibold">Our <span className="text-purple-400 font-bold">Mission</span></h2>
-              <div className="flex flex-col">
+              <h2 className="text-3xl font-bold mb-4">
+                Our <span className="text-purple-400 font-bold">Mission</span>
+              </h2>
+              <hr className="mb-4"></hr>
+              {/* <div className="flex flex-row pb-4">
                 <ul>
-                  <li>Empower Teams and Individuals</li>
-                  <li>Connect Talent with Opportunity</li>
-                  <li>Enhance Flexibility and Scalability</li>
+                  <li className="pb-2">{MISSION1_TITLE}</li>
+                  <li className="pb-2">{MISSION2_TITLE}</li>
+                  <li className="pb-2">{MISSION3_TITLE}</li>
                 </ul>
                 <ul>
-                  <li>Enable Efficient project management and collaboration, helping users focus on what matters and achieve their goals.</li>
-                  <li>Connect teams with skilled professionals for quick and effective project outsourcing.</li>
-                  <li>Offer adaptable tools that scale from single projects to complex workflows, supporting teams of all sizes.</li>
+                  <li className="pb-2">{MISSION1_DESCRIPTION}</li>
+                  <li className="pb-2">{MISSION2_DESCRIPTION}</li>
+                  <li className="pb-2">{MISSION3_DESCRIPTION}</li>
                 </ul>
+              </div> */}
+              <div className="flex flex-row pb-2">
+                <p>{MISSION1_TITLE}</p>
+                <p>{MISSION1_DESCRIPTION}</p>
+              </div>
+              <div className="flex flex-row pb-2">
+                <p>{MISSION2_TITLE}</p>
+                <p>{MISSION2_DESCRIPTION}</p>
+              </div>
+              <div className="flex flex-row pb-2">
+                <p>{MISSION3_TITLE}</p>
+                <p>{MISSION3_DESCRIPTION}</p>
               </div>
             </div>
             <div className="relative w-full">
@@ -78,19 +118,26 @@ const AboutUs = () => {
               />
             </div>
             <div>
-              <h2 className="text-3xl font-semibold">What <span className="text-purple-400 font-bold">We Offer</span></h2>
-              <ul>
-                <li>Efficient Project Management</li>
-                <li>Flexible Talent and Scalability</li>
-                <li>Seamless Collaboration</li>
-                <li>Secure Data and Goal Tracking</li>
-              </ul>
-              <ul>
-                <li>Organize tasks, timelines, and resources in one place. Track deadlines and progress effirtlessly with FlowerWork's intuitive dashboard.</li>
-                <li>Quickly connect with verified professionals for outsourcing and scake your projects effortlessly, from solo ventures to multitea workflows.</li>
-                <li>Enhance team communication with real-time updates, file sharing, and feedback tools, keeping everyone aligned and contributing effectively.</li>
-                <li>Ensure data security and track all project actions with clear documentation. Set and reach your goals with customizable, user-friendly tools.</li>
-              </ul>
+              <h2 className="text-3xl font-bold mb-4">
+                What <span className="text-purple-400 font-bold">We Offer</span>
+              </h2>
+              <hr className="mb-4"></hr>
+              <div className="flex flex-row pb-2">
+                <p className="leading-relaxed">{OFFER1_TITLE}</p>
+                <p>{OFFER1_DESCRIPTION}</p>
+              </div>
+              <div className="flex flex-row pb-2">
+                <p>{OFFER2_TITLE}</p>
+                <p>{OFFER2_DESCRIPTION}</p>
+              </div>
+              <div className="flex flex-row pb-2">
+                <p>{OFFER3_TITLE}</p>
+                <p>{OFFER3_DESCRIPTION}</p>
+              </div>
+              <div className="flex flex-row pb-2">
+                <p>{OFFER4_TITLE}</p>
+                <p>{OFFER4_DESCRIPTION}</p>
+              </div>
             </div>
             
           </section>
@@ -98,18 +145,23 @@ const AboutUs = () => {
           <section className="p-8 flex flex-row items-center">
             <div>
               <h2 className="text-3xl font-semibold">Coming soon to <span className="text-purple-400 font-bold">FlowerWork</span></h2>
-              <ul>
-                <li>AI-Driven Task Management</li>
-                <li>Blockchain-Powered Talent Verification</li>
-                <li>Automated Talent Matching</li>
-                <li>Smart Contract Onboarding</li>
-              </ul>
-              <ul>
-                <li>Experience enhanced project planning with AI tools for task optimization, priority setting, and accurate forecasting.</li>
-                <li>Ensure trust and transparency with blockchain-based profiles and credentials for verified talent connections.</li>
-                <li>Leverage AI to intelligently match projects with the best-fit professionals based on skills, availability, and past performance.</li>
-                <li>Use blockchain smart contracts for streamlined onboarding and clear collaboration agreements.</li>
-              </ul>
+              <hr className="mb-4"></hr>
+              <div className="flex flex-row pb-2">
+                <p>{FLOWERWORK1_TITLE}</p>
+                <p>{FLOWERWORK1_DESCRIPTION}</p>
+              </div>
+              <div className="flex flex-row pb-2">
+                <p>{FLOWERWORK2_TITLE}</p>
+                <p>{FLOWERWORK2_DESCRIPTION}</p>
+              </div>
+              <div className="flex flex-row pb-2">
+                <p>{FLOWERWORK3_TITLE}</p>
+                <p>{FLOWERWORK3_DESCRIPTION}</p>
+              </div>
+              <div className="flex flex-row pb-2">
+                <p>{FLOWERWORK4_TITLE}</p>
+                <p>{FLOWERWORK4_DESCRIPTION}</p>
+              </div>
             </div>
             <div className="relative w-full">
               {/* Background Image */}
@@ -128,7 +180,7 @@ const AboutUs = () => {
           <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
             {JOIN_TEXT}
           </h1>          
-          <Button type="submit" className="bg-purplev1 text-white font-bold">
+          <Button type="submit" className="bg-purplev1 hover:bg-purple-500 text-white font-bold px-6 py-3">
             {JOIN_BUTTON_TEXT}
           </Button>
         </div>
@@ -169,34 +221,9 @@ const AboutUs = () => {
 
         {/* Footer */}
         <footer>
-          <Footer />
+          <Footer/>
         </footer>
       </div>
-
-        /* <div className="flex flex-col min-h-screen">
-          <header className="bg-purplev1 text-white text-center py-6">
-            <h1 className="text-3xl font-bold">About Us</h1>
-          </header>
-          <main className="flex-grow p-6 bg-gray-100">
-            <section className="max-w-4xl mx-auto">
-              <h2 className="text-2xl font-bold mb-4">Who We Are</h2>
-              <p className="text-lg leading-relaxed mb-6">
-                FlowerWork is a team of passionate individuals dedicated to bringing innovative solutions to the floral industry. 
-                We believe in the power of technology to enhance creativity and provide unique experiences for our customers.
-              </p>
-              <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
-              <p className="text-lg leading-relaxed mb-6">
-                Our mission is to revolutionize the way people experience flowers, combining tradition with modern technology. 
-                We aim to create meaningful connections through beautiful designs and seamless digital experiences.
-              </p>
-              <h2 className="text-2xl font-bold mb-4">Our Team</h2>
-              <p className="text-lg leading-relaxed">
-                Our team is a diverse group of designers, developers, and visionaries working together to make FlowerWork a 
-                platform for everyone who loves flowers.
-              </p>
-            </section>
-          </main>
-        </div> */
     );
   };
   
