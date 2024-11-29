@@ -1,12 +1,12 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 
-import { Footer, Hero, Navbar, HeroOverlay, Welcome } from "../components";
+import { Footer, Navbar } from "../components";
 import { Button } from "@/components/ui/button";
-
+import TeamProfile from "./TeamProfile";
 import heroimage from "../public/aboutpagehero.png";
-import bigtext from "./public/text_logo_big.png";
-import logo from '../../public/_Logo.png';
 
 export const MISSION1_TITLE = "Empower Teams and Individuals";
 export const MISSION1_DESCRIPTION = "Enable Efficient project management and collaboration, helping users focus on what matters and achieve their goals.";
@@ -37,182 +37,237 @@ export const JOIN_TEXT = "Become a part of our team";
 export const JOIN_BUTTON_TEXT = "Collaborate with us";
 export const TEAM_TEXT = "Our Success Team";
 
+export const TEAM_MEMBERS = [
+  {
+    name: "Adam Louhichi",
+    role: "UX/UI Designer",
+    imageSrc: "/aboutpagehero.png",
+  },
+  {
+    name: "Kevin Kongpachith",
+    role: "UX/UI Designer",
+    imageSrc: "/aboutpagehero.png",
+  },
+  {
+    name: "Rukaiya Mansoor",
+    role: "Project Manager",
+    imageSrc: "/aboutpagehero.png",
+  }
+]
+
+export const ALL_TEAM_MEMBERS = [
+  {
+    name: "Adam Louhichi",
+    role: "UX/UI Designer",
+    imageSrc: "/aboutpagehero.png",
+  },
+  {
+    name: "Kevin Kongpachith",
+    role: "UX/UI Designer",
+    imageSrc: "/aboutpagehero.png",
+  },
+  {
+    name: "Rukaiya Mansoor",
+    role: "Project Manager",
+    imageSrc: "/aboutpagehero.png",
+  },
+  {
+    name: "Hrigved Nair",
+    role: "Marketing and Growth",
+    imageSrc: "",
+  },
+  {
+    name: "Stefan Andrei",
+    role: "Full Stack Developer",
+    imageSrc: "",
+  },
+  {
+    name: "Iryna Voitsikhovska",
+    role: "UX/UI Designer",
+    imageSrc: "",
+  },
+  {
+    name: "Gabriela Beran",
+    role: "HR & Recruitment",
+    imageSrc: "",
+  },
+]
+
 const AboutUs = () => {
-    return (
-      <div className="w-full bg-bgdarkv2 text-white">
-        {/* Header Section */}
-        <header className="relative z-30">
-          <Navbar className="z-40" />
-        </header>
+  const [showAll, setShowAll] = useState(false);
 
-        {/* Hero Image Container */}
-        <div className="relative w-full">
-          {/* Background Image */}
-          <Image
-            src={heroimage}
-            alt="sample-image"
-            height={360}
-            className="w-full object-cover"
-          />
-        </div>
+  const toggleShowAll = () => {setShowAll(!showAll)};
 
-        {/* Main Content */}
-        <main className="w-full flex flex-col items-center">
-          <section className="p-8 text-center max-w-6xl">
-            <h1 className="text-white text-lg md:text-2xl leading-relaxed">
-              <span className="text-purplev1 font-bold">FlowerWork</span> is an innovative platform that gives you full control of your projects, enabling effortless collaboration and easy access to the talent you need — all in one place.
-            </h1>
-          </section>
+  return (
+    <div className="w-full bg-bgdarkv2 text-white">
+      {/* Header Section */}
+      <header className="relative z-30">
+        <Navbar className="z-40" />
+      </header>
 
-          {/* Mission Section */}
-          <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
-            <div  className="flex-[2] space-y-6">
-              <h2 className="text-3xl font-bold mb-4">
-                Our <span className="text-purplev1 font-bold">Mission</span>
-              </h2>
-              <hr className="border-t my-4"></hr>
-              <div className="flex flex-row pb-2">
-                <p className="flex-[1]">{MISSION1_TITLE}</p>
-                <p className="flex-[2]">{MISSION1_DESCRIPTION}</p>
-              </div>
-              <div className="flex flex-row pb-2">
-                <p className="flex-[1]">{MISSION2_TITLE}</p>
-                <p className="flex-[2]">{MISSION2_DESCRIPTION}</p>
-              </div>
-              <div className="flex flex-row pb-2">
-                <p className="flex-[1]">{MISSION3_TITLE}</p>
-                <p className="flex-[2]">{MISSION3_DESCRIPTION}</p>
-              </div>
-            </div>
-            {/* Background Image */}
-            <div className="flex-[1.5] relative w-full">
-              <Image
-                src={heroimage}
-                alt="sample-image"
-                height={360}
-                className="w-full object-cover"
-              />
-            </div>
-          </section>
+      {/* Hero Image Container */}
+      <div className="relative w-full">
+        {/* Background Image */}
+        <Image
+          src={heroimage}
+          alt="sample-image"
+          height={360}
+          className="w-full object-cover"
+        />
+      </div>
 
-          <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
-            {/* Background Image */}
-            <div className="flex-[1.5] relative w-full">
-              <Image
-                src={heroimage}
-                alt="sample-image"
-                className="w-full h-auto object-cover"
-              />
-            </div>
-            <div className="flex-[2] space-y-6">
-              <h2 className="text-3xl font-bold mb-4">
-                What <span className="text-purplev1 font-bold">We Offer</span>
-              </h2>
-              <hr className="border-t mb-4"></hr>
-              <div className="flex flex-row pb-2">
-                <p className="flex-[1]">{OFFER1_TITLE}</p>
-                <p className="flex-[2]">Organize tasks, timelines, and resources in one place. Track deadlines and progress effirtlessly with <span className="text-purplev1"> FlowerWork's </span> intuitive dashboard.</p>
-              </div>
-              <div className="flex flex-row pb-2">
-                <p className="flex-[1]">{OFFER2_TITLE}</p>
-                <p className="flex-[2]">{OFFER2_DESCRIPTION}</p>
-              </div>
-              <div className="flex flex-row pb-2">
-                <p className="flex-[1]">{OFFER3_TITLE}</p>
-                <p className="flex-[2]">{OFFER3_DESCRIPTION}</p>
-              </div>
-              <div className="flex flex-row pb-2">
-                <p className="flex-[1]">{OFFER4_TITLE}</p>
-                <p className="flex-[2]">{OFFER4_DESCRIPTION}</p>
-              </div>
-            </div>
-          </section>
-
-          <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
-            <div className="flex-[2] space-y-6">
-              <h2 className="text-3xl font-semibold">
-                Coming soon to <span className="text-purplev1 font-bold">FlowerWork</span>
-              </h2>
-              <hr className="mb-4"></hr>
-              <div className="flex flex-row pb-2">
-                <p className="flex-[1]">{FLOWERWORK1_TITLE}</p>
-                <p className="flex-[2]">{FLOWERWORK1_DESCRIPTION}</p>
-              </div>
-              <div className="flex flex-row pb-2">
-                <p className="flex-[1]">{FLOWERWORK2_TITLE}</p>
-                <p className="flex-[2]">{FLOWERWORK2_DESCRIPTION}</p>
-              </div>
-              <div className="flex flex-row pb-2">
-                <p className="flex-[1]">{FLOWERWORK3_TITLE}</p>
-                <p className="flex-[2]">{FLOWERWORK3_DESCRIPTION}</p>
-              </div>
-              <div className="flex flex-row pb-2">
-                <p className="flex-[1]">{FLOWERWORK4_TITLE}</p>
-                <p className="flex-[2]">{FLOWERWORK4_DESCRIPTION}</p>
-              </div>
-            </div>
-            {/* Background Image */}
-            <div className="flex-[1.5] relative w-full">             
-              <Image
-                src={heroimage}
-                alt="sample-image"
-                height={360}
-                className="w-full object-cover"
-              />
-            </div>
-          </section>
-        </main>
-
-        {/* Join Us Container */}
-        <div className="pb-10 flex flex-col items-center">
-          <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
-            {JOIN_TEXT}
-          </h1>          
-          <Button type="submit" className="bg-purplev1 hover:bg-purplev2 text-white font-bold px-6 py-3">
-            {JOIN_BUTTON_TEXT}
-          </Button>
-        </div>
-
-        {/* Team Container */}
-        <div className="flex flex-col items-center">
-          <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
-            {TEAM_TEXT}
+      {/* Main Content */}
+      <main className="w-full flex flex-col items-center">
+        <section className="p-8 text-center max-w-6xl">
+          <h1 className="text-white text-lg md:text-2xl leading-relaxed">
+            <span className="text-purplev1 font-bold">FlowerWork</span> is an innovative platform that gives you full control of your projects, enabling effortless collaboration and easy access to the talent you need — all in one place.
           </h1>
-          {/* Pictures */}
-          <div className="relative w-full flex flex-row">
-            {/* Background Image */}
+        </section>
+
+        {/* Mission Section */}
+        <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
+          <div  className="flex-[2] space-y-6">
+            <h2 className="text-3xl font-bold mb-4">
+              Our <span className="text-purplev1 font-bold">Mission</span>
+            </h2>
+            <hr className="border-t my-4"></hr>
+            <div className="flex flex-row pb-2">
+              <p className="flex-[1]">{MISSION1_TITLE}</p>
+              <p className="flex-[2]">{MISSION1_DESCRIPTION}</p>
+            </div>
+            <div className="flex flex-row pb-2">
+              <p className="flex-[1]">{MISSION2_TITLE}</p>
+              <p className="flex-[2]">{MISSION2_DESCRIPTION}</p>
+            </div>
+            <div className="flex flex-row pb-2">
+              <p className="flex-[1]">{MISSION3_TITLE}</p>
+              <p className="flex-[2]">{MISSION3_DESCRIPTION}</p>
+            </div>
+          </div>
+          {/* Background Image */}
+          <div className="flex-[1.5] relative w-full">
             <Image
               src={heroimage}
               alt="sample-image"
-              width={800}
               height={360}
-              className="object-cover"
-            />
-            <Image
-              src={heroimage}
-              alt="sample-image"
-              width={800}
-              height={360}
-              className="object-cover"
-            />
-            <Image
-              src={heroimage}
-              alt="sample-image"
-              width={800}
-              height={360}
-              className="object-cover"
+              className="w-full object-cover"
             />
           </div>
+        </section>
 
+        <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
+          {/* Background Image */}
+          <div className="flex-[1.5] relative w-full">
+            <Image
+              src={heroimage}
+              alt="sample-image"
+              className="w-full h-auto object-cover"
+            />
+          </div>
+          <div className="flex-[2] space-y-6">
+            <h2 className="text-3xl font-bold mb-4">
+              What <span className="text-purplev1 font-bold">We Offer</span>
+            </h2>
+            <hr className="border-t mb-4"></hr>
+            <div className="flex flex-row pb-2">
+              <p className="flex-[1]">{OFFER1_TITLE}</p>
+              <p className="flex-[2]">Organize tasks, timelines, and resources in one place. Track deadlines and progress effirtlessly with <span className="text-purplev1"> FlowerWork's </span> intuitive dashboard.</p>
+            </div>
+            <div className="flex flex-row pb-2">
+              <p className="flex-[1]">{OFFER2_TITLE}</p>
+              <p className="flex-[2]">{OFFER2_DESCRIPTION}</p>
+            </div>
+            <div className="flex flex-row pb-2">
+              <p className="flex-[1]">{OFFER3_TITLE}</p>
+              <p className="flex-[2]">{OFFER3_DESCRIPTION}</p>
+            </div>
+            <div className="flex flex-row pb-2">
+              <p className="flex-[1]">{OFFER4_TITLE}</p>
+              <p className="flex-[2]">{OFFER4_DESCRIPTION}</p>
+            </div>
+          </div>
+        </section>
 
-        </div>
+        <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
+          <div className="flex-[2] space-y-6">
+            <h2 className="text-3xl font-semibold">
+              Coming soon to <span className="text-purplev1 font-bold">FlowerWork</span>
+            </h2>
+            <hr className="border-t mb-4"></hr>
+            <div className="flex flex-row pb-2">
+              <p className="flex-[1]">{FLOWERWORK1_TITLE}</p>
+              <p className="flex-[2]">{FLOWERWORK1_DESCRIPTION}</p>
+            </div>
+            <div className="flex flex-row pb-2">
+              <p className="flex-[1]">{FLOWERWORK2_TITLE}</p>
+              <p className="flex-[2]">{FLOWERWORK2_DESCRIPTION}</p>
+            </div>
+            <div className="flex flex-row pb-2">
+              <p className="flex-[1]">{FLOWERWORK3_TITLE}</p>
+              <p className="flex-[2]">{FLOWERWORK3_DESCRIPTION}</p>
+            </div>
+            <div className="flex flex-row pb-2">
+              <p className="flex-[1]">{FLOWERWORK4_TITLE}</p>
+              <p className="flex-[2]">{FLOWERWORK4_DESCRIPTION}</p>
+            </div>
+          </div>
+          {/* Background Image */}
+          <div className="flex-[1.5] relative w-full">             
+            <Image
+              src={heroimage}
+              alt="sample-image"
+              height={360}
+              className="w-full object-cover"
+            />
+          </div>
+        </section>
+      </main>
 
-        {/* Footer */}
-        <footer>
-          <Footer/>
-        </footer>
+      {/* Join Us Container */}
+      <div className="pb-10 flex flex-col items-center">
+        <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
+          {JOIN_TEXT}
+        </h1>          
+        <Button type="submit" className="bg-purplev1 hover:bg-purplev2 text-white font-bold px-6 py-3">
+          {JOIN_BUTTON_TEXT}
+        </Button>
       </div>
-    );
-  };
+
+      {/* Team Container */}
+      <div className="flex flex-col items-center">
+        <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
+          {TEAM_TEXT}
+        </h1>
+        {/* Pictures */}
+        <div className="relative w-full flex flex-wrap justify-center gap-8">
+          {/* Background Image */}
+          {TEAM_MEMBERS.map((member, index) => (
+            <TeamProfile
+              key={index}
+              name={member.name}
+              role={member.role}
+              imageSrc={member.imageSrc}
+            />
+          ))}
+          {showAll && ALL_TEAM_MEMBERS.map((member, index) => (
+            <TeamProfile 
+              key={index} 
+              name={member.name} 
+              role={member.role} 
+              imageSrc={member.imageSrc} />
+          ))}
+        </div>
+        <Button onClick={toggleShowAll} className="mt-4 bg-purplev1 hover:">
+          {showAll ? "Show Less" : "Show All"}
+        </Button>
+      </div>
+
+      {/* Footer */}
+      <footer>
+        <Footer/>
+      </footer>
+    </div>
+  );
+};
   
-  export default AboutUs;
+export default AboutUs;
