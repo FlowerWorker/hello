@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from 'next/link';
 
 import { Footer, Navbar } from "../components";
 import { Button } from "@/components/ui/button";
@@ -228,9 +229,14 @@ const AboutUs = () => {
         <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
           {JOIN_TEXT}
         </h1>          
-        <Button type="submit" className="bg-purplev1 hover:bg-purplev2 text-white font-bold px-6 py-3">
+        {/* <Button type="submit" className="bg-purplev1 hover:bg-purplev2 text-white font-bold px-6 py-3">
           {JOIN_BUTTON_TEXT}
-        </Button>
+        </Button> */}
+        <Button type="submit" className="bg-purplev1 hover:bg-purplev2 text-white font-bold px-6 py-3">
+  <Link href="/collaborate">
+    {JOIN_BUTTON_TEXT}
+  </Link>
+</Button>
       </div>
 
       {/* Team Container */}
