@@ -41,43 +41,6 @@ pub struct CreateJobRequest {
     pub candidate_recommendations: bool,
     pub job_screening_questions: Option<Vec<String>>,
 }
-/*impl From<(&i32, CreateJobRequest)> for NewJob {
-    fn from(value: (&i32, CreateJobRequest)) -> Self {
-        let request = &value.1;
-        let user_id = value.0;
-        NewJob {
-            user_id,
-            job_title: &request.job_title,
-            company_name: &request.company_name,
-            company_logo: request.company_logo.as_deref(),
-            company_location: &request.company_location,
-            company_ranking: &request.company_ranking,
-            employment_type: &request.employment_type,
-            time_schedule: &request.time_schedule,
-            workplace_type: &request.workplace_type,
-            department: &request.department,
-            job_description: &request.job_description,
-            responsibilities: &request.responsibilities,
-            qualifications: &request.qualifications,
-            required_skills: &request.required_skills,
-            preferred_skills: &request.preferred_skills,
-            experience_level: &request.experience_level,
-            min_salary: &request.min_salary,
-            max_salary: &request.max_salary,
-            comp_structure: &request.comp_structure,
-            currency: &request.currency,
-            benefits_and_perks: &request.benefits_and_perks,
-            work_hours_flexible: request.work_hours_flexible,
-            apply_through_platform: request.apply_through_platform,
-            external_url: request.external_url.as_deref(),
-            email: request.email.as_deref(),
-            audience_type: &request.audience_type,
-            target_candidates: &request.target_candidates,
-            candidate_recommendations: request.candidate_recommendations,
-            jobs_screening_questions: request.job_screening_questions.as_deref(),
-        }
-    }
-}*/
 // helper method to borrow 'job' parameters from the incoming request into a NewJob struct
 impl CreateJobRequest {
     fn copy_request<'a>(&'a self, logged_user_id: &'a i32) -> NewJob<'a> {
@@ -131,14 +94,14 @@ pub async fn create_job(
     //         })
     //         .await
     //         .map_err(actix_web::error::ErrorInternalServerError).expect("internal server error");
-    let user = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
+    let job = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
         let user_id = get_user_id_by_email(&user_sub.0, conn).expect("Failed to get user id");
         let new_job: NewJob = job_req.copy_request(&user_id);
         job_service::create_job(conn, &new_job).map_err(DatabaseError::from)
     })?;
 
     let url = format!("{}/collections/jobs/documents", search_state.typesense_url);
-    let typesense_job = serde_json::json!(user);
+    let typesense_job = serde_json::json!(job);
     
     run_async_typesense_query!(
         search_state, |state: &SearchState, url: String, body: serde_json::Value| insert_single_doc(
@@ -148,7 +111,7 @@ pub async fn create_job(
         ).map_err(ReqError::from), url, typesense_job
     )?;
     
-    Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(user))
+    Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(job))
 }
 
 #[get("")]
