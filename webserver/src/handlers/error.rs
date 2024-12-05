@@ -11,7 +11,7 @@ pub enum ApiError {
     DatabaseApiError(#[from] DatabaseError),
     #[error("You are not authorized to perform this action")]
     AuthorizationError(#[from] AuthError),
-    #[error("Typesense error occurred")]
+    #[error("External Request error occurred")]
     ReqwestError(#[from] ReqError),
 }
 

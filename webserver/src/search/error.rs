@@ -8,7 +8,7 @@ pub enum ReqError {
     NetworkError,
     #[error("Timeout error occurred")]
     TimeoutError,
-    #[error("Request error occurred")]
+    #[error("External Request error occurred")]
     RequestError,
 }
 
@@ -32,8 +32,8 @@ impl ResponseError for ReqError {
                 HttpResponse::GatewayTimeout().json("Request timed out")
             }
             ReqError::RequestError => {
-                log::error!("Typesense request error");
-                HttpResponse::InternalServerError().json("Typesense request error")
+                log::error!("External Request error occurred");
+                HttpResponse::InternalServerError().json("External Request error occurred")
             }
         }
     }

@@ -82,12 +82,10 @@ pub fn login(conn: &mut PgConnection, email: &str, password: &str) -> Result<Use
 pub fn update_user_password(conn: &mut PgConnection, email: &str, new_password: &str) -> Result<User, Error> {
     let new_password_hash = &hash_password(new_password).expect("Failed to hash password");
 
-    let user = diesel::update(users::table.filter(users::email.eq(email)))
+    diesel::update(users::table.filter(users::email.eq(email)))
          .set(users::password_hash.eq(new_password_hash))
          .returning(User::as_returning())
-         .get_result(conn);
-    log::info!("{:?}", user);
-    return user;
+         .get_result(conn)
 }
 
 pub fn send_reset_email(email: &str, token: &str) -> Result<Response, ReqwestErr> {
@@ -120,15 +118,12 @@ pub fn send_reset_email(email: &str, token: &str) -> Result<Response, ReqwestErr
         .timeout(std::time::Duration::from_secs(10))
         .build()?;
     
-    let response = client
+    client
         .post("https://api.brevo.com/v3/smtp/email")
         .header("Content-Type", "application/json")
         .header("api-key", smtp_api_token) // Use Brevo's API key
         .json(&email_body)
-        .send();
-
-    log::info!("{:?}", response);
-    response
+        .send()
 }
 
 fn hash_password(plain: &str) -> Result<String, bcrypt::BcryptError> {
