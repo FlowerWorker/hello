@@ -48,7 +48,7 @@ const Footer = () => {
       <div className="flex flex-wrap justify-center w-full text-white text-base font-light gap-x-10 sm:gap-x-20 -mt-4 sm:-mt-20">
         <Link href="#" className="hover:underline">About FlowerWork</Link>
         <Link href="#" className="hover:underline">Jobs</Link>
-        <Link href="#" className="hover:underline">Contact us</Link>
+        <Link href="/contact" className="hover:underline">Contact us</Link>
         <Link href="#" className="hover:underline">Help & support</Link>
         <Link href="#" className="hover:underline">All About Beta</Link>
       </div>
@@ -61,8 +61,8 @@ const Footer = () => {
             <Image src={logo} alt="sample-image" width={50} height={50} className="" />
           </span>
           <div className="flex flex-wrap justify-center sm:justify-start gap-x-6 sm:gap-x-20 text-sm">
-            <Link href="#" className="hover:underline">Terms & Service</Link>
-            <Link href="#" className="hover:underline">Privacy Policy</Link>
+            <Link href="/terms" className="hover:underline">Terms & Service</Link>
+            <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
           </div>
         </div>
 
