@@ -88,10 +88,21 @@ pub async fn register(
 
 #[post("/forgot-password")]
 pub async fn send_pass_reset_req(
+    pool: web::Data<DbPool>,
     reset_request: web::Json<RequestPasswordReset>,
 ) -> Result<impl Responder, impl ResponseError> {
     let token = create_reset_jwt(&reset_request.email);
+    
+    let email = reset_request.email.clone();
 
+    let email_exists = run_async_query!( pool, |conn| {
+        user_service::verify_user_email(&email, conn).map_err(DatabaseError::from)
+    })?;
+
+    if !email_exists {
+        return Err::<HttpResponse, ApiError>(DatabaseError::GenericError.into());
+    }
+    
     run_async_typesense_query!(
         &reset_request.email,
         |email: &str, token: &str| {
