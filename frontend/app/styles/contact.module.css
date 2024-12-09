@@ -1,0 +1,304 @@
+
+  
+  .pageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    overflow-x: hidden;
+  }
+  
+  .contentContainer {
+    /* width: 90%; */
+    max-width: 100%;
+    margin-top: 40px;
+  }
+  
+  .header {
+    width: Fill (1,440px)px;
+    height: Hug (443px)px;
+    padding: 80px;
+    gap: 80px;
+    border-radius: 20px;
+    opacity: 0px;
+    background: linear-gradient(90deg, #1C1819 0%, #BD71D4 100%);
+
+
+  }
+  .header h1 {
+    margin: 0;
+    font-size: 32px;
+    color: #fff;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 72px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+  }
+  .section {
+    margin-top: 30px;
+  }
+  .section p {
+    line-height: 1.6;
+    font-family: Open Sans;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 36px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #fff;
+  }
+  .contactSection {
+    background: linear-gradient(120deg, #ffffff, #d4d2fa);
+    padding: 67px;
+    border-radius: 12px;
+    margin: 20px auto;
+    color: #000;
+  }
+  .contactBox{
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+  }
+  .contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .contactContent{
+      /* display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; */
+      padding-top: 60px;
+    .contactIcons{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: left;
+      gap: 40px;
+      .contacticonImage{
+        height: 32px;
+        width: 32px;
+      }
+    }
+    .contactMail{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+      padding: 20px 0 0;
+      .email{
+        font-family: Open Sans;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 21.79px;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        text-decoration: none;
+        color: #181615;
+      }
+    }
+    .locationMail{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+      .email{
+        font-family: Open Sans;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 21.79px;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        text-decoration: none;
+        color: #181615;
+      }
+    }
+    h2{
+      font-family: Montserrat;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 42px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: #4A4744;
+
+    }
+    p{
+      font-family: Open Sans;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 26px;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: #181615;
+
+    }
+  }
+  .contactForm{
+    .nameSection{
+      display: flex;
+      flex-direction: row;
+      gap: 36px;
+      input{
+        width: 100%;
+        padding: 10px 7px;
+      }
+    }
+  }
+  .contactForm label{
+    font-family: Open Sans;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 26px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+  }
+  .contactForm input,
+  .contactForm textarea,
+  .contactForm button {
+    /* width: 100%; */
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: 1px solid #4A4744;
+    font-family: Open Sans;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 21.79px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+  }
+  
+  .contactForm button {
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    width: 76px;
+    background: #BD71D4;
+    border-radius: 10px;
+    align-self: flex-end;
+    text-align: center;
+  }
+  .contactForm p{
+    font-family: Open Sans;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.51px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #181615;
+
+  }
+  .contactForm button:hover {
+    background-color: #5e1fba;
+  }
+  @media screen and (min-width:768px) {
+    .contentContainer{
+      width: 100%;
+      max-width: 1200px;
+  }
+    
+  }
+  @media screen and (min-width: 768px) and (max-width: 1024px)  {
+    .contactBox{
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+ 
+  @media screen and (max-width: 1024px) {
+    .header h1 {
+      font-size: 2rem;
+    }
+  
+    .content h2 {
+      font-size: 1.3rem;
+    }
+  
+    .newsletterSection h2 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .header h1 {
+      font-size: 1.8rem;
+    }
+  
+    .content h2 {
+      font-size: 1.2rem;
+    }
+  
+    .newsletterSection h2 {
+      font-size: 1.3rem;
+    }
+  
+    .newsletterSection input {
+      width: 100%;
+    }
+  }
+  @media screen and (min-width: 768px) and (max-width: 1024px)  {
+    .section{
+      p{
+        text-align: center;
+        padding: 0 15px;
+      }
+    }
+  }
+  @media screen and (min-width: 768px) and (max-width: 1024px)  {
+    .contactContent{
+      text-align: center;
+      .contactMail{
+        justify-content: center;
+        align-items: center;
+      }
+      .locationMail{
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .section{
+      p{
+        text-align: center;
+        padding: 0 15px;
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+  .contactBox{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    .contactContent{
+      p{
+        text-align: center;
+        padding: 0 15px;
+      }
+      .contactImage{
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
