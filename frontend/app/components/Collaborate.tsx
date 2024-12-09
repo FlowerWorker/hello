@@ -20,18 +20,94 @@ export const BECOME_PART = "Become a part of our team";
 export const PART_TEXT = "Are you ready to take your career to the next level? Join our team and become part of a group of passionate, driven, and innovative individuals dedicated to making a difference. We value creativity, collaboration, and a commitment to excellence in everything we do.";
 export const WHICH_PART = "Which team would you like to be a part of?";
 export const RECOMEND_SOMEONE = "Know someone who would be a great fit for our team?";
+export const THANKS = "Thank you for applying to Flowerwork!"
+export const CATCH = "Your info has been submitted, we'll catch up with you soon!";
 
 const Collaborate = () => {
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [coverLetterFile, setCoverLetterFile] = useState<File | null>(null);
+  const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
+  const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, setFile: React.Dispatch<React.SetStateAction<File | null>>): void => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFile(file); // Update the state with the selected file
-      console.log("Selected file:", file.name);
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowPopup(true); // Show the popup when form is submitted
+  };
+
+  const closePopup = () => setShowPopup(false); // Close the popup
+
+
+
+  const CustomInput = ({ placeholder, type = "text", className }: { placeholder: string; type?: string; className?: string }) => {
+    const [isFocused, setIsFocused] = useState(false);
+    const [value, setValue] = useState(""); // Track the input's value
+
+    const handleFocus = () => {
+      setIsFocused(true);
+    };
+
+    const handleBlur = () => {
+      setIsFocused(false);
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setValue(e.target.value); // Update value on input
+    };
+
+    const getBackgroundColor = () => {
+      if (isFocused) return "#FFFFFF"; // Active background
+      if (!isFocused && value.trim() !== "") return "#FFFFFF"; // Filled background
+      if (isFocused && !value.trim()) return "#F3F3F6"; // On click background
+      return "#EAEAED"; // Default or hover background
+    };
+
+    const getBorderColor = () => {
+      if (isFocused) return "#181615"; // Active border
+      if (value.trim()) return "#171929"; // Filled border
+      return "#B055CC"; // Hover and click border
+    };
+
+    return (
+      <input
+        type={type}
+        placeholder={placeholder}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        value={value}
+        style={{
+          backgroundColor: getBackgroundColor(),
+          border: `1.5px solid ${getBorderColor()}`,
+          borderRadius: "8px",
+          padding: "10px 15px",
+          width: "100%",
+          outline: "none",
+          color: "black",
+          transition: "background-color 0.3s ease, border-color 0.3s ease",
+        }}
+        className={className}
+      />
+    );
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
+  };
+
+  const handleDrop = (
+    e: React.DragEvent<HTMLDivElement>,
+    setFile: React.Dispatch<React.SetStateAction<File | null>>
+  ) => {
+    e.preventDefault();
+    const droppedFile = e.dataTransfer.files[0];
+    if (droppedFile) {
+      setFile(droppedFile);
+      console.log("Selected file:", droppedFile.name);
     }
   };
+
+
 
   return (
     <div className="w-full min-h-screen bg-bgdarkv2 text-white">
@@ -62,9 +138,11 @@ const Collaborate = () => {
           <div className="flex flex-wrap justify-center gap-4">
             {["HR team", "Designer", "Developer", "Blockchain", "Marketing", "Finance"].map((team) => (
               <Button
-                key={team}
-                className="border-2 border-purple-500 text-purple-500 px-6 py-2 rounded-full hover:bg-purple-500 hover:text-white transition"
-              >
+                onClick={() => setSelectedTeam(team)} // Set the selected team
+                className={`border-2 px-6 py-2 rounded-full transition ${selectedTeam === team
+                    ? "bg-purple-500 text-white border-purple-500"
+                    : "text-purple-500 border-purple-500 hover:bg-purple-500 hover:text-white"
+                  }`}>
                 {team}
               </Button>
             ))}
@@ -73,13 +151,13 @@ const Collaborate = () => {
 
         {/* Form Section */}
         <form className="w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10"
-        onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleFormSubmit}
         >
           <div className="col-span-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col">
                 <label className="block mb-2 text-sm text-white">First name</label>
-                <Input
+                <CustomInput
                   type="text"
                   placeholder="First name"
                   className="px-4 py-2 bg-white text-black border border-gray-300 rounded-md"
@@ -87,7 +165,7 @@ const Collaborate = () => {
               </div>
               <div className="flex flex-col">
                 <label className="block mb-2 text-sm text-white">Last name</label>
-                <Input
+                <CustomInput
                   type="text"
                   placeholder="Last name"
                   className="px-4 py-2 bg-white text-black border border-gray-300 rounded-md"
@@ -96,7 +174,7 @@ const Collaborate = () => {
             </div>
             <div className="mt-6">
               <label className="block mb-2 text-sm text-white">Email</label>
-              <Input
+              <CustomInput
                 type="email"
                 placeholder="Email"
                 className="col-span-1 px-4 py-2 bg-white text-black border border-gray-300 rounded-md"
@@ -104,7 +182,7 @@ const Collaborate = () => {
             </div>
             <div className="mt-6">
               <label className="block mb-2 text-sm text-white">Number</label>
-              <Input
+              <CustomInput
                 type="tel"
                 placeholder="Number (optional)"
                 className="col-span-1 px-4 py-2 bg-white text-black border border-gray-300 rounded-md"
@@ -112,7 +190,7 @@ const Collaborate = () => {
             </div>
             <div className="mt-6">
               <label className="block mb-2 text-sm text-white">Portfolio</label>
-              <Input
+              <CustomInput
                 type="url"
                 placeholder="URL"
                 className="col-span-2 px-4 py-2 bg-white text-black border border-gray-300 rounded-md"
@@ -124,13 +202,20 @@ const Collaborate = () => {
           <div className="mt-10">
             <div className="col-span-1">
               <label className="block mb-2 text-sm text-white">Resume</label>
-              <div className="p-4 border border-gray-400 rounded-md bg-white text-black flex items-center">
+              <div
+                onDrop={(e) => handleDrop(e, setResumeFile)}
+                onDragOver={handleDragOver}
+                className="p-4 border border-gray-400 rounded-md bg-white text-black flex items-center"
+              >
                 <Input
                   type="file"
                   accept=".pdf,.doc,.docx"
                   id="resume"
                   className="hidden"
-                  onChange={(e) => handleFileChange(e, setResumeFile)}
+                  onChange={(e) => {
+                    const selectedFile = e.target.files?.[0];
+                    if (selectedFile) setResumeFile(selectedFile);
+                  }}
                 />
                 <Button
                   className="flex items-center justify-center bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200 transition"
@@ -144,8 +229,8 @@ const Collaborate = () => {
                   }}
                   onClick={(e) => {
                     e.preventDefault();
-                    const resumeInput = document.getElementById('resume');
-                    if (resumeInput) (resumeInput as HTMLInputElement).click();
+                    const resumeInput = document.getElementById("resume") as HTMLInputElement;
+                    if (resumeInput) resumeInput.click();
                   }}
                 >
                   <svg
@@ -165,22 +250,51 @@ const Collaborate = () => {
                 <p className="ml-4 text-gray-500 text-sm">{FILE_DROP}</p>
               </div>
               {resumeFile && (
-                <p className="mt-2 text-sm text-gray-300">Selected file: {resumeFile.name}</p>
+                <div className="mt-2 flex items-center justify-between">
+                  <p className="text-sm text-gray-300">Selected file: {resumeFile.name}</p>
+                  <Button
+                    className="text-red-500 hover:text-red-700 transition"
+                    onClick={() => setResumeFile(null)} // Clear the selected file
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 6h18M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2m2 0v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0v12m4-12v12m4-12v12"
+                      />
+                    </svg>
+                  </Button>
+                </div>
               )}
             </div>
           </div>
+
 
           {/* Cover Letter Section */}
           <div className="mt-10">
             <div className="col-span-1">
               <label className="block mb-2 text-sm text-white">Cover Letter</label>
-              <div className="p-4 border border-gray-400 rounded-md bg-white text-black flex items-center">
+              <div
+                onDrop={(e) => handleDrop(e, setCoverLetterFile)}
+                onDragOver={handleDragOver}
+                className="p-4 border border-gray-400 rounded-md bg-white text-black flex items-center"
+              >
                 <Input
                   type="file"
                   accept=".pdf,.doc,.docx"
                   id="coverLetter"
                   className="hidden"
-                  onChange={(e) => handleFileChange(e, setCoverLetterFile)}
+                  onChange={(e) => {
+                    const selectedFile = e.target.files?.[0];
+                    if (selectedFile) setCoverLetterFile(selectedFile);
+                  }}
                 />
                 <Button
                   className="flex items-center justify-center bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200 transition"
@@ -194,8 +308,8 @@ const Collaborate = () => {
                   }}
                   onClick={(e) => {
                     e.preventDefault();
-                    const coverLetterInput = document.getElementById('coverLetter');
-                    if (coverLetterInput) (coverLetterInput as HTMLInputElement).click();
+                    const coverLetterInput = document.getElementById("coverLetter") as HTMLInputElement;
+                    if (coverLetterInput) coverLetterInput.click();
                   }}
                 >
                   <svg
@@ -215,10 +329,32 @@ const Collaborate = () => {
                 <p className="ml-4 text-gray-500 text-sm">{FILE_DROP}</p>
               </div>
               {coverLetterFile && (
-                <p className="mt-2 text-sm text-gray-300">Selected file: {coverLetterFile.name}</p>
+                <div className="mt-2 flex items-center justify-between">
+                  <p className="text-sm text-gray-300">Selected file: {coverLetterFile.name}</p>
+                  <Button
+                    className="text-red-500 hover:text-red-700 transition"
+                    onClick={() => setCoverLetterFile(null)} // Clear the selected file
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 6h18M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2m2 0v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0v12m4-12v12m4-12v12"
+                      />
+                    </svg>
+                  </Button>
+                </div>
               )}
             </div>
           </div>
+
 
           {/* Submit Button */}
           <div className="mt-16 col-span-2 flex items-center justify-between">
@@ -228,18 +364,92 @@ const Collaborate = () => {
                 Share this page.
               </a>
             </p>
-            <button className="bg-purple-500 text-white px-6 py-2 rounded-md hover:bg-purple-600 transition">
+            <Button className="bg-purple-500 text-white px-6 py-2 rounded-md hover:bg-purple-600 transition">
               Collaborate with us
-            </button>
+            </Button>
           </div>
         </form>
-      </div>
+      </div >
+      {/* Popup */}
+      {showPopup && (
+        <div
+          onClick={closePopup} // Close popup when clicking outside
+          style={{
+            animation: "fadeIn 0.5s ease-in-out",
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()} // Prevent click inside the popup from closing it
+            style={{
+              animation: "slideIn 0.5s ease-in-out",
+              background: "linear-gradient(90deg, #9C2BBF 0%, #4C165D 100%)", // Adjusted gradient to match
+              color: "white",
+              borderRadius: "16px", // More rounded corners
+              padding: "24px",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Subtle shadow for elevation
+              maxWidth: "400px", // Ensure it matches screenshot proportions
+              textAlign: "start", // Center text alignment
+              position: "relative",
+            }}
+          >
+            <h2 style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "12px" }}>
+              {THANKS}
+            </h2>
+            <p style={{ fontSize: "14px", marginBottom: "24px" }}>
+              {CATCH}
+            </p>
+            <div
+              style={{
+                position: "absolute",
+                bottom: "16px",
+                right: "16px",
+                width: "40px",
+                height: "40px",
+              }}
+            >
+              <Image
+                src={logo} // Use your logo here
+                alt="Flowerwork Logo"
+                width={40}
+                height={40}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+
+
+      {/* Scoped styles */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes slideIn {
+          from {
+            transform: translateY(-50%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+      `}</style>
+
 
       {/* Full-width Divider Line */}
-      <div className="w-full h-px bg-white my-6 sm:my-8"></div>
+      < div className="w-full h-px bg-white my-6 sm:my-8" ></div >
 
       {/* Footer Links Section (Centered) */}
-      <div className="flex flex-col w-full bg-bgdarkv2 gap-y-4 items-center sm:gap-y-6">
+      < div className="flex flex-col w-full bg-bgdarkv2 gap-y-4 items-center sm:gap-y-6" >
         <div className="flex flex-wrap justify-center w-full text-white text-base font-light gap-x-10 sm:gap-x-20">
           <Link href="/about-us" className="hover:underline">About FlowerWork</Link>
           <Link href="#" className="hover:underline">Jobs</Link>
@@ -280,8 +490,8 @@ const Collaborate = () => {
             </span>
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 
