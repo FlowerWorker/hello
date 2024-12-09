@@ -1,5 +1,6 @@
 use std::env;
 use crate::auth::error::AuthError;
+use diesel::dsl::exists;
 use diesel::prelude::*;
 use diesel::result::Error;
 use reqwest::{blocking::Client, blocking::Response, Error as ReqwestErr};
@@ -63,6 +64,13 @@ pub(crate) fn get_user_id_by_email(email: &str, conn: &mut PgConnection) -> Resu
         .first(conn)
 }
 
+pub(crate) fn verify_user_email(email: &str, conn: &mut PgConnection) -> Result<bool, Error> {
+    diesel::select(exists(
+        users::table.filter(users::email.eq(email))
+    ))
+    .get_result(conn)
+}
+
 pub(crate) fn get_users(conn: &mut PgConnection) -> Result<Vec<UserResponse>, Error> {
     let users = users::table.load::<User>(conn)?;
     let public_users = users.into_iter().map(UserResponse::from).collect();
@@ -121,7 +129,7 @@ pub fn send_reset_email(email: &str, token: &str) -> Result<Response, ReqwestErr
     client
         .post("https://api.brevo.com/v3/smtp/email")
         .header("Content-Type", "application/json")
-        .header("api-key", smtp_api_token) // Use Brevo's API key
+        .header("api-key", smtp_api_token)
         .json(&email_body)
         .send()
 }
@@ -236,6 +244,25 @@ mod tests {
         assert!(
             is_password_correct,
             "Updated password hashing or verification failed"
+        );
+    }
+
+    #[test]
+    fn test_verify_email() {
+        let db = TestDb::new();
+        let mut conn = db.conn();
+
+        let username = "testuser";
+        let password = "password123";
+        let email = "test@example.com";
+
+        let _ = register_user(&mut conn, username, password, email);
+        
+        let is_email_verified = verify_user_email(email, &mut conn)
+            .expect("Email verification failed");
+        assert!(
+            is_email_verified,
+            "Email verification failed"
         );
     }
 }
