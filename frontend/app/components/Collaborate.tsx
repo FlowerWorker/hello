@@ -138,21 +138,26 @@ const Collaborate = () => {
           <div className="flex flex-wrap justify-center gap-4">
             {["HR team", "Designer", "Developer", "Blockchain", "Marketing", "Finance"].map((team) => (
               <Button
+                key={team} // Added key prop
                 onClick={() => setSelectedTeam(team)} // Set the selected team
                 className={`border-2 px-6 py-2 rounded-full transition ${selectedTeam === team
-                    ? "bg-purple-500 text-white border-purple-500"
-                    : "text-purple-500 border-purple-500 hover:bg-purple-500 hover:text-white"
-                  }`}>
+                  ? "bg-purple-500 text-white border-purple-500"
+                  : "text-purple-500 border-purple-500 hover:bg-purple-500 hover:text-white"
+                  }`}
+              >
                 {team}
               </Button>
             ))}
           </div>
         </section>
 
+
         {/* Form Section */}
-        <form className="w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10"
+        <form
+          className="w-full max-w-6xl mx-auto grid-inline grid-cols-1 sm:grid-cols-2 gap-4 px-4 sm:px-6 mb-10"
           onSubmit={handleFormSubmit}
         >
+          {/* Form Inputs */}
           <div className="col-span-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col">
@@ -198,14 +203,15 @@ const Collaborate = () => {
             </div>
           </div>
 
-          {/* Resume Section */}
-          <div className="mt-10">
-            <div className="col-span-1">
+          {/* Resume and Cover Letter Sections */}
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Resume Section */}
+            <div className="flex flex-col">
               <label className="block mb-2 text-sm text-white">Resume</label>
               <div
                 onDrop={(e) => handleDrop(e, setResumeFile)}
                 onDragOver={handleDragOver}
-                className="p-4 border border-gray-400 rounded-md bg-white text-black flex items-center"
+                className="p-4 border border-gray-400 rounded-md bg-white text-black flex flex-row items-center"
               >
                 <Input
                   type="file"
@@ -242,49 +248,36 @@ const Collaborate = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     className="w-5 h-5"
+                    style={{
+                      display: "inline-block",
+                    }}
                   >
                     <path d="M21.44 11.05L12.4 20.1c-1.69 1.69-4.44 1.69-6.13 0-1.69-1.69-1.69-4.44 0-6.13l8.1-8.1c1.17-1.17 3.07-1.17 4.24 0 1.17 1.17 1.17 3.07 0 4.24l-8.1 8.1a1.5 1.5 0 01-2.12-2.12L15.18 7.3" />
                   </svg>
                   <span>Attach a file</span>
                 </Button>
-                <p className="ml-4 text-gray-500 text-sm">{FILE_DROP}</p>
+                <p className="mt-2 text-gray-500 text-sm text-center">{FILE_DROP}</p>
               </div>
               {resumeFile && (
                 <div className="mt-2 flex items-center justify-between">
                   <p className="text-sm text-gray-300">Selected file: {resumeFile.name}</p>
                   <Button
                     className="text-red-500 hover:text-red-700 transition"
-                    onClick={() => setResumeFile(null)} // Clear the selected file
+                    onClick={() => setResumeFile(null)}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3 6h18M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2m2 0v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0v12m4-12v12m4-12v12"
-                      />
-                    </svg>
+                    Remove
                   </Button>
                 </div>
               )}
             </div>
-          </div>
 
-
-          {/* Cover Letter Section */}
-          <div className="mt-10">
-            <div className="col-span-1">
+            {/* Cover Letter Section */}
+            <div className="flex flex-col">
               <label className="block mb-2 text-sm text-white">Cover Letter</label>
               <div
                 onDrop={(e) => handleDrop(e, setCoverLetterFile)}
                 onDragOver={handleDragOver}
-                className="p-4 border border-gray-400 rounded-md bg-white text-black flex items-center"
+                className="p-4 border border-gray-400 rounded-md bg-white text-black flex flex-row items-center"
               >
                 <Input
                   type="file"
@@ -321,40 +314,29 @@ const Collaborate = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     className="w-5 h-5"
+                    style={{
+                      display: "inline-block",
+                    }}
                   >
                     <path d="M21.44 11.05L12.4 20.1c-1.69 1.69-4.44 1.69-6.13 0-1.69-1.69-1.69-4.44 0-6.13l8.1-8.1c1.17-1.17 3.07-1.17 4.24 0 1.17 1.17 1.17 3.07 0 4.24l-8.1 8.1a1.5 1.5 0 01-2.12-2.12L15.18 7.3" />
                   </svg>
                   <span>Attach a file</span>
                 </Button>
-                <p className="ml-4 text-gray-500 text-sm">{FILE_DROP}</p>
+                <p className="mt-2 text-gray-500 text-sm text-center">{FILE_DROP}</p>
               </div>
               {coverLetterFile && (
                 <div className="mt-2 flex items-center justify-between">
                   <p className="text-sm text-gray-300">Selected file: {coverLetterFile.name}</p>
                   <Button
                     className="text-red-500 hover:text-red-700 transition"
-                    onClick={() => setCoverLetterFile(null)} // Clear the selected file
+                    onClick={() => setCoverLetterFile(null)}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3 6h18M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2m2 0v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0v12m4-12v12m4-12v12"
-                      />
-                    </svg>
+                    Remove
                   </Button>
                 </div>
               )}
             </div>
           </div>
-
 
           {/* Submit Button */}
           <div className="mt-16 col-span-2 flex items-center justify-between">
@@ -369,6 +351,7 @@ const Collaborate = () => {
             </Button>
           </div>
         </form>
+
       </div >
       {/* Popup */}
       {showPopup && (
