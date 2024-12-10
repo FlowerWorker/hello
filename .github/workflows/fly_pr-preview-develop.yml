@@ -1,4 +1,4 @@
-name: Start staging preview app
+name: Start PR preview app
 
 on:
   pull_request:

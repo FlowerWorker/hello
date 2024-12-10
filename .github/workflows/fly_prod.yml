@@ -1,4 +1,4 @@
-name: Start staging preview app
+name: Start production preview app
 
 on:
   push:

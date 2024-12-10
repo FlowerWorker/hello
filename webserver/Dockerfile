@@ -17,7 +17,7 @@ RUN cargo build --release --bin hello
 FROM debian:bookworm-slim AS runtime
 WORKDIR /app
 # Install the required PostgreSQL library (libpq)
-RUN apt-get update && apt-get install -y libpq5 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libpq5 ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /app/target/release/hello /usr/local/bin
 # Copy the migrations
 COPY --from=builder /app/migrations /migrations
