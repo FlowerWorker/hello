@@ -429,52 +429,44 @@ const Collaborate = () => {
 
 
       {/* Full-width Divider Line */}
-      < div className="w-full h-px bg-white my-6 sm:my-8" ></div >
-
-      {/* Footer Links Section (Centered) */}
-      < div className="flex flex-col w-full bg-bgdarkv2 gap-y-4 items-center sm:gap-y-6" >
-        <div className="flex flex-wrap justify-center w-full text-white text-base font-light gap-x-10 sm:gap-x-20">
+      <div className="w-full h-px bg-white my-6 sm:my-0"></div>
+      <div className="flex flex-col w-full bg-bgdarkv8 gap-y-10 items-center sm:gap-y-8 px-4 sm:px-8 sm:pt-4">
+        {/* Footer Links Section */}
+        <div className="flex flex-wrap justify-center w-full text-white text-sm sm:text-base font-light gap-x-10 sm:gap-x-40 sm:mt-4">
+          <Link href="#" className="flex items-center">
+            <Image
+              src={logo}
+              alt="FlowerWork Logo"
+              className="w-10 h-10 hover:opacity-80 transition-opacity duration-300"
+            />
+          </Link>
           <Link href="/about-us" className="hover:underline">About FlowerWork</Link>
-          <Link href="#" className="hover:underline">Jobs</Link>
-          <Link href="#" className="hover:underline">Contact us</Link>
-          <Link href="#" className="hover:underline">Help & support</Link>
-          <Link href="#" className="hover:underline">All About Beta</Link>
+          <Link href="#" className="hover:underline">Contact Us</Link>
+          <Link href="#" className="hover:underline">Terms & Conditions</Link>
+          <Link href="#" className="hover:underline">Privacy Policy</Link>
         </div>
 
-        {/* Logo, Legal Links, and Social Icons Section */}
-        <div className="flex flex-col sm:flex-row justify-between w-full items-center text-white max-w-[1000px] gap-y-4 sm:gap-y-6 sm:mb-2">
-          {/* Logo and Legal Links */}
-          <div className="flex flex-col sm:flex-row items-center sm:space-x-8">
-            <span className="mb-4 sm:mb-0">
-              <Image src={logo} alt="sample-image" width={50} height={50} className="" />
-            </span>
-            <div className="flex flex-wrap justify-center sm:justify-start gap-x-6 sm:gap-x-20 text-sm">
-              <Link href="#" className="hover:underline">Terms & Service</Link>
-              <Link href="#" className="hover:underline">Privacy Policy</Link>
-            </div>
-          </div>
-
-          {/* Social Icons Section */}
-          <div className="flex space-x-6">
-            <span className="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-gray-500 [&>svg]:hover:fill-white transition-colors duration-300">
-              <TiktokIcon />
-            </span>
-            <span className="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-gray-500 [&>svg]:hover:fill-white transition-colors duration-300">
-              <InstagramIcon />
-            </span>
-            <span className="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-gray-500 [&>svg]:hover:fill-white transition-colors duration-300">
-              <LinkedinIcon />
-            </span>
-            <span className="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-gray-500 [&>svg]:hover:fill-white transition-colors duration-300">
-              <FacebookIcon />
-            </span>
-            <span className="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-gray-500 [&>svg]:hover:fill-white transition-colors duration-300">
-              <TwitterIcon />
-            </span>
-          </div>
+        {/* Social Media Icons */}
+        <div className="flex justify-center space-x-8 text-white pb-6 sm:mt-0">
+          <span className="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-white [&>svg]:hover:fill-gray-400 transition duration-300">
+            <TiktokIcon />
+          </span>
+          <span className="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-white [&>svg]:hover:fill-gray-400 transition duration-300">
+            <InstagramIcon />
+          </span>
+          <span className="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-white [&>svg]:hover:fill-gray-400 transition duration-300">
+            <LinkedinIcon />
+          </span>
+          <span className="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-white [&>svg]:hover:fill-gray-400 transition duration-300">
+            <FacebookIcon />
+          </span>
+          <span className="[&>svg]:h-6 [&>svg]:w-6 [&>svg]:fill-white [&>svg]:hover:fill-gray-400 transition duration-300">
+            <TwitterIcon />
+          </span>
         </div>
-      </div >
-    </div >
+
+      </div>
+    </div>
   );
 };
 
