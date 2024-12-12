@@ -12,7 +12,7 @@ const HeroOverlay = () => {
             <Navbar2 className="w-full py-1" />
 
             {/* Top-Aligned Image */}
-            <div className="ml-24 -mt-20"> {/* Adjusted margin to reduce space above */}
+            <div className="ml-24 -mt-20">
                 <Image
                     src={bigtext}
                     alt="big-text-logo"

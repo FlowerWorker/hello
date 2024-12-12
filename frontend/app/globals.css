@@ -33,9 +33,9 @@
     --radius: 0.5rem;
     --gold: #ffd700;
     --darkblue: #2A2D4B;
-    --turquoiseLight: #45f2e5;
+    --turquoiseLight: #3fdcd0;
     --turquoiseMed: #80f1e9;
-    --turquoiseDark:#3fdcd0;
+    --turquoiseDark:#31aca3;
     --turqoisgradient: #4e7573;
     --navbardark: #18181b;
     --navbarlight: #3f3f46;
@@ -44,8 +44,13 @@
     --bgdarkv3: #343434;
     --bgdarkv4: #1e1e1e;
     --bgdarkv5: #2c2c2c;
+    --bgdarkv6: #100e0e;
+    --bgdarkv7: #181615;
+    --bgdarkv8: #282624;
     --purplev1: #bd71d4;
+    --purplev2: #9c2bbf;
     --cardhover: #E9E7E5; 
+    --greyv1: #e9e7e5; 
   }
   .dark {
     --background: 0 0% 3.9%;

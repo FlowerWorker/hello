@@ -7,13 +7,13 @@ import {
   NavigationMenuList,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
-import logo from "../../public/text_logo.png";
+import logo from "../../public/LOGO.png";
 import { Share2 } from "lucide-react";
 import user from "../../public/user.png";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> { }
 const Navbar: React.FC<NavbarProps> = ({ className, ...props }) => {
   return (
     <div
@@ -24,11 +24,11 @@ const Navbar: React.FC<NavbarProps> = ({ className, ...props }) => {
       {...props}
     >
       {/* Logo and Text */}
-      <div className="flex items-center space-x-2">
+      <Link href="#" className="flex items-center space-x-2">
         <span className="text-white text-lg font-semibold">
           <Image src={logo} alt="logo" className="inline-block" />
         </span>
-      </div>
+      </Link>
 
       {/* Navigation Menu */}
       <NavigationMenu>
@@ -58,8 +58,12 @@ const Navbar: React.FC<NavbarProps> = ({ className, ...props }) => {
           <NavigationMenuItem>
             <NavigationMenuLink asChild>
               <Link href="login">
-                <Button className="bg-purplev1 text-black px-4 py-2 rounded-lg">
-                  <Image src={user} alt="usericon" className="h-5 w-5" />
+                <Button className="bg-purplev1 text-black px-2 py-1 md:px-4 md:py-2 rounded-lg flex items-center justify-center min-w-[30px] min-h-[30px] md:min-w-[40px] md:min-h-[40px] hover:bg-purplev2">
+                  <Image
+                    src={user}
+                    alt="usericon"
+                    className="h-4 w-4 md:h-5 md:w-5 object-contain"
+                  />
                 </Button>
               </Link>
             </NavigationMenuLink>

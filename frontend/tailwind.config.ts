@@ -15,7 +15,7 @@ const config: Config = {
 		  },
   		backgroundImage: {
   			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-  			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+  			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -79,7 +79,12 @@ const config: Config = {
 			bgdarkv3: 'var(--bgdarkv3)',
 			bgdarkv4: 'var(--bgdarkv4)',
 			bgdarkv5: 'var(--bgdarkv5)',
+			bgdarkv6: 'var(--bgdarkv6)',
+			bgdarkv7: 'var(--bgdarkv7)',
+			bgdarkv8: 'var(--bgdarkv8)',
 			purplev1: 'var(--purplev1)',
+			purplev2: 'var(--purplev2)',
+			greyv1: 'var(--greyv1)',
 			cardhover: 'var(--cardhover)',
   		}
   	}

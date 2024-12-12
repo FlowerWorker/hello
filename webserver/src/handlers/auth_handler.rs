@@ -70,10 +70,10 @@ pub async fn register(
     .map_err(DatabaseError::from))?;
 
     let url = format!("{}/collections/users/documents", search_state.typesense_url);
-    let mut typesense_user = serde_json::json!(user);
     
-    // Remove the password_hash key
-    typesense_user.as_object_mut().unwrap().remove("password_hash");
+    let public_user: UserResponse = user.into();
+    let typesense_user = serde_json::json!(public_user);
+
 
     run_async_typesense_query!(
         search_state, |state: &SearchState, url: String, body: serde_json::Value| insert_single_doc(
@@ -83,18 +83,26 @@ pub async fn register(
         ).map_err(ReqError::from), url, typesense_user
     )?;
 
-    let public_user: UserResponse = user.into();
     Ok::<HttpResponse, ApiError>(HttpResponse::Created().json(public_user))
 }
 
 #[post("/forgot-password")]
 pub async fn send_pass_reset_req(
+    pool: web::Data<DbPool>,
     reset_request: web::Json<RequestPasswordReset>,
 ) -> Result<impl Responder, impl ResponseError> {
-
     let token = create_reset_jwt(&reset_request.email);
+    
+    let email = reset_request.email.clone();
 
-    println!("Token for {}: {}", reset_request.email, token);
+    let email_exists = run_async_query!( pool, |conn| {
+        user_service::verify_user_email(&email, conn).map_err(DatabaseError::from)
+    })?;
+
+    if !email_exists {
+        return Err::<HttpResponse, ApiError>(DatabaseError::GenericError.into());
+    }
+    
     run_async_typesense_query!(
         &reset_request.email,
         |email: &str, token: &str| {
@@ -116,10 +124,11 @@ pub async fn reset_pass_complete_req(
             actix_web::error::ErrorUnauthorized(format!("Unauthorized: {}", err))
         })?;
 
-    let public_user = run_async_query!(pool, |conn| {
+    let user = run_async_query!(pool, |conn| {
         user_service::update_user_password(conn, &claim.sub, &payload.new_password).map_err(DatabaseError::from)
     })?;
     
+    let public_user: UserResponse = user.into();
     Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(public_user))
 }
 

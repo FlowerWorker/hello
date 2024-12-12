@@ -16,7 +16,7 @@ export const BUTTON_TEXT = "Start boosting my team today";
 
 const SectionComponent3 = () => {
     return (
-        <div className="w-full bg-bgdarkv4 py-20">
+        <div className="w-full bg-bgdarkv7 py-20">
             <div className="max-w-[1440px] mx-auto px-6 h-auto flex flex-col space-y-8">
 
                 {/* Top Section (Icon, Title, Subtitle, Description) */}

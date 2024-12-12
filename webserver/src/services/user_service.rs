@@ -1,5 +1,6 @@
 use std::env;
 use crate::auth::error::AuthError;
+use diesel::dsl::exists;
 use diesel::prelude::*;
 use diesel::result::Error;
 use reqwest::{blocking::Client, blocking::Response, Error as ReqwestErr};
@@ -63,6 +64,13 @@ pub(crate) fn get_user_id_by_email(email: &str, conn: &mut PgConnection) -> Resu
         .first(conn)
 }
 
+pub(crate) fn verify_user_email(email: &str, conn: &mut PgConnection) -> Result<bool, Error> {
+    diesel::select(exists(
+        users::table.filter(users::email.eq(email))
+    ))
+    .get_result(conn)
+}
+
 pub(crate) fn get_users(conn: &mut PgConnection) -> Result<Vec<UserResponse>, Error> {
     let users = users::table.load::<User>(conn)?;
     let public_users = users.into_iter().map(UserResponse::from).collect();
@@ -82,12 +90,10 @@ pub fn login(conn: &mut PgConnection, email: &str, password: &str) -> Result<Use
 pub fn update_user_password(conn: &mut PgConnection, email: &str, new_password: &str) -> Result<User, Error> {
     let new_password_hash = &hash_password(new_password).expect("Failed to hash password");
 
-    let user = diesel::update(users::table.filter(users::email.eq(email)))
+    diesel::update(users::table.filter(users::email.eq(email)))
          .set(users::password_hash.eq(new_password_hash))
          .returning(User::as_returning())
-         .get_result(conn);
-    log::info!("{:?}", user);
-    return user;
+         .get_result(conn)
 }
 
 pub fn send_reset_email(email: &str, token: &str) -> Result<Response, ReqwestErr> {
@@ -120,15 +126,12 @@ pub fn send_reset_email(email: &str, token: &str) -> Result<Response, ReqwestErr
         .timeout(std::time::Duration::from_secs(10))
         .build()?;
     
-    let response = client
+    client
         .post("https://api.brevo.com/v3/smtp/email")
         .header("Content-Type", "application/json")
-        .header("api-key", smtp_api_token) // Use Brevo's API key
+        .header("api-key", smtp_api_token)
         .json(&email_body)
-        .send();
-
-    log::info!("{:?}", response);
-    response
+        .send()
 }
 
 fn hash_password(plain: &str) -> Result<String, bcrypt::BcryptError> {
@@ -241,6 +244,25 @@ mod tests {
         assert!(
             is_password_correct,
             "Updated password hashing or verification failed"
+        );
+    }
+
+    #[test]
+    fn test_verify_email() {
+        let db = TestDb::new();
+        let mut conn = db.conn();
+
+        let username = "testuser";
+        let password = "password123";
+        let email = "test@example.com";
+
+        let _ = register_user(&mut conn, username, password, email);
+        
+        let is_email_verified = verify_user_email(email, &mut conn)
+            .expect("Email verification failed");
+        assert!(
+            is_email_verified,
+            "Email verification failed"
         );
     }
 }

@@ -2,252 +2,277 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from 'next/link';
 
-import { Footer, Navbar } from "../components";
+import { Footer, Navbar } from "./layout";
 import { Button } from "@/components/ui/button";
 import TeamProfile from "./TeamProfile";
+
+import background from "../public/aboutpage_text.png";
 import heroimage from "../public/aboutpagehero.png";
-
-export const MISSION1_TITLE = "Empower Teams and Individuals";
-export const MISSION1_DESCRIPTION = "Enable Efficient project management and collaboration, helping users focus on what matters and achieve their goals.";
-export const MISSION2_TITLE = "Connect Talent with Opportunity";
-export const MISSION2_DESCRIPTION = "Connect teams with skilled professionals for quick and effective project outsourcing.";
-export const MISSION3_TITLE = "Enhance Flexibility and Scalability";
-export const MISSION3_DESCRIPTION = "Offer adaptable tools that scale from single projects to complex workflows, supporting teams of all sizes.";
-
-export const OFFER1_TITLE = "Efficient Project Management";
-export const OFFER1_DESCRIPTION = "Organize tasks, timelines, and resources in one place. Track deadlines and progress effirtlessly with FlowerWork's intuitive dashboard.";
-export const OFFER2_TITLE = "Flexible Talent and Scalability";
-export const OFFER2_DESCRIPTION = "Quickly connect with verified professionals for outsourcing and scake your projects effortlessly, from solo ventures to multitea workflows.";
-export const OFFER3_TITLE = "Seamless Collaboration";
-export const OFFER3_DESCRIPTION = "Enhance team communication with real-time updates, file sharing, and feedback tools, keeping everyone aligned and contributing effectively.";
-export const OFFER4_TITLE = "Secure Data and Goal Tracking";
-export const OFFER4_DESCRIPTION = "Ensure data security and track all project actions with clear documentation. Set and reach your goals with customizable, user-friendly tools."
-
-export const FLOWERWORK1_TITLE = "AI-Driven Task Management";
-export const FLOWERWORK1_DESCRIPTION = "Experience enhanced project planning with AI tools for task optimization, priority setting, and accurate forecasting.";
-export const FLOWERWORK2_TITLE = "Blockchain-Powered Talent Verification";
-export const FLOWERWORK2_DESCRIPTION = "Ensure trust and transparency with blockchain-based profiles and credentials for verified talent connections.";
-export const FLOWERWORK3_TITLE = "Automated Talent Matching";
-export const FLOWERWORK3_DESCRIPTION = "Leverage AI to intelligently match projects with the best-fit professionals based on skills, availability, and past performance.";
-export const FLOWERWORK4_TITLE = "Smart Contract Onboarding";
-export const FLOWERWORK4_DESCRIPTION = "Use blockchain smart contracts for streamlined onboarding and clear collaboration agreements.";
-
-export const JOIN_TEXT = "Become a part of our team";
-export const JOIN_BUTTON_TEXT = "Collaborate with us";
-export const TEAM_TEXT = "Our Success Team";
+import logo from "../public/LOGO.png";
+import offer from "../public/offer.jpeg"
+import mission from "../public/mission.png"
+import flowerwork from "../public/flowerwork.webp"
+import adam from "../public/adam.png"
+import carmen from "../public/carmen.png"
+import francisco from "../public/francisco.png"
+import gabriela from "../public/gabriela.png"
+import hrigved from "../public/hrigved.png"
+import iryna from "../public/iryna.png"
+import kevin from "../public/kevin.png"
+import rona from "../public/rona.jpg"
+import rukaiya from "../public/rukaiya.png"
+import stefan from "../public/stefan.png"
 
 export const TEAM_MEMBERS = [
   {
-    name: "Adam Louhichi",
-    role: "UX/UI Designer",
-    imageSrc: "/aboutpagehero.png",
-  },
-  {
-    name: "Kevin Kongpachith",
-    role: "UX/UI Designer",
-    imageSrc: "/aboutpagehero.png",
+    name: "Francisco Padilla",
+    role: "CEO",
+    imageSrc: francisco,
   },
   {
     name: "Rukaiya Mansoor",
     role: "Project Manager",
-    imageSrc: "/aboutpagehero.png",
-  }
-]
-
-export const ALL_TEAM_MEMBERS = [
-  {
-    name: "Adam Louhichi",
-    role: "UX/UI Designer",
-    imageSrc: "/aboutpagehero.png",
+    imageSrc: rukaiya,
   },
   {
-    name: "Kevin Kongpachith",
+    name: "Carmen Schäfer",
     role: "UX/UI Designer",
-    imageSrc: "/aboutpagehero.png",
-  },
-  {
-    name: "Rukaiya Mansoor",
-    role: "Project Manager",
-    imageSrc: "/aboutpagehero.png",
+    imageSrc: carmen,
   },
   {
     name: "Hrigved Nair",
     role: "Marketing and Growth",
-    imageSrc: "",
+    imageSrc: hrigved,
   },
   {
     name: "Stefan Andrei",
-    role: "Full Stack Developer",
-    imageSrc: "",
+    role: "Full stack Developer",
+    imageSrc: stefan,
+  },
+]
+
+export const ALL_TEAM_MEMBERS = [
+  {
+    name: "Francisco Padilla",
+    role: "CEO",
+    imageSrc: francisco,
   },
   {
-    name: "Iryna Voitsikhovska",
+    name: "Rukaiya Mansoor",
+    role: "Project Manager",
+    imageSrc: rukaiya,
+  },
+  {
+    name: "Carmen Schäfer",
     role: "UX/UI Designer",
-    imageSrc: "",
+    imageSrc: carmen,
+  },
+  {
+    name: "Hrigved Nair",
+    role: "Marketing and Growth",
+    imageSrc: hrigved,
+  },
+  {
+    name: "Stefan Andrei",
+    role: "Full stack Developer",
+    imageSrc: stefan,
+  },
+  {
+    name: "Adam Louhichi",
+    role: "UX/UI Designer",
+    imageSrc: adam,
   },
   {
     name: "Gabriela Beran",
     role: "HR & Recruitment",
-    imageSrc: "",
+    imageSrc: gabriela,
+  },
+  {
+    name: "Kevin Kongpachith",
+    role: "UX/UI Designer",
+    imageSrc: kevin,
+  },
+  {
+    name: "Iryna Voitsikhovska",
+    role: "UX/UI Designer",
+    imageSrc: iryna,
+  },
+  {
+    name: "Rona Zong",
+    role: "Fullstack Developer",
+    imageSrc: rona,
   },
 ]
 
 const AboutUs = () => {
   const [showAll, setShowAll] = useState(false);
-
   const toggleShowAll = () => {setShowAll(!showAll)};
 
   return (
-    <div className="w-full bg-bgdarkv2 text-white">
+    <div className="w-full bg-bgdarkv1 text-white text-base">
       {/* Header Section */}
       <header className="relative z-30">
         <Navbar className="z-40" />
       </header>
 
       {/* Hero Image Container */}
-      <div className="relative w-full">
-        {/* Background Image */}
-        <Image
-          src={heroimage}
-          alt="sample-image"
-          height={360}
-          className="w-full object-cover"
-        />
+      <div className="w-full relative overflow-hidden max-h-screen">
+        {/* LG and MD Screen */}
+        <div className="hidden md:block">
+          {/* Background Image */}
+          <Image
+            src={background}
+            alt="sample-image"
+            className="w-full h-auto object-cover"
+          />
+        </div>
+        
+        {/* Mobile Screen */}
+        <div className="block md:hidden bg-cover bg-center relative w-full h-auto">
+          {/* Background Image */}
+          <Image
+            src={heroimage}
+            alt="sample-image"
+            className="w-full h-auto object-cover"
+          />
+          {/* Content Overlay */}
+          <div className="flex flex-col items-start absolute inset-0 bg-black bg-opacity-50 z-0 gap-4 mx-10 px-4 py-4 space-y-4">
+            <Image 
+              src={logo}
+              alt="logo"
+              width={200}
+              height={200}
+              className="w-auto"
+            />
+            <div className="font-bold">
+              <p>Is the all-in-one platform to streamline workflows, connect with top talents, foster seamless collaboration, assign tasks effortlessly, and securely track progress.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <main className="w-full flex flex-col items-center">
-        <section className="p-8 text-center max-w-6xl">
-          <h1 className="text-white text-lg md:text-2xl leading-relaxed">
-            <span className="text-purplev1 font-bold">FlowerWork</span> is an innovative platform that gives you full control of your projects, enabling effortless collaboration and easy access to the talent you need — all in one place.
-          </h1>
+      <main className="flex flex-col items-center max-w-[1440px] mx-auto px-6 h-auto space-y-8">
+        {/* Offer Section */}
+        <section className="flex flex-col lg:flex-row items-center justify-center gap-6 mx-8 py-6">
+          <div className="flex-1">
+            <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl leading-relaxed">
+              What <span className="text-purplev1">We Offer Now</span>
+            </h1>
+            <hr className="border-t-4 md:border-t-6 mt-4 mb-6"></hr>
+            <div className="flex flex-col space-y-6">
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Efficient Project Management</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Organize tasks, timelines, and resources - all in one place with FlowerWork’s intuitive dashboard, keeping deadlines and progress on track.</p>
+              </div>
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Flexible Talent and Scalability</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Access verified professionals and scale projects seamlessly, whether for solo ventures or multi-team workflows.</p>
+              </div>
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Collaborative Workflows</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Streamline communication with real-time updates, file sharing, and feedback tools to stay aligned and productive.</p>
+              </div>
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Secure Data and Goal Tracking</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Protect your data while tracking project actions with clear documentation and customizable tools to achieve your goals.</p>
+              </div>
+            </div>
+          </div>
+          {/* Background Image */}
+          <div className="mx-auto">
+            <Image
+              src={offer}
+              alt="sample-image"
+              className="w-[417px] h-[391px] object-cover"
+            />
+          </div>
         </section>
 
         {/* Mission Section */}
-        <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
-          <div  className="flex-[2] space-y-6">
-            <h2 className="text-3xl font-bold mb-4">
+        <section className="flex flex-col lg:flex-row items-center justify-center gap-6 mx-8 py-6">
+          {/* Background Image */}
+          <div className="mx-auto">
+            <Image
+              src={mission}
+              alt="sample-image"
+              className="w-[432px] h-[391px] object-cover"
+            />
+          </div>
+          <div className="flex-1">
+            <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl leading-relaxed">
               Our <span className="text-purplev1 font-bold">Mission</span>
-            </h2>
-            <hr className="border-t my-4"></hr>
-            <div className="flex flex-row pb-2">
-              <p className="flex-[1]">{MISSION1_TITLE}</p>
-              <p className="flex-[2]">{MISSION1_DESCRIPTION}</p>
-            </div>
-            <div className="flex flex-row pb-2">
-              <p className="flex-[1]">{MISSION2_TITLE}</p>
-              <p className="flex-[2]">{MISSION2_DESCRIPTION}</p>
-            </div>
-            <div className="flex flex-row pb-2">
-              <p className="flex-[1]">{MISSION3_TITLE}</p>
-              <p className="flex-[2]">{MISSION3_DESCRIPTION}</p>
+            </h1>
+            <hr className="border-t-4 md:border-t-6 mt-4 mb-6"></hr>
+            <div className="flex flex-col space-y-6">
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Empowering Teams and Individuals</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Drive efficient project management and seamless collaboration, enabling teams and individuals to focus on what truly matters and achieve exceptional results.</p>
+              </div>
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Bridging Talent and Opportunity</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Bridge the gap between talent and opportunity by curating professional talent pools tailored to meet unique needs and exceed expectations.</p>
+              </div>
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Scaling Success with Flexibility</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Deliver adaptable solutions that evolve with you—scaling effortlessly from small tasks to complex workflows, empowering teams of any size to succeed.</p>
+              </div>
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Increase productivity efficiently</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Equipped with advanced features to streamline workflows, optimizing resource with seasoned experts, and tailored solutions, businesses drive efficiency and boost productivity.</p>
+              </div>
             </div>
           </div>
-          {/* Background Image */}
-          <div className="flex-[1.5] relative w-full">
-            <Image
-              src={heroimage}
-              alt="sample-image"
-              height={360}
-              className="w-full object-cover"
-            />
-          </div>
+  
         </section>
 
-        <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
-          {/* Background Image */}
-          <div className="flex-[1.5] relative w-full">
-            <Image
-              src={heroimage}
-              alt="sample-image"
-              className="w-full h-auto object-cover"
-            />
-          </div>
-          <div className="flex-[2] space-y-6">
-            <h2 className="text-3xl font-bold mb-4">
-              What <span className="text-purplev1 font-bold">We Offer</span>
-            </h2>
-            <hr className="border-t mb-4"></hr>
-            <div className="flex flex-row pb-2">
-              <p className="flex-[1]">{OFFER1_TITLE}</p>
-              <p className="flex-[2]">Organize tasks, timelines, and resources in one place. Track deadlines and progress effirtlessly with <span className="text-purplev1"> FlowerWork's </span> intuitive dashboard.</p>
-            </div>
-            <div className="flex flex-row pb-2">
-              <p className="flex-[1]">{OFFER2_TITLE}</p>
-              <p className="flex-[2]">{OFFER2_DESCRIPTION}</p>
-            </div>
-            <div className="flex flex-row pb-2">
-              <p className="flex-[1]">{OFFER3_TITLE}</p>
-              <p className="flex-[2]">{OFFER3_DESCRIPTION}</p>
-            </div>
-            <div className="flex flex-row pb-2">
-              <p className="flex-[1]">{OFFER4_TITLE}</p>
-              <p className="flex-[2]">{OFFER4_DESCRIPTION}</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="p-8 flex flex-col md:flex-row items-center justify-center gap-8">
-          <div className="flex-[2] space-y-6">
-            <h2 className="text-3xl font-semibold">
-              Coming soon to <span className="text-purplev1 font-bold">FlowerWork</span>
-            </h2>
-            <hr className="border-t mb-4"></hr>
-            <div className="flex flex-row pb-2">
-              <p className="flex-[1]">{FLOWERWORK1_TITLE}</p>
-              <p className="flex-[2]">{FLOWERWORK1_DESCRIPTION}</p>
-            </div>
-            <div className="flex flex-row pb-2">
-              <p className="flex-[1]">{FLOWERWORK2_TITLE}</p>
-              <p className="flex-[2]">{FLOWERWORK2_DESCRIPTION}</p>
-            </div>
-            <div className="flex flex-row pb-2">
-              <p className="flex-[1]">{FLOWERWORK3_TITLE}</p>
-              <p className="flex-[2]">{FLOWERWORK3_DESCRIPTION}</p>
-            </div>
-            <div className="flex flex-row pb-2">
-              <p className="flex-[1]">{FLOWERWORK4_TITLE}</p>
-              <p className="flex-[2]">{FLOWERWORK4_DESCRIPTION}</p>
+        {/* Flowerwork Section */}
+        <section className="flex flex-col lg:flex-row items-center justify-center gap-6 mx-8 py-6">
+          <div className="flex-1">
+            <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl leading-relaxed">
+              Upcoming Features on <span className="text-purplev1 font-bold">FlowerWork</span>
+            </h1>
+            <hr className="border-t-4 md:border-t-6 mt-4 mb-6"></hr>
+            <div className="flex flex-col space-y-6">
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">AI-Driven Task Management</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Elevate your entire project management with our AI tools, automating task creation, priority setting, precise forecasting, real time updates, etc.</p>
+              </div>
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Blockchain-Powered Talent Verification</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Build trust and transparency with blockchain-secured profiles and verified credentials for talent connections you can rely on.</p>
+              </div>
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Automated Talent Matching</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Let AI intelligently match your projects with the best-fit professionals based on skills, availability, and performance history, while automating your interview process.</p>
+              </div>
+              <div className="flex flex-row pb-2 gap-4">
+                <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Smart Contract Onboarding</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Simplify onboarding and collaboration with blockchain-powered smart contracts for secure and efficient agreements.</p>
+              </div>
             </div>
           </div>
           {/* Background Image */}
-          <div className="flex-[1.5] relative w-full">             
+          <div className="mx-auto">             
             <Image
-              src={heroimage}
+              src={flowerwork}
               alt="sample-image"
-              height={360}
-              className="w-full object-cover"
+              className="w-[434px] h-[434px] object-cover"
             />
           </div>
-        </section>
+        </section>        
       </main>
-
-      {/* Join Us Container */}
-      <div className="pb-10 flex flex-col items-center">
-        <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
-          {JOIN_TEXT}
-        </h1>          
-        {/* <Button type="submit" className="bg-purplev1 hover:bg-purplev2 text-white font-bold px-6 py-3">
-          {JOIN_BUTTON_TEXT}
-        </Button> */}
-        <Button type="submit" className="bg-purplev1 hover:bg-purplev2 text-white font-bold px-6 py-3">
-  <Link href="/collaborate">
-    {JOIN_BUTTON_TEXT}
-  </Link>
-</Button>
-      </div>
 
       {/* Team Container */}
       <div className="flex flex-col items-center">
         <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
-          {TEAM_TEXT}
+          Our Success Team
         </h1>
         {/* Pictures */}
         <div className="relative w-full flex flex-wrap justify-center gap-8">
           {/* Background Image */}
-          {TEAM_MEMBERS.map((member, index) => (
+          {!showAll && TEAM_MEMBERS.map((member, index) => (
             <TeamProfile
               key={index}
               name={member.name}
@@ -263,10 +288,20 @@ const AboutUs = () => {
               imageSrc={member.imageSrc} />
           ))}
         </div>
-        <Button onClick={toggleShowAll} className="mt-4 bg-purplev1 hover:">
+        <Button onClick={toggleShowAll} className="bg-purplev1 hover:bg-purple-700 text-white px-4 py-2 mt-2 rounded">
           {showAll ? "Show Less" : "Show All"}
         </Button>
       </div>
+
+      {/* Join Us Container */}
+      <div className="pb-10 flex flex-col items-center">
+        <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
+          You can be one os us too!   
+        </h1>          
+        <Button className="bg-purplev1 hover:bg-purplev-700 text-white font-bold px-6 py-3">
+          Collaborate with us
+        </Button>
+      </div>      
 
       {/* Footer */}
       <footer>
