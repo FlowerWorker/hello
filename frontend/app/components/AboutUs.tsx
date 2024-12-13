@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { Footer, Navbar } from "./layout";
 import { Button } from "@/components/ui/button";
@@ -107,7 +108,7 @@ export const ALL_TEAM_MEMBERS = [
 
 const AboutUs = () => {
   const [showAll, setShowAll] = useState(false);
-  const toggleShowAll = () => {setShowAll(!showAll)};
+  const toggleShowAll = () => { setShowAll(!showAll) };
 
   return (
     <div className="w-full bg-bgdarkv1 text-white text-base">
@@ -127,7 +128,7 @@ const AboutUs = () => {
             className="w-full h-auto object-cover"
           />
         </div>
-        
+
         {/* Mobile Screen */}
         <div className="block md:hidden bg-cover bg-center relative w-full h-auto">
           {/* Background Image */}
@@ -138,7 +139,7 @@ const AboutUs = () => {
           />
           {/* Content Overlay */}
           <div className="flex flex-col items-start absolute inset-0 bg-black bg-opacity-50 z-0 gap-4 mx-10 px-4 py-4 space-y-4">
-            <Image 
+            <Image
               src={logo}
               alt="logo"
               width={200}
@@ -224,7 +225,7 @@ const AboutUs = () => {
               </div>
             </div>
           </div>
-  
+
         </section>
 
         {/* Flowerwork Section */}
@@ -254,14 +255,14 @@ const AboutUs = () => {
             </div>
           </div>
           {/* Background Image */}
-          <div className="mx-auto">             
+          <div className="mx-auto">
             <Image
               src={flowerwork}
               alt="sample-image"
               className="w-[434px] h-[434px] object-cover"
             />
           </div>
-        </section>        
+        </section>
       </main>
 
       {/* Team Container */}
@@ -281,10 +282,10 @@ const AboutUs = () => {
             />
           ))}
           {showAll && ALL_TEAM_MEMBERS.map((member, index) => (
-            <TeamProfile 
-              key={index} 
-              name={member.name} 
-              role={member.role} 
+            <TeamProfile
+              key={index}
+              name={member.name}
+              role={member.role}
               imageSrc={member.imageSrc} />
           ))}
         </div>
@@ -294,21 +295,24 @@ const AboutUs = () => {
       </div>
 
       {/* Join Us Container */}
-      <div className="pb-10 flex flex-col items-center">
+      <div suppressHydrationWarning={true} className="pb-10 flex flex-col items-center">
         <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
-          You can be one os us too!   
-        </h1>          
+          You can be one os us too!
+        </h1>
         <Button className="bg-purplev1 hover:bg-purplev-700 text-white font-bold px-6 py-3">
-          Collaborate with us
+          <Link href="/collaborate">
+            Collaborate with us
+          </Link>
+
         </Button>
-      </div>      
+      </div>
 
       {/* Footer */}
       <footer>
-        <Footer/>
+        <Footer />
       </footer>
     </div>
   );
 };
-  
+
 export default AboutUs;
