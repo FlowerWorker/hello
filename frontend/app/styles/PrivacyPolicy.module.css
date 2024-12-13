@@ -36,6 +36,7 @@
   }
   .section {
     margin-top: 30px;
+    padding: 20px 0;
   }
   .section h2 {
     font-size: 24px;
@@ -43,13 +44,13 @@
     font-family: Montserrat;
     font-weight: 700;
     line-height: 21px;
-    text-align: left;
+    /* text-align: left; */
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: #fff;
   }
   .section p {
-    line-height: 1.6;
+    line-height: 36px !important;
     font-family: Open Sans;
     font-size: 24px;
     font-weight: 400;
@@ -60,8 +61,10 @@
     color: #fff;
   }
   .section ul {
-    padding-left: 20px;
-    .li{
+    padding-left: 45px;
+    list-style-type: disc;
+  }
+  .section  ul li{
       font-family: Open Sans;
       font-size: 20px;
       font-weight: 400;
@@ -70,12 +73,13 @@
       text-underline-position: from-font;
       text-decoration-skip-ink: none;
       color: #fff;
-    }
   }
+  
   .cookiessection{
      display: flex;
      flex-direction: row;
      gap: 30px;
+     padding: 20px 0;
      .verticalLine{
       border-left: 1px solid #C1C5BB;
       height: 100px;
@@ -88,7 +92,8 @@
      }
     .boxsection {
       max-width: 545px;
-    .h2 {
+    }
+    .boxsection h2 {
       font-size: 24px;
       margin-bottom: 10px;
       font-family: Montserrat;
@@ -99,7 +104,7 @@
       text-decoration-skip-ink: none;
       color: #fff;
     }
-    .p {
+    .boxsection p {
       line-height: 1.6;
       font-family: Open Sans;
       font-size: 20px;
@@ -110,11 +115,12 @@
       text-decoration-skip-ink: none;
       color: #fff;
     }
-  }
+
   }
   .footer {
     margin-top: 40px;
-    .p{
+  }
+  .footer p{
       font-family: Montserrat;
       font-size: 24px;
       font-weight: 700;
@@ -123,27 +129,33 @@
       text-underline-position: from-font;
       text-decoration-skip-ink: none;
       color: #fff;
-    }
-    .footerContact{
+  }
+  .footer .footerContact{
       display: flex;
       flex-direction: row;
       align-items: center;
       .privacymail{
         text-decoration: none;
         color: #BD71D4;
-        margin: 0 10px;
+        /* margin: 0 10px; */
         font-family: Montserrat;
+        gap: 10px;
+        align-items: center;
         font-size: 14.77px;
         font-weight: 600;
         line-height: 19.38px;
         text-align: left;
         text-underline-position: from-font;
         text-decoration-skip-ink: none;
+        display: flex;
+        flex-direction: row;
 
       }
       .privacylocation{
           text-decoration: none;
           margin: 0 10px;
+          gap: 10px;
+          align-items: center;
           font-family: Montserrat;
           font-size: 14.77px;
           font-weight: 600;
@@ -152,14 +164,15 @@
           color: #fff;
           text-underline-position: from-font;
           text-decoration-skip-ink: none;
-
+          display: flex;
+          flex-direction: row;
       }
-    }
-    .span{
+  }
+  .footer span{
       font-size: 18px;
       margin: 0 50px 0 0;
-    }
   }
+ 
   .lastsection{
     font-family: Open Sans;
     font-size: 16px;
@@ -169,6 +182,7 @@
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: #fff;
+    padding: 45px 0;
   }
   @media screen and (max-width: 1024px) {
     .header h1 {
@@ -239,8 +253,9 @@
   }
   @media screen and (max-width: 768px) {
      .section{
-      /* padding: 15px 20px;
-      margin-top: 0px; */
+      padding: 15px 20px;
+      margin-top: 0px;
+      text-align: center;
       .p{
       align-items: center;
       text-align: center;
@@ -248,7 +263,7 @@
      }
      .section h2{
       align-items: center;
-      text-align: center;
+      text-align: center !important;
      }
     }
      
@@ -263,14 +278,14 @@
   }
   @media screen and (max-width: 768px) {
     .cookiessection{
-      .boxsection {
-        .h2{
-          text-align: center;
+      .boxsection h2 {
+          text-align: center !important;
         }
-        .p{
-          text-align: center;
+          .boxsection p{
+          text-align: center !important;
+          padding: 20px 10px;
         } 
-      }
+    
 
     }
   }
@@ -278,6 +293,7 @@
     .section{
       padding: 15px 20px;
       margin-top: 0px;
+      text-align: center;
        .p{
         align-items: center;
         text-align: center;
@@ -306,6 +322,7 @@
   @media screen and (max-width: 768px) {
     .lastsection{
     text-align: center;
+    padding: 20px 10px;
     }
   }
   @media screen and (min-width: 768px) and (max-width: 1024px)  {
@@ -350,6 +367,17 @@
     }
    
   }
+  @media screen and (max-width: 576px) {
+    .section p{
+     text-align: center;
+   }
+  }
+  @media screen and (max-width: 576px) {
+  .section h2 {
+    text-align: center !important;
+    line-height: 35px; /* Avoid if possible; use as a last resort */
+  }
+  }
   @media screen and (max-width: 768px) {
     .footer{
       .footerContact{
@@ -357,3 +385,25 @@
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    /* Target the h2 element inside .boxsection within .cookiessection */
+    .boxsection h2 {
+      text-align: center;
+    }
+  
+    /* Hide the vertical line element */
+    .verticalLine {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .footer p{
+      text-align: center;
+    }
+  }
+  
+  
+  
+ 
+
+  

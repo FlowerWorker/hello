@@ -1,10 +1,9 @@
+"use client"; // Add this at the top of the file to make it a Client Component
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
-import styles from '../styles/RichTextEditor.module.css'; // Optional: Add your custom styles
-
-// Dynamically import react-quill to prevent SSR issues in Next.js
+import styles from '@/app/styles/RichTextEditor.module.css'; // Optional: Add your custom styles
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
-
 const RichTextEditor = ({ value, onChange }) => {
   const modules = {
     toolbar: [

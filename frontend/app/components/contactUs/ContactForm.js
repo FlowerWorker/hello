@@ -1,5 +1,16 @@
-import { useState } from 'react';
-import styles from '../styles/contact.module.css';
+"use client"
+import React, { useState } from 'react';
+import styles from "@/app/styles/contact.module.css";
+import Link from "next/link";
+import Image from "next/image";
+import contactlogo from "@/app/public/contactlogo.png";
+import contactlogo1 from "@/app/public/contactlogo1.png";
+import contactinstagram from "@/app/public/contactinstagram.png";
+import contactlinkedin from "@/app/public/contactlinkedin.png";
+import contactfacebook from "@/app/public/contactfacebook.png";
+import contactxing from "@/app/public/contactxing.png";
+import mailfull from "@/app/public/Mailfull.png";
+import Locationfull from "@/app/public/Locationfull.png"
 import RichTextEditor from './RichTextEditor';
 
 const ContactPage = () => {
@@ -15,63 +26,46 @@ const ContactPage = () => {
     <div className={styles.contactSection}>
       <div className={styles.contactBox}>
         <div className={styles.contactContent}>
-          <h2>Contact Information</h2>
-          <img src="/contactlogo.png" className={styles.contactImage} alt="Contact Logo" />
-          <p>Get in touch with us. We're here to assist you</p>
-          <div className={styles.contactIcons}>
-            <a
-              href="https://www.facebook.com"
-              className={styles.iconLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src="/contactlogo1.png" className={styles.contacticonImage} alt="Facebook" />
-            </a>
-            <a
-              href="https://www.instagram.com"
-              className={styles.iconLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src="/contactinstagram.png" className={styles.contacticonImage} alt="Instagram" />
-            </a>
-            <a
-              href="https://www.linkedin.com"
-              className={styles.iconLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src="/contactlinkedin.png" className={styles.contacticonImage} alt="LinkedIn" />
-            </a>
-            <a
-              href="https://www.facebook.com"
-              className={styles.iconLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src="/contactfacebook.png" className={styles.contacticonImage} alt="Facebook" />
-            </a>
-            <a
-              href="https://www.xing.com"
-              className={styles.iconLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src="/contactxing.png" className={styles.contacticonImage} alt="Xing" />
-            </a>
-          </div>
-          <div className={styles.contactMail}>
-            <img src="/mailfull.png" alt="Mail Icon" className={styles.icon} />
-            <a href="mailto:example@example.com" className={styles.email}>
-              Info@flowerworker.com
-            </a>
-          </div>
-          <div className={styles.locationMail}>
-            <img src="/Locationfull.png" alt="Location Icon" className={styles.icon} />
-            <a href="#" className={styles.email}>
-              Gothenburg & Stockholm
-            </a>
-          </div>
+            <h2>Contact Information</h2>
+            <Link href="/">
+            <Image 
+              src = {contactlogo} 
+              alt="Contact Logo" 
+              className={styles.contactImage} 
+              priority
+            />
+          
+            </Link>
+            <p>Get in touch with us. We're here to assist you</p>
+              <div className={styles.contactIcons}>
+                <Link href="https://www.facebook.com" className={styles.iconLink}>
+                <Image src = {contactlogo1} className={styles.contacticonImage} alt="Facebook" priority />
+                </Link>
+                <Link href="https://www.instagram.com" className={styles.iconLink}>
+                <Image src = {contactinstagram} className={styles.contacticonImage} alt="Instagram" priority />
+                </Link>
+                <Link href="https://www.linkedin.com" className={styles.iconLink}>
+                <Image src = {contactlinkedin} className={styles.contacticonImage} alt="LinkedIn" priority />
+                </Link>
+                <Link href="https://www.facebook.com" className={styles.iconLink}>
+                <Image src = {contactfacebook} className={styles.contacticonImage} alt="Facebook" priority />
+                </Link>
+                <Link href="https://www.xing.com" className={styles.iconLink}>
+                <Image src = {contactxing} className={styles.contacticonImage} alt="Xing" priority />
+                </Link>
+              </div>
+              <div className={styles.contactMail}>
+                <Link href="mailto:example@example.com" className={styles.email}>
+                <Image src = {mailfull} alt="Mail Icon" className={styles.icon} priority />
+                </Link>
+                  Info@flowerworker.com
+              </div>
+              <div className={styles.locationMail}>
+                <Link href="/" className={styles.email}>
+                <Image src = {Locationfull} alt="Mail Icon" className={styles.icon} priority />
+                </Link>
+                  Gothenburg & Stockholm
+              </div>
         </div>
         <form className={styles.contactForm} onSubmit={handleSave}>
           <p>
@@ -81,25 +75,25 @@ const ContactPage = () => {
           <div className={styles.nameSection}>
             <div className={styles.nameContent}>
               <label htmlFor="name">Name</label>
-<input type="text" placeholder="Enter Your Name..." required id="name" />
-</div>
-<div className={styles.nameContent}>
-<label htmlFor="surname">Surname</label>
-<input type="text" placeholder="Enter Your Surname..." id="surname" />
-</div>
-</div>
-<label htmlFor="phone">Phone number (Optional)</label>
-<input type="text" placeholder="Enter Your Phone number..."  />
-<label htmlFor="email">Email</label>
-<input type="email" placeholder="Enter Your Email..." required />
-<label htmlFor="message">Write us a message</label>
-{/* Replace the <textarea> with the RichTextEditor */}
-<RichTextEditor value={message} onChange={setMessage} />
-<button type="submit">Save</button>
-</form>
-</div>
-</div>
-);
+              <input type="text" placeholder="Enter Your Name..." required id="name" />
+            </div>
+            <div className={styles.nameContent}>
+              <label htmlFor="surname">Surname</label>
+              <input type="text" placeholder="Enter Your Surname..." id="surname" />
+            </div>
+          </div>
+          <label htmlFor="phone">Phone number (Optional)</label>
+          <input type="text" placeholder="Enter Your Phone number..."  />
+          <label htmlFor="email">Email</label>
+          <input type="email" placeholder="Enter Your Email..." required />
+          <label htmlFor="message">Write us a message</label>
+          {/* Replace the <textarea> with the RichTextEditor */}
+          <RichTextEditor value={message} onChange={setMessage} />
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default ContactPage;

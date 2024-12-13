@@ -55,20 +55,22 @@
   }
   .contactSection {
     background: linear-gradient(120deg, #ffffff, #d4d2fa);
-    padding: 67px;
+    padding: 5px;
     border-radius: 12px;
-    margin: 20px auto;
+    margin: 35px auto;
     color: #000;
   }
   .contactBox{
     display: flex;
     flex-direction: row;
     gap: 100px;
+    padding: 60px;
   }
   .contactForm {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 55%;
   }
   .contactContent{
       /* display: flex;
@@ -81,7 +83,8 @@
       flex-direction: row;
       align-items: center;
       justify-content: left;
-      gap: 40px;
+      gap: 25px;
+      padding: 20px 0;
       .contacticonImage{
         height: 32px;
         width: 32px;
@@ -110,6 +113,7 @@
       flex-direction: row;
       align-items: center;
       gap: 15px;
+      padding: 10px 0 0;
       .email{
         font-family: Open Sans;
         font-size: 16px;
@@ -122,38 +126,38 @@
         color: #181615;
       }
     }
-    .h2{
-      font-family: Montserrat;
-      font-size: 32px;
-      font-weight: 700;
-      line-height: 42px;
-      text-align: center;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: #4A4744;
-
-    }
-    .p{
-      font-family: Open Sans;
-      font-size: 20px;
-      font-weight: 400;
-      line-height: 26px;
-      text-underline-position: from-font;
-      text-decoration-skip-ink: none;
-      color: #181615;
-
-    }
+   
   }
-  .contactForm{
-    .nameSection{
+  .contactContent h2{
+    font-family: Montserrat;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 42px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #4A4744;
+
+  }
+  .contactContent p{
+    font-family: Open Sans;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 26px;
+    margin: 10px 0;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #181615;
+
+  }
+  .contactForm .nameSection{
       display: flex;
       flex-direction: row;
       gap: 36px;
-      .input{
-        width: 100%;
-        padding: 10px 7px;
-      }
-    }
+  }
+  .contactForm .nameSection input{
+    width: 100%;
+    padding: 10px 7px;
   }
   .contactForm label{
     font-family: Open Sans;
@@ -301,4 +305,47 @@
       }
     }
   }
-}
+  }
+  @media screen and (min-width: 768px) and (max-width: 1024px)  {
+    .section p{
+      padding: 10px 20px;
+      text-align: center;
+    }
+  }
+  @media screen and (max-width: 768px){
+    .section p{
+      padding: 10px 20px;
+      text-align: center;
+    }
+  }
+  @media screen and (max-width: 768px){
+    .contactSection .contactContent{
+      /* padding: 10px 20px; */
+      text-align: center;
+    }
+    .contactSection .contactContent h2{
+      font-size: 24px;
+      text-align: center;
+    }
+    .contactContent .contactForm p{
+      text-align: center;
+    }
+    .contactBox .contactForm .nameSection{
+      flex-direction: column;
+      gap: 10px;
+    }
+    .contactBox .contactForm p{
+      text-align: center;
+    }
+    .contactContent .contactMail{
+      justify-content: center;
+    }
+    .contactContent .locationMail{
+      justify-content: center;
+    }
+  }
+  @media screen and (max-width: 768px){
+    .contactSection .contactBox .contactForm{
+      width: 100%;
+    }
+  }

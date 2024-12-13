@@ -1,6 +1,10 @@
 import TabNavigation from '../components/contactUs/TabNavigation';
 import styles from '../styles/PrivacyPolicy.module.css';
 import NewsletterAndFooter from '../components/contactUs/NewsletterAndFooter';
+import Link from "next/link";
+import Image from "next/image";
+import privacyMail from "@/app/public/privacyMail.png";
+import privacyLocation from  "@/app/public/privacylocation.png"
 export default function PrivacyPolicy() {
   return (
     <div className={styles.pageContainer}>
@@ -12,12 +16,13 @@ export default function PrivacyPolicy() {
         </div>
         <div className={styles.section}>
           <p>We at FlowerWorker values your privacy and are committed to protecting the personal information you share with us.
-          This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform, including project management, recruitment, and payment functionalities.</p>
+          This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform, including project management, recruitment, and payment functionalities.</p><br></br>
+
           <p>By accessing or using FlowerWorker, you agree to the practices described in this Privacy Policy.</p>
         </div>
         <div className={styles.section}>
           <h2>Information We Collect</h2>
-          <p>We collect various types of information, such as...</p>
+          <p>We may collect the following types of personal information:</p><br></br>
           <ul>
             <li>Personal Identification Information: Name, Email address, Contact details (phone number, address, etc.).</li>
             <li>Employment and Recruitment Information: Resumes/CVs, Work experience and professional background, Skills, certifications, and references.</li>
@@ -27,14 +32,26 @@ export default function PrivacyPolicy() {
           </ul>
         </div>
         <div className={styles.section}>
+          <h2>How We Use Your Information</h2>
+          <p>We use the information we collect to:</p><br></br>
+          <ul>
+           <li>Provide, operate, and maintain our platform.</li>
+           <li>Facilitate recruitment, project management, and payment processing.</li>
+           <li>Communicate with you, including responding to inquiries or sending notifications.</li>
+           <li>Enhance user experience through personalized content and recommendations.</li>
+           <li>Improve the platform and conduct analytics.</li>
+           <li>Enforce our terms and conditions and comply with legal obligations.</li>
+          </ul>
+        </div>
+        <div className={styles.section}>
           <h2>Sharing Your Information</h2>
-          <p>We may share your personal information in the following circumstances:</p>
+          <p>We may share your personal information in the following circumstances:</p><br></br>
           <ul>
             <li>With Employers and Recruiters: To facilitate recruitment and job matching.</li>
             <li>Service Providers: To support payment processing, email delivery, analytics, and other operational services.</li>
             <li>Legal Compliance: If required by law, regulation, or legal process.</li>
             <li>Business Transfers: In the event of a merger, sale, or acquisition.</li>
-          </ul>
+          </ul><br></br>
           <p> We will never sell your information to third parties for marketing purposes.</p>
         </div>
         <div className={styles.section}>
@@ -43,14 +60,14 @@ export default function PrivacyPolicy() {
         </div>
         <div className={styles.section}>
           <h2>Your Rights</h2>
-          <p>Depending on your location, you may have the following rights regarding your personal information:</p>
+          <p>Depending on your location, you may have the following rights regarding your personal information:</p><br></br>
           <ul>
             <li>Access and request copies of your data.  </li>
             <li>Correct or update inaccurate information.  </li>
             <li>Request deletion of your personal information.  </li>
             <li>Restrict or object to processing.  </li>
             <li>Withdraw consent where processing is based on consent.  </li>
-          </ul>
+          </ul><br></br>
           <p>To exercise these rights, contact us at{' '}
           <span style={{ color: '#BD71D4' }}>
            info@flowerworker.com
@@ -89,17 +106,30 @@ export default function PrivacyPolicy() {
         <footer className={styles.footer}>
           <p>Contact us {' '}</p>
           <div className={styles.footerContact}>
-          <img src="/privacymail.png" alt="Mail Icon" className={styles.privacymailicon} />
-          <a href="mailto:example@example.com" className={styles.privacymail}>
-              Info@flowerworker.com
-          </a>
-            {/* <span style={{ color: '#BD71D4' }}>
-            info@flowerworker.com
-            </span>  */}
-          <img src="/privacylocation.png" alt="Mail Icon" className={styles.privacylocationicon} />
+          <Link href="mailto:example@example.com" className={styles.privacymail}>
+          <Image 
+            src = {privacyMail} 
+            alt="Mail Icon" 
+            className={styles.privacymailicon} 
+            priority
+          />
+          Info@flowerworker.com
+         
+          </Link>
+          <Link href="mailto:example@example.com" className={styles.privacylocation}>
+          <Image 
+            src = {privacyLocation} 
+            alt="location Icon" 
+            className={styles.privacylocationicon} 
+            priority
+          />
+          Gothenburg & Stockholm
+         
+          </Link>
+          {/* <img src="../../public/privacylocation.png" alt="Mail Icon" className={styles.privacylocationicon} />
           <a href="mailto:example@example.com" className={styles.privacylocation}>
           Gothenburg & Stockholm
-          </a>
+          </a> */}
           </div>
             {/* <span style={{ color: '#ffff', fontsize: 16,fontweight: 400,lineheight: 21.79}}>
             Gothenburg & Stockholm
