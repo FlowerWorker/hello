@@ -3,7 +3,7 @@ import styles from '../styles/PrivacyPolicy.module.css';
 import NewsletterAndFooter from '../components/contactUs/NewsletterAndFooter';
 import Link from "next/link";
 import Image from "next/image";
-import privacyMail from "@/app/public/privacyMail.png";
+import privacyMail from "@/app/public/privacymail.png";
 import privacyLocation from  "@/app/public/privacylocation.png"
 export default function PrivacyPolicy() {
   return (
