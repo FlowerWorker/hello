@@ -66,3 +66,23 @@
     @apply bg-background text-foreground;
   }
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .border-border {
+    border-color: #d1d5db; /* Example: Gray border */
+  }
+}
+@layer utilities {
+  .bg-background {
+    background-color: #f3f4f6; /* Example: Light gray background */
+  }
+}
+
+@layer utilities {
+  .text-foreground {
+    color: #333333; /* Example: Dark gray text */
+  }
+}
