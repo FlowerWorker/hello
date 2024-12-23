@@ -16,7 +16,8 @@ pub struct CreateTaskRequest {
     description: String,
     reward: i64,
     project_id: i32,
-    title:String
+    title:String,
+    assigned_user_ids: Option<Vec<i32>>,
 }
 
 pub fn task_routes(cfg: &mut web::ServiceConfig) {
@@ -26,7 +27,8 @@ pub fn task_routes(cfg: &mut web::ServiceConfig) {
             .service(get_tasks)
             .service(get_task_by_id)
             .service(get_tasks)
-            .service(create_task),
+            .service(create_task)
+            .service(update_task),
     );
 }
 
@@ -39,18 +41,84 @@ pub async fn create_task(
     let create_task = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
         // Use the service method to get user ID
         let user_id = get_user_id_by_email(&user_sub.0, conn).map_err(DatabaseError::from)?;
-        
-        task_service::create_task(
-            conn, 
-            &task.description, 
-            task.reward, 
+
+        // create tasks
+        let task = task_service::create_task(
+            conn,
+            &task.description,
+            task.reward,
             task.project_id,
             user_id,
-            &task.title
+            &task.title,
+        ).map_err(DatabaseError::from)?;
+        
+        // if assigned_user_ids exists，assign tasks to corresponding users
+        if let Some(user_ids) = &task.assigned_user_ids {
+            for &assigned_user_id in user_ids {
+                task_service::assign_task_to_user(conn, task.id, assigned_user_id)
+                    .map_err(DatabaseError::from)?;
+            }
+        }
+        Ok::<_, DatabaseError>(task)
+    })?;
+    Ok::<HttpResponse, ApiError>(HttpResponse::Created().json(created_task))
+}
+
+pub fn assign_task_to_user(
+    conn: &mut PgConnection,
+    task_id: i32,
+    user_id: i32,
+) -> Result<(), Error> {
+    use crate::schema::task_assignments::dsl::*;
+    diesel::insert_into(task_assignments)
+        .values((task_id.eq(task_id), user_id.eq(user_id)))
+        .execute(conn)?;
+    Ok(())
+}
+
+pub fn update_task(
+    conn: &mut PgConnection,
+    task_id: i32,
+    progress: Option<String>,
+    title: Option<String>,
+) -> Result<Task, Error> {
+    use crate::schema::tasks::dsl::*;
+    diesel::update(tasks.filter(id.eq(task_id)))
+        .set((
+            progress.eq(progress),
+            title.eq(title),
+        ))
+        .get_result(conn)
+}
+
+
+#[put("/{task_id}")]
+pub async fn update_task(
+    pool: web::Data<DbPool>,
+    task_id: web::Path<i32>,
+    update: web::Json<UpdateTaskRequest>,
+    user_sub: UserSub,
+) -> Result<impl Responder, impl ResponseError> {
+    let updated_task = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
+        let user_id = get_user_id_by_email(&user_sub.0, conn).map_err(DatabaseError::from)?;
+
+        task_service::update_task(
+            conn,
+            task_id.into_inner(),
+            update.progress.clone(),
+            update.title.clone(),
         ).map_err(DatabaseError::from)
     })?;
-    Ok::<HttpResponse, ApiError>(HttpResponse::Created().json(create_task))
+    Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(updated_task))
 }
+
+
+#[derive(Serialize, Deserialize)]
+pub struct UpdateTaskRequest {
+    progress: Option<String>,
+    title: Option<String>,
+}
+
 
 #[get("")]
 pub async fn get_tasks(
@@ -221,4 +289,33 @@ mod tests {
 
         assert_eq!(resp.status(), StatusCode::CREATED);
     }
+
+    #[actix_rt::test]
+    async fn test_update_task() {
+        let db = TestDb::new();
+        let pool = db::establish_connection(&db.url());
+    
+        let task_id = 1; // assume task exists
+        let update_data = UpdateTaskRequest {
+            progress: Some("InProgress".to_string()),
+            title: Some("Updated Title".to_string()),
+        };
+    
+        let app = test::init_service(
+            App::new()
+                .app_data(web::Data::new(pool.clone()))
+                .configure(task_routes),
+        )
+        .await;
+    
+        let req = test::TestRequest::put()
+            .uri(&format!("/tasks/{}", task_id))
+            .set_json(&update_data)
+            .to_request();
+    
+        let resp = test::call_service(&app, req).await;
+        assert_eq!(resp.status(), StatusCode::OK);
+    }
+    
+
 }
