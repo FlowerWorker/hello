@@ -1,12 +1,13 @@
 use crate::{
     auth::auth_middleware,
     database::db::DbPool,
-    handlers::error::ApiError,
-    models::{job::NewJob, user::UserSub},
-    run_async_query,
-    services::{job_service, user_service::get_user_id_by_email},
+    handlers::{error::ApiError, search_handler::search_docs},
+    models::{job::NewJob, user::UserSub}, run_async_query, run_async_typesense_query,
+    search::state::SearchState,
+    services::{job_service, search_service::{insert_single_doc, update_single_doc}, user_service::get_user_id_by_email}
+
 };
-use actix_web::{get, post, web, HttpResponse, Responder, ResponseError};
+use actix_web::{get, post, put, web, HttpResponse, Responder, ResponseError};
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -40,43 +41,6 @@ pub struct CreateJobRequest {
     pub candidate_recommendations: bool,
     pub job_screening_questions: Option<Vec<String>>,
 }
-/*impl From<(&i32, CreateJobRequest)> for NewJob {
-    fn from(value: (&i32, CreateJobRequest)) -> Self {
-        let request = &value.1;
-        let user_id = value.0;
-        NewJob {
-            user_id,
-            job_title: &request.job_title,
-            company_name: &request.company_name,
-            company_logo: request.company_logo.as_deref(),
-            company_location: &request.company_location,
-            company_ranking: &request.company_ranking,
-            employment_type: &request.employment_type,
-            time_schedule: &request.time_schedule,
-            workplace_type: &request.workplace_type,
-            department: &request.department,
-            job_description: &request.job_description,
-            responsibilities: &request.responsibilities,
-            qualifications: &request.qualifications,
-            required_skills: &request.required_skills,
-            preferred_skills: &request.preferred_skills,
-            experience_level: &request.experience_level,
-            min_salary: &request.min_salary,
-            max_salary: &request.max_salary,
-            comp_structure: &request.comp_structure,
-            currency: &request.currency,
-            benefits_and_perks: &request.benefits_and_perks,
-            work_hours_flexible: request.work_hours_flexible,
-            apply_through_platform: request.apply_through_platform,
-            external_url: request.external_url.as_deref(),
-            email: request.email.as_deref(),
-            audience_type: &request.audience_type,
-            target_candidates: &request.target_candidates,
-            candidate_recommendations: request.candidate_recommendations,
-            jobs_screening_questions: request.job_screening_questions.as_deref(),
-        }
-    }
-}*/
 // helper method to borrow 'job' parameters from the incoming request into a NewJob struct
 impl CreateJobRequest {
     fn copy_request<'a>(&'a self, logged_user_id: &'a i32) -> NewJob<'a> {
@@ -120,6 +84,7 @@ pub async fn create_job(
     user_sub: UserSub,
     pool: web::Data<DbPool>,
     job_req: web::Json<CreateJobRequest>,
+    search_state: web::Data<SearchState>,
 ) -> Result<impl Responder, impl ResponseError> {
     // let user = web::block(move || {
     //             let mut conn = pool.clone().get().expect("Failed to get DB connection.");
@@ -129,12 +94,24 @@ pub async fn create_job(
     //         })
     //         .await
     //         .map_err(actix_web::error::ErrorInternalServerError).expect("internal server error");
-    let user = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
+    let job = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
         let user_id = get_user_id_by_email(&user_sub.0, conn).expect("Failed to get user id");
         let new_job: NewJob = job_req.copy_request(&user_id);
         job_service::create_job(conn, &new_job).map_err(DatabaseError::from)
     })?;
-    Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(user))
+
+    let url = format!("{}/collections/jobs/documents", search_state.typesense_url);
+    let typesense_job = serde_json::json!(job);
+    
+    run_async_typesense_query!(
+        search_state, |state: &SearchState, url: String, body: serde_json::Value| insert_single_doc(
+            &state,
+            url,
+            body.clone()
+        ).map_err(ReqError::from), url, typesense_job
+    )?;
+    
+    Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(job))
 }
 
 #[get("")]
@@ -158,12 +135,43 @@ pub async fn get_my_jobs(
     Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(user))
 }
 
+#[put("/{job_id}")]
+pub async fn update_job(
+    job_id: web::Path<i32>,
+    user_sub: UserSub,
+    pool: web::Data<DbPool>,
+    job_req: web::Json<CreateJobRequest>,
+    search_state: web::Data<SearchState>,
+) -> Result<impl Responder, impl ResponseError> {
+    let job_id_i32 = job_id.into_inner();
+    let user = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
+        let user_id = get_user_id_by_email(&user_sub.0, conn).expect("Failed to get user id");
+        let new_job: NewJob = job_req.copy_request(&user_id);
+        job_service::update_job(conn, &job_id_i32, &new_job).map_err(DatabaseError::from)
+    })?;
+
+    let url = format!("{}/collections/jobs/documents/{}", search_state.typesense_url, job_id_i32);
+    let typesense_job = serde_json::json!(user);
+    
+    run_async_typesense_query!(
+        search_state, |state: &SearchState, url: String, body: serde_json::Value| update_single_doc(
+            &state,
+            url,
+            body.clone()
+        ).map_err(ReqError::from), url, typesense_job
+    )?;
+    
+    Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(user))
+}
+
 pub fn job_routes_auth(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/jobs")
             .wrap(auth_middleware::Auth)
             .service(get_jobs)
             .service(create_job)
-            .service(get_my_jobs),
+            .service(get_my_jobs)
+            .service(update_job)
+            .service(search_docs),
     );
 }

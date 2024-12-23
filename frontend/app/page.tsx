@@ -1,44 +1,70 @@
 import Image from "next/image";
-import { Footer, Hero, Navbar, Welcome } from "./components";
-import sample from "./public/sample1.jpg"; 
-import bgImage from "./public/landing-page.jpg";
+import { Footer, Hero, Navbar, HeroOverlay, Welcome } from "./components";
+import heroimage from "./public/temp_herotextandimage.png";
+import logo from "./public/LOGO.png"
+import mobileBackground from "./public/landingpagehero.jpg";
 
 export default function Home() {
   return (
-    <div
-      className="min-h-screen w-full flex flex-col justify-center bg-no-repeat bg-cover"
-      style={{ backgroundImage: `url(${bgImage.src})` }}
-    >
-      {/* Main Content Area */}
-      <div className="flex flex-col lg:gap-4 lg:px-14 lg:py-5 md:gap-4 md:px-14 md:py-5 w-full">
-        {/* Header Section */}
-        <header>
-          <Navbar />
-        </header>
+    <div className="w-full">
+      {/* Header Section */}
+      <header className="relative">
+        <Navbar className="" />
+      </header>
 
-        {/* Main Section */}
-        <main className="flex flex-col px-6 py-4 gap-10 lg:rounded-3xl lg:px-10 lg:gap-8 bg-white ">
-          <div className="hidden md:block w-full">
-            <Image
-              src={sample}
-              alt="sample-image"
-              className="w-full rounded-3xl object-cover"
-            />
-          </div>
-          <Welcome />
-          <Hero />
-        </main>
+      {/* Hero Image Container */}
+      <div className="relative w-full max-h-screen">
+        {/* Large and Medium Screen Content */}
+        <div className="hidden md:block">
+          <Image
+            src={heroimage}
+            alt="sample-image"
+            className="w-full h-auto object-cover"
+          />
+        </div>
 
-        {/* Footer Section */}
-        <footer>
-          <div className="hidden lg:inline-block md:inline-block items-center justify-center w-full">
-            <Footer />
+        {/* Mobile Screen Content */}
+        <div
+          className="block md:hidden bg-cover bg-center relative w-full h-auto flex flex-col items-center justify-start px-4 py-8 space-y-6"
+          style={{
+            backgroundImage: `url('${mobileBackground.src}')`, // Background Image
+          }}
+        >
+          <div className="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+          {/* Logo */}
+          <Image
+            src={logo}
+            alt="logo"
+            width={200}
+            height={200}
+            className="w-auto z-10"
+          />
+          {/* First Text */}
+          <p className="text-purplev1 text-center  font-bold z-10">
+            Hire workforce effortlessly and streamline workflows
+          </p>
+
+          {/* Additional Text */}
+          <div className="text-white text-center z-10">
+            <p className="font-semibold text-lg">All in One Innovative Platform</p>
+            <p className="text-sm mt-2">
+              <span className="font-bold text-purplev1">FlowerWork </span>
+              allows you to define workflows, connect with skilled talents, collaborate seamlessly, assign tasks efficiently, and track progress securely.
+            </p>
           </div>
-          <div className="lg:hidden md:hidden inline-block w-full">
-            <Footer />
-          </div>
-        </footer>
+        </div>
       </div>
+
+      {/* Main Content */}
+      <main className="bg-neutral-400">
+        <Welcome />
+        <Hero />
+      </main>
+
+      {/* Footer */}
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }

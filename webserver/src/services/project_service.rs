@@ -34,6 +34,10 @@ pub fn get_projects(conn: &mut PgConnection, user: &i32) -> Result<Vec<Project>,
     return projects;
 }
 
+pub fn get_all_projects(conn: &mut PgConnection) -> Result<Vec<Project>, Error> {
+    projects::table.load::<Project>(conn)
+}
+
 fn get_project_with_tasks(
     conn: &mut PgConnection,
     project_id: &i32,
@@ -150,8 +154,8 @@ mod tests {
         assert_eq!(project_new.id, project_id);
         assert_eq!(tasks_new.len(), 0);
 
-        let task_1 = create_task(&mut conn, "test task 1", 100, project_id);
-        let task_2 = create_task(&mut conn, "test task 2", 200, project_id);
+        let task_1 = create_task(&mut conn, "test task 1", 100, project_id,user_id,title);
+        let task_2 = create_task(&mut conn, "test task 2", 200, project_id,user_id,title);
 
         let (project, tasks) =
             get_project_with_tasks(&mut conn, &project_id).expect("Failed to get project");

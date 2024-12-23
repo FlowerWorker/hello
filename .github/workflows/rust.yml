@@ -42,9 +42,14 @@ jobs:
             ${{ runner.os }}-cargo-target-
 
       - name: Setup Database
+        env:
+          TYPESENSE_API_KEY: ${{ secrets.TYPESENSE_API_KEY }}
         run: cd webserver && docker compose up -d
 
       - name: Run Tests
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          TYPESENSE_API_KEY: ${{ secrets.TYPESENSE_API_KEY }}
+          TYPESENSE_URL: ${{ secrets.TYPESENSE_URL }}
         run: cd webserver && cargo test --verbose

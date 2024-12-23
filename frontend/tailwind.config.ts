@@ -9,9 +9,13 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		fontFamily: {
+			'montserrat': ['Montserrat', 'sans-serif'],
+			'open-sans': ['Open Sans', 'sans-serif'],  
+		  },
   		backgroundImage: {
   			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-  			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+  			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -19,7 +23,7 @@ const config: Config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
 		boxShadow: {
-			custom: '-5px 5px 10px rgba(0, 0, 0, 0.1)',
+			'bottom-only': '0px 5px 10px rgba(0, 0, 0, 0.25)'
 		},
   		colors: {
   			background: 'hsl(var(--background))',
@@ -64,6 +68,24 @@ const config: Config = {
   			},
 			gold:'var(--gold)',
 			darkblue: 'var(--darkblue)',
+			turquoiseLight: 'var(--turquoiseLight)',
+			turquoiseMed: 'var(--turquoiseMed)',
+			turquoiseDark: 'var(--turquoiseDark)',
+			turqoisgradient: 'var(--turqoisgradient)',
+			navbardark: 'var(--navbardark)',
+			navbarlight: 'var(--navbarlight)',
+			bgdarkv1: 'var(--bgdarkv1)',
+			bgdarkv2: 'var(--bgdarkv2)',
+			bgdarkv3: 'var(--bgdarkv3)',
+			bgdarkv4: 'var(--bgdarkv4)',
+			bgdarkv5: 'var(--bgdarkv5)',
+			bgdarkv6: 'var(--bgdarkv6)',
+			bgdarkv7: 'var(--bgdarkv7)',
+			bgdarkv8: 'var(--bgdarkv8)',
+			purplev1: 'var(--purplev1)',
+			purplev2: 'var(--purplev2)',
+			greyv1: 'var(--greyv1)',
+			cardhover: 'var(--cardhover)',
   		}
   	}
   },

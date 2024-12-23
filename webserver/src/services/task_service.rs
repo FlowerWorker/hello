@@ -1,20 +1,26 @@
 use diesel::prelude::*;
 use diesel::result::Error;
 
-use crate::models::task::{NewTask, Task};
-use crate::schema::tasks;
+use crate::models::task::{NewTask, Progress, Task,};
+use crate::schema::tasks::{self};
+
 
 pub fn create_task(
     conn: &mut PgConnection,
     description: &str,
     reward: i64,
     project_id: i32,
+    user_id: i32,
+    title: &str
 ) -> Result<Task, Error> {
     let new_task = NewTask {
         description,
         reward,
         completed: false,
         project_id,
+        user_id: Some(user_id),
+        title,
+        progress:Progress::ToDo
     };
     let some = diesel::insert_into(tasks::table)
         .values(&new_task)
@@ -60,6 +66,7 @@ mod tests {
 
         let description = "test task";
         let reward = 100;
+        let title : &str= "Test Title";
 
         let user_id = register_user(
             &mut db.conn(),
@@ -70,7 +77,7 @@ mod tests {
         .expect("Failed to register user")
         .id;
 
-        let result = create_task(&mut db.conn(), description, reward, 1);
+        let result = create_task(&mut db.conn(), description, reward, 1,user_id,title);
 
         assert!(
             result.is_err(),
@@ -86,6 +93,7 @@ mod tests {
 
         let description = "test task";
         let reward = 100;
+        let title = "Title test";
 
         let user_id = register_user(
             &mut db.conn(),
@@ -100,7 +108,7 @@ mod tests {
             .expect("Failed to create project")
             .id;
 
-        let result = create_task(&mut db.conn(), description, reward, project_id);
+        let result = create_task(&mut db.conn(), description, reward, project_id,user_id,title);
         assert!(
             result.is_ok(),
             "Task creation failed when it should have succeeded"
@@ -117,6 +125,7 @@ mod tests {
 
         let description = "test task";
         let reward = 100;
+        let title = "title test";
 
         let user_id = register_user(
             &mut db.conn(),
@@ -131,7 +140,7 @@ mod tests {
             .expect("Failed to create project")
             .id;
 
-        let result = create_task(&mut db.conn(), description, reward, project_id);
+        let result = create_task(&mut db.conn(), description, reward, project_id,user_id,title);
         assert!(
             result.is_ok(),
             "Task creation failed when it should have succeeded"

@@ -1,4 +1,4 @@
-name: Start staging preview app
+name: Start production preview app
 
 on:
   push:
@@ -26,4 +26,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: cd webserver && flyctl deploy --app webserver-flowerwork-develop --remote-only --config fly-prod.toml
+      - run: cd webserver && flyctl deploy --app webserver-flowerwork-prod --remote-only --config fly-prod.toml

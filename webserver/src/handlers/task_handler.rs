@@ -16,6 +16,7 @@ pub struct CreateTaskRequest {
     description: String,
     reward: i64,
     project_id: i32,
+    title:String
 }
 
 pub fn task_routes(cfg: &mut web::ServiceConfig) {
@@ -33,10 +34,20 @@ pub fn task_routes(cfg: &mut web::ServiceConfig) {
 pub async fn create_task(
     pool: web::Data<DbPool>,
     task: web::Json<CreateTaskRequest>,
+    user_sub:UserSub
 ) -> Result<impl Responder, impl ResponseError> {
-    let create_task = run_async_query!(pool, |conn| {
-        task_service::create_task(conn, &task.description, task.reward, task.project_id)
-            .map_err(DatabaseError::from)
+    let create_task = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
+        // Use the service method to get user ID
+        let user_id = get_user_id_by_email(&user_sub.0, conn).map_err(DatabaseError::from)?;
+        
+        task_service::create_task(
+            conn, 
+            &task.description, 
+            task.reward, 
+            task.project_id,
+            user_id,
+            &task.title
+        ).map_err(DatabaseError::from)
     })?;
     Ok::<HttpResponse, ApiError>(HttpResponse::Created().json(create_task))
 }
@@ -97,6 +108,7 @@ mod tests {
 
         let description = "test task";
         let reward = 100;
+        let title = "Task title";
 
         let user = register_user(
             &mut db.conn(),
@@ -132,6 +144,7 @@ mod tests {
                 description: description.to_string(),
                 reward,
                 project_id: 1,
+                title: title.to_string(),
             })
             .to_request();
 
@@ -156,6 +169,7 @@ mod tests {
 
         let description = "test task";
         let reward = 100;
+        let title = "Task title";
 
         let user = register_user(
             &mut db.conn(),
@@ -199,6 +213,7 @@ mod tests {
                 description: description.to_string(),
                 reward,
                 project_id: project.id,
+                title: title.to_string()
             })
             .to_request();
 

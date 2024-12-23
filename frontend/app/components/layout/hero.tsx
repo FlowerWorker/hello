@@ -1,139 +1,138 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import sample from "../../public/sample1.jpg";
-import { CardSection } from ".";
+"use client";
 
-const hero = () => {
+import React, { useState } from "react";
+import { CardSection, InfoSection, SectionComponent3, SectionComponent4, SectionComponent5 } from ".";
+import SectionComponent from './SectionComponent';
+import iconsample from "../../public/management_logo.png";
+import iconsample2 from "../../public/search.png";
+import placeholderImageSample from '../../public/section1demo_image.png';
+import placeholderImageSample2 from '../../public/section2demo_image.png';
+
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+
+export const CARDSELECTION_TITLE = "Join Us with the Free Plan"
+
+const subSections1 = [
+  {
+    title: "Manage Every Project Seamlessly",
+    description:
+      "We keep your tasks and subtasks structured, set clear timelines, and assign responsibilities. Our visualized progress help you to track progress effortlessly from planning to completion. Customize your milestones or follow our default three-stage progress tracker.",
+  },
+  {
+    title: "Collaborate Effortlessly with Your Team",
+    description:
+      "Work smarter, not harder. Use our intuitive dashboard to collaborate in real time with specific teams, track updates, and ensure smooth communication for every project milestone.",
+  },
+  {
+    title: "End-to-End Project Control",
+    description:
+      "From setting goals to final delivery, we provide everything you need to manage projects efficiently. Simplify your process with one click.",
+  },
+];
+
+const subSections2 = [
+  {
+    title: "Instant Access to Top Talent",
+    description: "Your job listings can be posted directly on FlowerWork or LinkedIn. This give you access to our global pool of qualified professionals. You can reach the right candidates quickly with our diverse and extensive talent network.",
+  },
+  {
+    title: "Streamlined Hiring Made Simple",
+    description: "You deserve a faster, more efficient way to find the right talent.With FlowerWork, optimize job postings, track candidates, and customize ads to attract the best. Simplify your hiring process with our intuitive dashboard, keeping everything organized and chaos-free.",
+  },
+  {
+    title: "Tailored Solutions for Your Growth",
+    description: "We provide professionally designed job ads tailored to meet both your immediate needs and long-term growth. Effortlessly customized postings match you with top-tier talent exactly suited to your goals.",
+  },
+];
+
+const Hero = () => {
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    if (target.scrollLeft > 0 || target.scrollTop > 0) {
+      setHasScrolled(true);
+    }
+  };
+
   return (
-    <div className="flex flex-col lg:py-6 lg:gap-10 ">
-      {/* // Section 1 */}
-      <div className="flex lg:flex-row gap-x-8">
-        <div className="flex flex-col w-full gap-4 px-2 lg:px-0 ">
-          <h1 className="text-4xl">
-            What does{" "}
-            <strong className="bg-gradient-to-r from-darkblue to-gold bg-clip-text text-transparent font-body font-bold">
-              FlowerWork
-            </strong>{" "}
-            do?
-          </h1>
-          <div className="text-xl">
-            <ul className="list-disc pl-5">
-              <li className="italic font-semibold mt-4">
-                Create and manage projects
-                <ul className="ml-6 list-disc">
-                  <li className="italic font-semibold mt-4">
-                    Find the perfect consultant for your work
-                    <ul className="ml-6 list-disc">
-                      <li className="italic font-semibold mt-4">
-                        Ensures deliverables are high quality by using advanced blockchain technology
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <span className="text-xl mb-4">
-            Read more about our services on our{" "}
-            <Link href="/">
-              <strong className="italic underline">services page</strong>
-            </Link>{" "}
-          </span>
+    <div className="flex flex-col items-center lg:gap-0">
+      {/* Section 1 */}
+      <div className="w-full h-full bg-bgdarkv8 flex justify-center items-center">
+        <div className="max-w-[1440px] w-full px-4 sm:px-8">
+          <InfoSection />
         </div>
-        <Image
-          src={sample}
-          alt="sample-image"
-          className="hidden lg:block lg:w-1/3 md:w-1/2 object-cover h-auto rounded-3xl"
-        />
       </div>
-      {/* // Section 2 */}
-      <CardSection />
 
-      {/* // Section 3 */}
-      <div className="flex flex-col lg:flex-row gap-5 py-3 lg:py-4">
-        <Image
-          src={sample}
-          alt="sample-image"
-          className="lg:w-1/3 md:w-full object-cover h-auto rounded-3xl"
-        />
-        <div className="flex flex-col justify-center gap-4 lg:w-full text-right">
-          <span className="text-3xl font-bold font-body">
-            <strong className="bg-gradient-to-r from-darkblue to-gold bg-clip-text text-transparent font-bold">
-              FlowerWork
-            </strong>{" "}
-            cutting edge <br className="hidden lg:block" />
-            technologies
-          </span>
-          <p className="text-xl">
-            Explore how Flowerwork uses AI and blockchain technology to innovate
-            tomorrow’s way of managing projects
-          </p>
+      {/* Section 2 */}
+      <div
+        className="w-full h-full flex items-center justify-center py-16 sm:py-24"
+        style={{ background: "linear-gradient(to top, #80f1e9, #4e7573, #282624 85%)" }}
+      >
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 flex flex-col items-center relative">
+          {/* Section Title */}
+          <h1 className="font-semibold text-[40px] leading-[48px] text-white text-center mb-8">
+            {CARDSELECTION_TITLE}
+          </h1>
+
+          {/* Scroll Instruction */}
+          <div
+            className={`text-center text-white text-sm mb-2 ${!hasScrolled ? "animate-pulse" : ""
+              } block sm:hidden`}
+          >
+            Swipe or scroll to view more →
+          </div>
+
+          {/* Card Container */}
+          <div className="flex flex-col w-full">
+            <ScrollArea
+              className="w-full"
+              onScrollCapture={handleScroll}
+            >
+              <CardSection />
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+          </div>
         </div>
       </div>
+
+      {/* Section 3 */}
+      {/*<SectionComponent3 />*/}
 
       {/* Section 4 */}
-      <div className="flex flex-col py-2 gap-4 lg:flex-row lg:gap-4">
-        <div className="flex flex-col gap-y-2 items-center lg:order-2 lg:gap-y-2 sm:w-full lg:w-8/12">
-          <Image
-            src={sample}
-            alt="sample-image"
-            className=" rounded-3xl w-full h-auto"
-          />
-          <div className="flex flex-row gap-2">
-            <Image
-              src={sample}
-              alt="sample-image"
-              className="w-1/2 h-auto rounded-3xl"
-            />
-            <Image
-              src={sample}
-              alt="sample-image"
-              className="w-1/2 h-auto rounded-3xl"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col lg:order-1 gap-4 w-full justify-center font-body ">
-          <span className="text-3xl ">
-            <span className="bg-gradient-to-r from-darkblue to-gold bg-clip-text text-transparent font-bold">
-              FlowerWork
-            </span>{" "}
-            is at the top in the field,{" "}
-            <strong className="italic font-bold">believe our users!</strong>{" "}
-          </span>
-          <p className="italic text-xl">
-            How have our users liked our product?Find out from these inspiring
-            testimonials
-          </p>
-        </div>
-      </div>
+      {/*<SectionComponent4 />*/}
 
       {/* Section 5 */}
-      <div className="flex flex-col py-2 gap-4 lg:flex-row lg:py-4 lg:gap-4 ">
-        <div className="flex gap-2 lg:gap-4 lg:w-full">
-          <Image
-            src={sample}
-            alt="sample-image"
-            className=" rounded-3xl w-1/2 "
-          />
-          <Image
-            src={sample}
-            alt="sample-image"
-            className=" rounded-3xl w-1/2"
-          />
-        </div>
-        <div className="flex flex-col gap-4 text-right w-full">
-          <h1 className="text-4xl text-black">
-            The squad making it all possible{" "}
-            <span className="bg-gradient-to-r from-darkblue to-gold bg-clip-text text-transparent font-bold">
-              FlowerWork
-            </span>
-          </h1>
-          <p className="italic">Meet the team making the dream work</p>
-        </div>
+      {/*<SectionComponent5 />*/}
+
+      {/* Section Components */}
+      <div className="w-full">
+        <SectionComponent
+          icon={iconsample}
+          sectionTitle="Boost Your Team’s Productivity"
+          sectionSubtitle="Simplify Project Management, Empower Collaboration, Achieve More"
+          sectionDescription="With FlowerWork’s flexible and intuitive platform, you can effortlessly assign tasks, set timelines, and track milestones all in your collaborative workspace."
+          subSections={subSections1}
+          buttonText="Start boosting my team today"
+          backgroundClassName="bg-bgdarkv7"
+          placeholderImage={placeholderImageSample}
+          idstring="section1"
+        />
+
+        <SectionComponent
+          icon={iconsample2}
+          sectionTitle="Recruitment made easy "
+          sectionSubtitle="Post the Perfect Job Ad and Attract Top Talent"
+          sectionDescription="We want you to focus on what's important: growing your company."
+          subSections={subSections2}
+          buttonText="Elevate Your Team"
+          backgroundClassName="bg-bgdarkv8"
+          placeholderImage={placeholderImageSample2}
+          idstring="section2"
+        />
       </div>
     </div>
   );
 };
 
-export default hero;
+export default Hero;

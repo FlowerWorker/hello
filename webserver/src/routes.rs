@@ -1,6 +1,7 @@
 use actix_web::web;
 
 use job_handler::job_routes_auth;
+use linkedin_handler::linkedin_routes;
 use task_handler::task_routes;
 use user_handler::user_routes;
 
@@ -24,6 +25,7 @@ pub fn init(cfg: &mut web::ServiceConfig) {
             .configure(chat_route_auth)
             .configure(job_routes_auth)
             .configure(health_routes)
+            .configure(linkedin_routes)
             .route("/count", web::get().to(get_count)),
     );
     cfg.service(

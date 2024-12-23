@@ -5,6 +5,5 @@ const FacebookIcon = () => {
       </svg>
     );
   };
-  
+
   export default FacebookIcon;
-  

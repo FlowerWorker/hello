@@ -6,9 +6,13 @@ use crate::database::db::DbPool;
 use crate::database::error::DatabaseError;
 use crate::handlers::error::ApiError;
 use crate::models::user::UserSub;
-use crate::run_async_query;
+use crate::search::state::SearchState;
+use crate::services::search_service::insert_single_doc;
+use crate::{run_async_query, run_async_typesense_query};
 use crate::services::project_service;
 use crate::services::user_service::get_user_id_by_email;
+
+use super::search_handler::search_docs;
 
 #[derive(Debug, Deserialize)]
 pub struct CreateProjectRequest {
@@ -20,7 +24,8 @@ pub fn project_routes(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/projects")
             .wrap(auth_middleware::Auth)
-            .service(create_project),
+            .service(create_project)
+            .service(search_docs),
     );
 }
 
@@ -29,6 +34,7 @@ pub async fn create_project(
     pool: web::Data<DbPool>,
     project: web::Json<CreateProjectRequest>,
     user_sub: UserSub,
+    search_state: web::Data<SearchState>,
 ) -> Result<impl Responder, impl ResponseError> {
     let created_project = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
         let id: i32 = get_user_id_by_email(&user_sub.0, conn).map_err(DatabaseError::from)?;
@@ -36,6 +42,17 @@ pub async fn create_project(
             .map_err(DatabaseError::from)
     })?;
 
+    let url = format!("{}/collections/projects/documents", search_state.typesense_url);
+    let typesense_project = serde_json::json!(created_project);
+    
+    run_async_typesense_query!(
+        search_state, |state: &SearchState, url: String, body: serde_json::Value| insert_single_doc(
+            &state,
+            url,
+            body.clone()
+        ).map_err(ReqError::from), url, typesense_project
+    )?;
+    
     Ok::<HttpResponse, ApiError>(HttpResponse::Created().json(created_project))
 }
 

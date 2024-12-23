@@ -1,4 +1,4 @@
-name: Start staging preview app
+name: Start PR preview app
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - "webserver/**"
       - ".github/workflows/fly_pr-preview-develop.yml"
     branches:
-      - main
+      - develop
     types: [ labeled, synchronize, opened, reopened, closed ]
 
 concurrency:
