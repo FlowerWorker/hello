@@ -1,7 +1,8 @@
+use chrono::{NaiveDateTime, Utc};
 use diesel::prelude::*;
 use diesel::result::Error;
 
-use crate::models::task::{NewTask, Progress, Task,};
+use crate::models::task::{NewTask, Priority, Progress, Task};
 use crate::schema::tasks::{self};
 
 
@@ -11,8 +12,14 @@ pub fn create_task(
     reward: i64,
     project_id: i32,
     user_id: i32,
-    title: &str
+    title: &str,
+    due_date: Option<String>
 ) -> Result<Task, Error> {
+
+    let parsed_due_date = due_date.and_then(|date_str| {
+        NaiveDateTime::parse_from_str(&format!("{} 00:00:00", date_str), "%d-%m-%Y %H:%M:%S").ok()
+    });
+
     let new_task = NewTask {
         description,
         reward,
@@ -20,7 +27,10 @@ pub fn create_task(
         project_id,
         user_id: Some(user_id),
         title,
-        progress:Progress::ToDo
+        progress:Progress::ToDo,
+        priority: Priority::Medium,
+        created_at: Utc::now().naive_utc(),
+        due_date: parsed_due_date,
     };
     let some = diesel::insert_into(tasks::table)
         .values(&new_task)
@@ -67,6 +77,9 @@ mod tests {
         let description = "test task";
         let reward = 100;
         let title : &str= "Test Title";
+        let due_date = Some("25-12-2024".to_string());
+
+        // let due_date = Some(Utc::now().naive_utc() + chrono::Duration::days(7));
 
         let user_id = register_user(
             &mut db.conn(),
@@ -77,7 +90,7 @@ mod tests {
         .expect("Failed to register user")
         .id;
 
-        let result = create_task(&mut db.conn(), description, reward, 1,user_id,title);
+        let result = create_task(&mut db.conn(), description, reward, 1,user_id,title,due_date);
 
         assert!(
             result.is_err(),
@@ -94,6 +107,8 @@ mod tests {
         let description = "test task";
         let reward = 100;
         let title = "Title test";
+        let due_date = None;
+
 
         let user_id = register_user(
             &mut db.conn(),
@@ -108,7 +123,7 @@ mod tests {
             .expect("Failed to create project")
             .id;
 
-        let result = create_task(&mut db.conn(), description, reward, project_id,user_id,title);
+        let result = create_task(&mut db.conn(), description, reward, project_id,user_id,title,due_date);
         assert!(
             result.is_ok(),
             "Task creation failed when it should have succeeded"
@@ -126,6 +141,8 @@ mod tests {
         let description = "test task";
         let reward = 100;
         let title = "title test";
+        let due_date = Some("25-12-2024".to_string());
+
 
         let user_id = register_user(
             &mut db.conn(),
@@ -140,7 +157,7 @@ mod tests {
             .expect("Failed to create project")
             .id;
 
-        let result = create_task(&mut db.conn(), description, reward, project_id,user_id,title);
+        let result = create_task(&mut db.conn(), description, reward, project_id,user_id,title,due_date);
         assert!(
             result.is_ok(),
             "Task creation failed when it should have succeeded"

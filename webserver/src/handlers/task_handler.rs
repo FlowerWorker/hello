@@ -1,5 +1,6 @@
 use actix_web::{get, post, web, HttpResponse, Responder, ResponseError};
 
+use chrono::NaiveDate;
 use serde::{Deserialize, Serialize};
 
 use crate::database::error::DatabaseError;
@@ -16,7 +17,8 @@ pub struct CreateTaskRequest {
     description: String,
     reward: i64,
     project_id: i32,
-    title:String
+    title:String,
+    due_date: Option<String>,
 }
 
 pub fn task_routes(cfg: &mut web::ServiceConfig) {
@@ -46,7 +48,9 @@ pub async fn create_task(
             task.reward, 
             task.project_id,
             user_id,
-            &task.title
+            &task.title,
+            task.due_date.clone()
+            // task.due_date
         ).map_err(DatabaseError::from)
     })?;
     Ok::<HttpResponse, ApiError>(HttpResponse::Created().json(create_task))
@@ -109,6 +113,8 @@ mod tests {
         let description = "test task";
         let reward = 100;
         let title = "Task title";
+        let due_date = None;
+
 
         let user = register_user(
             &mut db.conn(),
@@ -145,6 +151,7 @@ mod tests {
                 reward,
                 project_id: 1,
                 title: title.to_string(),
+                due_date
             })
             .to_request();
 
@@ -170,6 +177,7 @@ mod tests {
         let description = "test task";
         let reward = 100;
         let title = "Task title";
+        let due_date = Some("25-12-2024".to_string());
 
         let user = register_user(
             &mut db.conn(),
@@ -213,7 +221,8 @@ mod tests {
                 description: description.to_string(),
                 reward,
                 project_id: project.id,
-                title: title.to_string()
+                title: title.to_string(),
+                due_date,
             })
             .to_request();
 

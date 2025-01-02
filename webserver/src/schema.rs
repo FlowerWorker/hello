@@ -65,6 +65,9 @@ diesel::table! {
         project_id -> Int4,
         title -> Varchar,
         progress -> Varchar,
+        priority -> Varchar,
+        created_at -> Timestamp,
+        due_date -> Nullable<Timestamp>,
     }
 }
 
