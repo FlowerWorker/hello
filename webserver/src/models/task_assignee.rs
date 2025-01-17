@@ -1,4 +1,5 @@
 use diesel::prelude::*;
+use serde::{Deserialize, Serialize};
 
 use crate::{models::{task::Task, user::User}, schema::task_assignees};
 
@@ -18,4 +19,10 @@ pub struct TaskAssignee {
 pub struct NewTaskAssignee {
     pub task_id: i32,
     pub user_id: i32,
+}
+
+#[derive(Serialize,Deserialize)]
+pub struct TaskWithAssignedUsers {
+    pub task: Task,
+    pub assigned_users: Vec<i32>, 
 }
