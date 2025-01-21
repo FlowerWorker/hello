@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import ProfileSettings from '@/app/components/popup/TaskManagementProfile/ProfileSettings/page';
+import ProfileSettings from '@/app/components/popup/TaskManagementProfile/components/settings/page';
 import { SettingsSectionProps } from '../hooks/types';
 
 export const SettingsSection = ({ isSettingsOpen, toggleSettings }: SettingsSectionProps) => {

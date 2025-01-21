@@ -8,7 +8,7 @@ const SoundsAppearance: React.FC = () => {
 
       <div className="mb-4">
         <label className="block text-lg font-medium mb-2">Incoming messages</label>
-        <select className="w-1/3 p-1 border border-black rounded-lg focus:outline-none focus:ring focus:ring-blue-300">
+        <select className="w-1/3 p-1 border border-black rounded-lg">
           <option value="Every day">Every day</option>
           <option value="Weekdays">Weekdays</option>
         </select>
@@ -16,7 +16,7 @@ const SoundsAppearance: React.FC = () => {
 
       <div className="mb-4">
         <label className="block text-lg font-medium mb-2">Outgoing messages</label>
-        <select className="w-1/3 p-1 border border-black rounded-lg focus:outline-none focus:ring focus:ring-blue-300">
+        <select className="w-1/3 p-1 border border-black rounded-lg">
           <option value="Every day">Every day</option>
           <option value="Weekdays">Weekdays</option>
         </select>
@@ -26,7 +26,7 @@ const SoundsAppearance: React.FC = () => {
         <input
           id="mute"
           type="checkbox"
-          className="h-5 w-5  rounded focus:ring focus:ring-blue-300"
+          className="h-5 w-5 rounded"
         />
         <label htmlFor="mute" className="ml-3 text-gray-800">
           Mute all messages sounds from FlowerWorker

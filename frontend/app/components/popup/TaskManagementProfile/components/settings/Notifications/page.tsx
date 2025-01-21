@@ -1,27 +1,14 @@
 'use client';
 
-import { useTabState } from "../../hooks/states";
+import { useTabState } from "../../../hooks/states";
 import AccountNotifications from "./AccountNotifications";
 import EmailNotifications from "./EmailNotifications";
 import SoundsAppearance from "./SoundAppearance";
-import { Button } from "../../components/Button";
-import { NOTIFICATION_TABS } from "../../hooks/constants";
+import { Button } from "../../common/Button";
+import { NOTIFICATION_TABS } from "../../../hooks/constants";
 
 const Notifications: React.FC = () => {
   const { activeTab, setActiveTab } = useTabState(NOTIFICATION_TABS.ACCOUNT);
-
-  const renderContent = (): React.ReactNode => {
-    switch (activeTab) {
-      case "account-notifications":
-        return <AccountNotifications />;
-      case "email-notification":
-        return <EmailNotifications />;
-      case "sounds-appearance":
-        return <SoundsAppearance />;
-      default:
-        return null;
-    }
-  };
 
   return (
     <div className="flex flex-col h-auto max-h-screen">
@@ -30,26 +17,25 @@ const Notifications: React.FC = () => {
         <div className="w-1/4 bg-white p-4 space-y-4 flex flex-col justify-start mt-6">
           <button
             className={`w-full text-lg p-2 rounded-md text-center font-normal ${
-              activeTab === "active" ? "bg-[#E9E7E5] text-black" : "bg-white text-gray-600"
+              activeTab === NOTIFICATION_TABS.ACCOUNT ? "bg-[#E9E7E5] text-black" : "bg-white text-gray-600"
             }`} 
-            onClick={() => setActiveTab("active")}
+            onClick={() => setActiveTab(NOTIFICATION_TABS.ACCOUNT)}
           >
-            <p className="bg">Account notifications</p>
-            
+            Account notifications
           </button>
           <button
             className={`w-full text-lg p-2 rounded-md text-center font-normal ${
-              activeTab === "sounds-appearance" ? "bg-[#E9E7E5] text-black" : "bg-white text-gray-600"
+              activeTab === NOTIFICATION_TABS.SOUNDS ? "bg-[#E9E7E5] text-black" : "bg-white text-gray-600"
             }`} 
-            onClick={() => setActiveTab("sounds-appearance")}
+            onClick={() => setActiveTab(NOTIFICATION_TABS.SOUNDS)}
           >
             Sounds and appearance
           </button>
           <button
             className={`w-full text-lg p-2 rounded-md text-center font-normal ${
-              activeTab === "email-notification" ? "bg-[#E9E7E5] text-black" : "bg-white text-gray-600"
+              activeTab === NOTIFICATION_TABS.EMAIL ? "bg-[#E9E7E5] text-black" : "bg-white text-gray-600"
             }`} 
-            onClick={() => setActiveTab("email-notification")}
+            onClick={() => setActiveTab(NOTIFICATION_TABS.EMAIL)}
           >
             Email notification
           </button>
@@ -57,7 +43,9 @@ const Notifications: React.FC = () => {
 
         {/* Content */}
         <div className="w-2/3 p-6 flex flex-col justify-start mt-6">
-          {renderContent()}
+          {activeTab === NOTIFICATION_TABS.ACCOUNT && <AccountNotifications />}
+          {activeTab === NOTIFICATION_TABS.EMAIL && <EmailNotifications />}
+          {activeTab === NOTIFICATION_TABS.SOUNDS && <SoundsAppearance />}
         </div>
       </div>
 
