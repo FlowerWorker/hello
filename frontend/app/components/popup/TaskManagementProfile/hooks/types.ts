@@ -4,26 +4,51 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     className?: string;
 }
 
+// Data Type Interfaces
 export interface StatusOption {
     value?: string;
     label: string;
     icon: string | null;
 }
 
+export interface StatusState {
+    isStatusOpen: boolean;
+    toggleStatus: () => void;
+}
+
+export interface StatusSectionProps {
+    status: StatusOption;
+    setStatus: (status: StatusOption) => void;
+}
+
+export interface StatusDropdownProps {
+    status: StatusOption;
+    isStatusOpen: boolean;
+    toggleStatus: () => void;
+    selectStatus: (option: StatusOption) => void;
+}
+
+export interface SettingsSectionProps {
+    isSettingsOpen: boolean;
+    toggleSettings: () => void;
+}
+
+// State Interfaces (for hooks)
+export interface ProfileState {
+    status: StatusOption;
+    setStatus: (status: StatusOption) => void;
+    isSettingsOpen: boolean;
+    toggleSettings: () => void;
+}
+
+export interface ProfileSettingsProps {
+    toggleSettings: () => void;
+}
+
 export interface TabProps {
     activeTab: string;
     onTabChange: (tab: string) => void;
 }
-
-export interface NotificationProps {
-    activeNotification: string;
-    setActiveNotification: (notification: string) => void;
-}
-
-export interface SettingsState {
-    settings: UserSettings;
-    updateSettings: (newSettings: Partial<UserSettings>) => void;
-  } 
 
 export interface UserSettings {
     profile: {
@@ -43,4 +68,15 @@ export interface UserSettings {
         end: string;
         };
     };
+}
+
+export interface FormFieldProps {
+    label: string,
+    placeholder: string,
+    descr: string
+}
+
+export interface NotificationProps {
+    activeNotification: string;
+    setActiveNotification: (notification: string) => void;
 }

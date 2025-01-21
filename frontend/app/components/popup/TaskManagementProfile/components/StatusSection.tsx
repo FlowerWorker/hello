@@ -1,24 +1,21 @@
-import React, { useState }from 'react';
+import React from 'react';
+import { StatusSectionProps } from '../hooks/types';
+import { useStatusState } from '../hooks/states';
 import { StatusOption } from '../hooks/types';
 import { StatusDropdown } from './StatusDropdown';
 
-interface StatusSectionProps {
-  status: StatusOption;
-  setStatus: (status: StatusOption) => void;
-}
-
 export const StatusSection: React.FC<StatusSectionProps> = ({ status, setStatus }) => {
-    const [isStatusOpen, setIsStatusOpen] = useState(false);
+  const { isStatusOpen, toggleStatus } = useStatusState();
 
     return (
         <div className="relative mt-4 mb-6">
             <StatusDropdown 
                 status={status}
                 isStatusOpen={isStatusOpen}
-                onToggle={() => setIsStatusOpen(!isStatusOpen)}
-                onSelect={(option: StatusOption) => {
+                toggleStatus={toggleStatus}
+                selectStatus={(option: StatusOption) => {
                   setStatus(option);
-                  setIsStatusOpen(false);
+                  toggleStatus();
                 }}
             />
             

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import userIcon from "@/app/public/user-icons/userIcon3.svg";
+import userIcon from "@/app/public/user-icons/profileImage.png";
 
 const ProfileHeader = () => (
   <div className="h-28 bg-gradient-to-t from-[#9F61B1] to-[#181615] relative flex justify-center items-center">

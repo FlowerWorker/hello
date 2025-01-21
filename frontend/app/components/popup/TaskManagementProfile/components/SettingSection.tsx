@@ -1,10 +1,6 @@
 import Link from 'next/link';
 import ProfileSettings from '@/app/components/popup/TaskManagementProfile/ProfileSettings/page';
-
-interface SettingsSectionProps {
-  isSettingsOpen: boolean;
-  toggleSettings: () => void;
-}
+import { SettingsSectionProps } from '../hooks/types';
 
 export const SettingsSection = ({ isSettingsOpen, toggleSettings }: SettingsSectionProps) => {
     return (
@@ -16,7 +12,7 @@ export const SettingsSection = ({ isSettingsOpen, toggleSettings }: SettingsSect
             </button>
             {isSettingsOpen && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                <ProfileSettings closeSettings={toggleSettings}/>
+                <ProfileSettings toggleSettings={toggleSettings}/>
             </div>
             )}
 

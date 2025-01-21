@@ -1,23 +1,12 @@
 import Image from 'next/image';
-import { StatusOption } from '../hooks/types';
+import { StatusOption, StatusDropdownProps } from '../hooks/types';
+import { useStatusState } from '../hooks/states';
 import { STATUSOPTIONS } from '../hooks/constants';
 import arrowUpIcon from '@/app/public/arrowUpIcon.svg';
 import arrowDownIcon from '@/app/public/arrowDownIcon.svg';
 
-interface StatusDropdownProps {
-  status: StatusOption;
-  isStatusOpen: boolean;
-  onToggle: () => void;
-  onSelect: (option: StatusOption) => void;
 
-}
-export const StatusDropdown = ({ status, isStatusOpen, onToggle, onSelect }: StatusDropdownProps) => {
-  const toggleStatus = () => onToggle();
-
-  // const statusOption = (option: StatusOption) => {
-  //   setStatus(option);
-  //   setIsStatusOpen(false);
-  // };
+export const StatusDropdown = ({ status, isStatusOpen, toggleStatus, selectStatus }: StatusDropdownProps) => {
 
   return (
     <div>
@@ -51,7 +40,7 @@ export const StatusDropdown = ({ status, isStatusOpen, onToggle, onSelect }: Sta
           <li
             key={option.value}
             className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
-            onClick={() => onSelect(option)}
+            onClick={() => selectStatus(option)}
           >
             {option.icon && typeof option.icon === 'string' && (
               <Image src={option.icon} alt={option.label} width={20} height={20} className="inline mr-2"/>

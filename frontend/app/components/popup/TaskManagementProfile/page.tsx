@@ -1,19 +1,14 @@
 "use client"
 
 import React from "react";
-import {useProfileState } from "@/app/components/popup/TaskManagementProfile/hooks/useProfileState";
+import { useProfileState } from "@/app/components/popup/TaskManagementProfile/hooks/states";
 import ProfileHeader from "@/app/components/popup/TaskManagementProfile/components/ProfileHeader";
 import { StatusSection } from "@/app/components/popup/TaskManagementProfile/components/StatusSection";
 import { ContactSection } from "@/app/components/popup/TaskManagementProfile/components/ContactSection";
 import { SettingsSection } from "@/app/components/popup/TaskManagementProfile/components/SettingSection";
 
 const TaskManagementProfilePage = () => {
-  const { 
-    status, 
-    setStatus, 
-    isSettingsOpen, 
-    toggleSettings 
-  } = useProfileState();
+  const { status, setStatus, isSettingsOpen, toggleSettings } = useProfileState();
 
   return (
     <div className="w-80 bg-white rounded-lg shadow-lg font-sans overflow-hidden">

@@ -1,15 +1,15 @@
 import activeIcon from "@/app/public/activeIcon.svg";
 
-export const TABS = {
+export const SETTINGS_TABS = {
     ACCOUNT: 'account-settings',
     NOTIFICATIONS: 'notifications',
     TIMEZONE: 'time-zone',
 } as const;
 
-export const NOTIFICATION_SECTIONS = {
+export const NOTIFICATION_TABS = {
     ACCOUNT: 'account-notifications',
-    SOUNDS: 'sounds-and-appearance',
     EMAIL: 'email-notification',
+    SOUNDS: 'sounds-appearance',
 } as const;
 
 export const STATUSOPTIONS = [
