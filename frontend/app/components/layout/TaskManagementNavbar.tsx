@@ -1,13 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import logoIcon from "@/app/public/LOGO.svg";
 import userIconPlaceholder from "@/app/public/userIconPlaceholder.svg";
 import activeIcon from "@/app/public/activeIcon.svg";
 import activeNotificationIcon from "@/app/public/activeNotification.svg";
 import userIcon from "@/app/public/user-icons/userIcon3.svg";
+import TaskManagementProfile from "../popup/TaskManagementProfile/page";
 
 const TaskManagementNavbar = () => {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const toggleProfile = () => setIsProfileOpen((prev) => !prev);
+
   return (
     <div className="w-full">
       <div
@@ -35,10 +40,17 @@ const TaskManagementNavbar = () => {
           <Image
             src={userIcon}
             alt="user icon"
+            onClick={toggleProfile}
             className="w-10 h-10 sm:h-auto sm:w-auto"
           />
         </div>
       </div>
+
+      {isProfileOpen && (
+        <div className="absolute right-2 top-[85px] bg-white shadow-lg rounded-lg z-50">
+          <TaskManagementProfile />
+        </div>
+      )}
 
       <div className="flex w-full min-h-[49px] px-4 items-center bg-[#282624]">
         <p className="font-bold text-lg py-2 text-white">Workspaces</p>

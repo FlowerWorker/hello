@@ -1,7 +1,11 @@
 import React from "react";
-import UserProfile from "../components/UserProfile";
+import UserProfile from "../../../UserProfile";
 
-const ProfilePage: React.FC = () => {
+interface ProfileSettingsProps {
+  closeSettings: () => void;
+}
+
+const ProfileSettings: React.FC<ProfileSettingsProps> = ({ closeSettings }) => {
   const user = {
     name: "John Doe",
     password: "askdnasfd22wds",
@@ -15,4 +19,4 @@ const ProfilePage: React.FC = () => {
   );
 };
 
-export default ProfilePage;
+export default ProfileSettings;
