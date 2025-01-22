@@ -37,6 +37,7 @@ export const useUserSettings = () => {
             department: "Team",
             phoneNumber: "01231234532",
         },
+        profilePhoto: "",
         notifications: {
             allNewMessages: true,
             directMessages: true,

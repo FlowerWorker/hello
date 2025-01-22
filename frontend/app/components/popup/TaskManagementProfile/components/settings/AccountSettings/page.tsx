@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState } from 'react';
 import { Button } from '../../common/Button';
 import { PhotoUpload } from './PhotoUpload';
 import { FormField } from './FormField';
@@ -9,19 +10,37 @@ import { FORM_FIELDS } from '../../../hooks/constants';
 
 const AccountSettings: React.FC = () => {
   const { userSettings, updateUserSettings } = useUserSettings();
+  const [tempSettings, setTempSettings] = useState(userSettings);
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
-  const handleInputChange = (field: keyof UserSettings['profile'], value: string) => {
-    updateUserSettings({
+
+  const handleInputChange = (field: keyof UserSettings["profile"], value: string) => {
+    setTempSettings({
+      ...tempSettings,
       profile: {
-        ...userSettings.profile,
-        [field]: value
-      }
+        ...tempSettings.profile,
+        [field]: value,
+      },
     });
+  };
+
+  const handleSave = () => {
+    updateUserSettings({
+      ...tempSettings,
+      profilePhoto: uploadedImage ? URL.createObjectURL(uploadedImage) : tempSettings.profilePhoto,
+    });
+    alert("Profile updated successfully!");
+  };
+
+  const handleCancel = () => {
+    setTempSettings(userSettings);
+    setUploadedImage(null);
+    alert("Changes discarded!");
   };
 
   return (
     <div className="flex flex-col items-start p-10">
-      <PhotoUpload />
+      <PhotoUpload onImageUpload={setUploadedImage} currentImage={userSettings.profilePhoto || ""}/>
       <div className="py-12 grid grid-cols-1 md:grid-cols-2 gap-x-4 w-full">
         {FORM_FIELDS.map((field) => {
           const fieldKey = field.label.toLowerCase().replace(/\s+/g, '') as keyof UserSettings['profile'];
@@ -36,8 +55,8 @@ const AccountSettings: React.FC = () => {
         })}
       </div>
       <div className="flex justify-end gap-4 mt-4 w-full">
-        <Button variant="secondary">Cancel</Button>
-        <Button variant="primary">Update Profile</Button>
+        <Button variant="secondary" onClick={handleCancel}>Cancel</Button>
+        <Button variant="primary" type="submit" onClick={handleSave}>Update Profile</Button>
       </div>
     </div>
   );

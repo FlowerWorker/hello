@@ -3,6 +3,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     variant?: 'primary' | 'secondary';
     children: React.ReactNode;
     className?: string;
+    type?: 'button' | 'submit' | 'reset';
 }
 
 export interface StatusSectionProps {
@@ -72,6 +73,7 @@ export interface UserSettings {
         department: string;
         phoneNumber: string;
     };
+    profilePhoto: string,
     notifications: {
         allNewMessages: boolean;
         directMessages: boolean;
