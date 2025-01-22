@@ -1,8 +1,24 @@
 'use client';
 
+import { useState } from "react";
+import { useUserSettings } from '../../../hooks/states';
 import { Button } from "../../common/Button";
 
 const TimeZone: React.FC = () => {
+  const { userSettings, updateUserSettings } = useUserSettings();
+
+  const [tempSettings, setTempSettings] = useState(userSettings.notifications);
+
+  const handleSave = () => {
+    updateUserSettings({ notifications: tempSettings });
+    alert("Settings saved successfully!");
+  };
+
+  const handleCancel = () => {
+    setTempSettings(userSettings.notifications); // Reset to original settings
+    alert("Changes discarded!");
+  };
+
   return (
     <div className="p-6 bg-white shadow-md rounded-md w-full max-w-lg mx-auto">
       <h2 className="text-xl font-semibold mb-4">Time Zone Settings</h2>
@@ -19,9 +35,9 @@ const TimeZone: React.FC = () => {
         </select>
       </div>
 
-      <div className="flex justify-end gap-4 mt-8">
-        <Button variant="secondary">Cancel</Button>
-        <Button variant="primary">Save Changes</Button>
+      <div className="flex justify-end p-4 space-x-4">
+        <Button variant="secondary" onClick={handleCancel}>Cancel</Button>
+        <Button variant="primary" onClick={handleSave}>Save</Button>
       </div>
     </div>
   );

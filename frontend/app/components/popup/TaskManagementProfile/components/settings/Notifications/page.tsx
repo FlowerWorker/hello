@@ -1,6 +1,9 @@
 'use client';
 
+import { useState } from "react";
 import { useTabState } from "../../../hooks/states";
+import { useUserSettings } from '../../../hooks/states';
+import { UserSettings } from '../../../hooks/types';
 import { NOTIFICATION_TABS } from "../../../hooks/constants";
 import AccountNotifications from "./AccountNotifications";
 import EmailNotifications from "./EmailNotifications";
@@ -9,6 +12,19 @@ import { Button } from "../../common/Button";
 
 const Notifications: React.FC = () => {
   const { activeTab, setActiveTab } = useTabState(NOTIFICATION_TABS.ACCOUNT);
+  const { userSettings, updateUserSettings } = useUserSettings();
+
+  const [tempSettings, setTempSettings] = useState(userSettings.notifications);
+
+  const handleSave = () => {
+    updateUserSettings({ notifications: tempSettings });
+    alert("Settings saved successfully!");
+  };
+
+  const handleCancel = () => {
+    setTempSettings(userSettings.notifications); // Reset to original settings
+    alert("Changes discarded!");
+  };
 
   return (
     <div className="flex flex-col h-auto max-h-screen">
@@ -51,8 +67,8 @@ const Notifications: React.FC = () => {
 
       {/* Footer Buttons */}
       <div className="flex justify-end p-4 space-x-4">
-        <Button variant="secondary">Cancel</Button>
-        <Button variant="primary">Save</Button>
+        <Button variant="secondary" onClick={handleCancel}>Cancel</Button>
+        <Button variant="primary" onClick={handleSave}>Save</Button>
       </div>
     </div>
   );
