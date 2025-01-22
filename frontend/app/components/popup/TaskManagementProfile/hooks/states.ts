@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StatusOption } from './types';
+import { StatusOption, UserSettings } from './types';
 
 // Profile State
 export const useProfileState = () => {
@@ -27,4 +27,31 @@ export const useTabState = (defaultTab: string) => {
     return { activeTab, setActiveTab };
 };
 
-// ... other state hooks as needed 
+// User Settings State
+export const useUserSettings = () => {
+    const [userSettings, setUserSettings] = useState<UserSettings>({
+        profile: {
+            fullName: "User Name",  // Default values
+            jobTitle: "Job title",
+            email: "username@gmail.com",
+            department: "Team",
+            phoneNumber: "01231234532",
+        },
+        notifications: {
+            allNewMessages: true,
+            directMessages: true,
+            threadReplies: false,
+            schedule: "Every day",
+            notificationHours: {
+                start: "9:00 AM",
+                end: "5:00 PM",
+            },
+        },
+    });
+
+    const updateUserSettings = (newSettings: Partial<UserSettings>) => {
+        setUserSettings(prev => ({ ...prev, ...newSettings }));
+    };
+
+    return { userSettings, updateUserSettings };
+};

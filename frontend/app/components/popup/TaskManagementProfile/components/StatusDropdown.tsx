@@ -1,6 +1,6 @@
+import React from 'react';
 import Image from 'next/image';
 import { StatusOption, StatusDropdownProps } from '../hooks/types';
-import { useStatusState } from '../hooks/states';
 import { STATUSOPTIONS } from '../hooks/constants';
 import arrowUpIcon from '@/app/public/arrowUpIcon.svg';
 import arrowDownIcon from '@/app/public/arrowDownIcon.svg';

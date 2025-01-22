@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonProps } from '../hooks/types';
+import { ButtonProps } from '../../hooks/types';
 
 export const Button: React.FC<ButtonProps> = ({
   variant = 'primary',

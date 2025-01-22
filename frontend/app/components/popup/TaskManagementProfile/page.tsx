@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useProfileState } from "@/app/components/popup/TaskManagementProfile/hooks/states";
+import { useUserSettings } from "@/app/components/popup/TaskManagementProfile/hooks/states";
 import ProfileHeader from "@/app/components/popup/TaskManagementProfile/components/ProfileHeader";
 import { StatusSection } from "@/app/components/popup/TaskManagementProfile/components/StatusSection";
 import { ContactSection } from "@/app/components/popup/TaskManagementProfile/components/ContactSection";
@@ -9,6 +10,7 @@ import { SettingsSection } from "@/app/components/popup/TaskManagementProfile/co
 
 const TaskManagementProfilePage = () => {
   const { status, setStatus, isSettingsOpen, toggleSettings } = useProfileState();
+  const { userSettings } = useUserSettings();
 
   return (
     <div className="w-80 bg-white rounded-lg shadow-lg font-sans overflow-hidden">
@@ -17,8 +19,8 @@ const TaskManagementProfilePage = () => {
         <main className="h-126 p-6">
             {/* Profile Information */}
             <div className="text-left mt-14 mb-4">
-                <h2 className="Montserrat text-2xl font-bold">User Name</h2>
-                <p className="open-sans text-xl">Team - Job title</p>
+                <h2 className="Montserrat text-2xl font-bold">{userSettings.profile.fullName}</h2>
+                <p className="open-sans text-xl">{userSettings.profile.department} - {userSettings.profile.jobTitle}</p>
             </div>
 
             <hr className="border border-gray-200 my-5"/>

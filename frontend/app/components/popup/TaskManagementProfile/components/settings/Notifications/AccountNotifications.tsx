@@ -1,5 +1,8 @@
 'use client';
 
+import { useUserSettings } from '../../../hooks/states';
+import { UserSettings } from '../../../hooks/types';
+
 const notificationCheckboxsList = [
   { id: 1, notification: 'All new messages' },
   { id: 2, notification: 'Direct messages and mentions' },
@@ -7,6 +10,17 @@ const notificationCheckboxsList = [
 ];
 
 const AccountNotifications: React.FC = () => {
+  const { userSettings, updateUserSettings } = useUserSettings();
+
+  const handleCheckboxChange = (field: keyof UserSettings['notifications'], value: boolean) => {
+    updateUserSettings({
+      notifications: {
+        ...userSettings.notifications,
+        [field]: value
+      }
+    });
+  };
+
   return (
     <div className="p-6 bg-white shadow-md rounded-md max-w-lg mx-auto">
       {/* Notify me about */}
@@ -18,6 +32,8 @@ const AccountNotifications: React.FC = () => {
               <label className="flex items-center space-x-2">
                 <input
                   type="checkbox"
+                  checked={userSettings.notifications[item.notification.split(' ')[0].toLowerCase() as keyof UserSettings['notifications']]}
+                  onChange={(e) => handleCheckboxChange(item.notification.split(' ')[0].toLowerCase() as keyof UserSettings['notifications'], e.target.checked)}
                   className="form-checkbox h-5 w-5 text-blue-600"
                 />
                 <span className="text-gray-800">{item.notification}</span>

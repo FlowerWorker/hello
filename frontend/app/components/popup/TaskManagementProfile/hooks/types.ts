@@ -1,19 +1,8 @@
+// Component Props Interfaces
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary';
     children: React.ReactNode;
     className?: string;
-}
-
-// Data Type Interfaces
-export interface StatusOption {
-    value?: string;
-    label: string;
-    icon: string | null;
-}
-
-export interface StatusState {
-    isStatusOpen: boolean;
-    toggleStatus: () => void;
 }
 
 export interface StatusSectionProps {
@@ -33,14 +22,6 @@ export interface SettingsSectionProps {
     toggleSettings: () => void;
 }
 
-// State Interfaces (for hooks)
-export interface ProfileState {
-    status: StatusOption;
-    setStatus: (status: StatusOption) => void;
-    isSettingsOpen: boolean;
-    toggleSettings: () => void;
-}
-
 export interface ProfileSettingsProps {
     toggleSettings: () => void;
 }
@@ -50,6 +31,39 @@ export interface TabProps {
     onTabChange: (tab: string) => void;
 }
 
+export interface FormFieldProps {
+    label: string;
+    placeholder: string;
+    descr: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface NotificationProps {
+    activeNotification: string;
+    setActiveNotification: (notification: string) => void;
+}
+
+// Data Type Interfaces
+export interface StatusOption {
+    value?: string;
+    label: string;
+    icon: string | null;
+}
+
+// State Interfaces
+export interface StatusState {
+    isStatusOpen: boolean;
+    toggleStatus: () => void;
+}
+
+export interface ProfileState {
+    status: StatusOption;
+    setStatus: (status: StatusOption) => void;
+    isSettingsOpen: boolean;
+    toggleSettings: () => void;
+}
+
 export interface UserSettings {
     profile: {
         fullName: string;
@@ -57,26 +71,15 @@ export interface UserSettings {
         email: string;
         department: string;
         phoneNumber: string;
-      };
+    };
     notifications: {
         allNewMessages: boolean;
         directMessages: boolean;
         threadReplies: boolean;
         schedule: string;
         notificationHours: {
-        start: string;
-        end: string;
+            start: string;
+            end: string;
         };
     };
-}
-
-export interface FormFieldProps {
-    label: string,
-    placeholder: string,
-    descr: string
-}
-
-export interface NotificationProps {
-    activeNotification: string;
-    setActiveNotification: (notification: string) => void;
 }
