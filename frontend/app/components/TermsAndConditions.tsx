@@ -18,7 +18,7 @@ const TermsAndConditions = () => {
           
           <div className="flex flex-col h-auto px-4 gap-[80px]">
             <p className="font-open-sans md:text-2xl">
-              Welcome to FlowerWorker. These Terms and Conditions (“Terms”) govern
+              Welcome to FlowerWorker. These Terms and Conditions (&quot;Terms&quot;) govern
               your use of our platform, including project management, recruitment, and
               payment services. By accessing or using FlowerWorker, you agree to comply
               with these Terms. If you do not agree, you may not use the platform.
@@ -179,7 +179,7 @@ const TermsAndConditions = () => {
               <div className="flex-1 max-w-sm">
                 <h2 className="md:text-2xl font-bold font-montserrat mb-4">Disclaimers</h2>
                 <p className="text-sm md:text-base font-open-sans">
-                  FlowerWorker is provided "as-is" and "as available" without warranties of any kind, either express or implied. We do not guarantee that the platform will meet your expectations or be error-free.
+                  FlowerWorker is provided &quot;as-is&quot; and &quot;as available&quot; without warranties of any kind, either express or implied. We do not guarantee that the platform will meet your expectations or be error-free.
                 </p>
               </div>
             </div>
@@ -252,7 +252,7 @@ const TermsAndConditions = () => {
                 {/* Location */}
                 <div className="flex items-center gap-2 text-base">
                   <FaMapMarkerAlt className="h-4 w-4 md:h-5 md:w-5 text-white" />
-                  <p className="text-sm md:text-base">Gothenburg & Stockholm</p>
+                  <p className="text-sm md:text-base">Gothenburg &amp; Stockholm</p>
                 </div>
               </div>
             </section>
