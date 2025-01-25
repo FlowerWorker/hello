@@ -303,7 +303,6 @@ const AboutUs = () => {
           <Link href="/collaborate">
             Collaborate with us
           </Link>
-
         </Button>
       </div>
 

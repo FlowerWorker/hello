@@ -5,14 +5,14 @@ import React, { useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
-// import ReactQuill from 'react-quill';
 import { Navbar, Footer, InfoPageHeader } from "./layout"
+import { Button } from "@/components/ui/button";
 import logo from "../public/LOGO_on_white.png";
-import TiktokIcon from "./icons/TiktokIcon";
-import InstagramIcon from "./icons/InstagramIcon";
-import LinkedinIcon from "./icons/LinkedinIcon";
-import FacebookIcon from "./icons/FacebookIcon";
-import TwitterIcon from "./icons/TwitterIcon";
+import TiktokIcon from "../public/Ticktok_on White.png";
+import InstagramIcon from "../public/Instagram_on White.png";
+import LinkedinIcon from "../public/LinkedIn_on White.png";
+import FacebookIcon from "../public/Facebook_on White.png";
+import TwitterIcon from "../public/X_on White.png";
 
 const ContactUs = () => {
     return (
@@ -66,19 +66,29 @@ const ContactInfoSection = () => {
             </p>
 
             {/* Social Media Icons */}
-            <SocialMediaIcrons />
+            <SocialMediaIcons />
+
+            <div className="flex flex-col">
+                <div className="flex flex-row">
+                    <Image src={email} />
+                </div>
+                <div className="flex flex-row">
+                    <Image src={Location} />
+                    <p>Gothemburg & Stockholm</p>
+                </div>
+            </div>
         </div>
     )
 }
 
-const SocialMediaIcrons = () => {
+const SocialMediaIcons = () => {
     return (
-        <div className="flex justify-center space-x-8 pb-6 sm:mt-0">
-            <TiktokIcon />
-            <InstagramIcon />
-            <LinkedinIcon />
-            <FacebookIcon />
-            <TwitterIcon />
+        <div className="flex justify-center space-x-8 pb-6 sm:mt-0">           
+            <Image src={TiktokIcon} alt="Tiktok Icon"/>
+            <Image src={InstagramIcon} alt="Instagram Icon"/>
+            <Image src={LinkedinIcon} alt="Linkedin Icon"/>
+            <Image src={FacebookIcon} alt="Facebook Icon"/>
+            <Image src={TwitterIcon} alt="Twitter Icon"/>
         </div>
     )
 }
@@ -126,9 +136,11 @@ const ContactFormSection = () => {
                         <label className="block mb-2 text-sm text-black">
                             Write us a message
                         </label>
-                        <ReactQuill/>
-                        {/* <ReactQuill value={content} onChange={handleChange} /> */}
+                        <ReactQuill theme="snow"/>
                     </div>
+                    <Button type="submit" className="bg-purplev1 text-white font-medium w-full sm:w-auto px-6 py-3 rounded-md shadow-md hover:shadow-lg hover:bg-purplev2">
+                        Save
+                    </Button>
                 </div>
                 
             </form>
@@ -136,11 +148,76 @@ const ContactFormSection = () => {
     )
 }
 
-const ReactQuill = dynamic(() => import("react-quill"), {srr: false});
-// const RichTextEditor = () => {
-//     const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+const ReactQuill = dynamic(() => import("react-quill"), { srr: false });
 
-//     return <ReactQuill theme="snow"/>
+const RichTextEditor = () => {
+    const [content, setContent] = useState("");
 
-// }
+    const modules = {
+        toolbar: [
+            [{ header: '1' }, { header: '2' }, { font: [] }],
+            [{ size: [] }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            [
+            { list: 'ordered' },
+            { list: 'bullet' },
+            { indent: '-1' },
+            { indent: '+1' },
+            ],
+            ['link', 'image', 'video'],
+            ['clean'],
+        ],
+        clipboard: {
+            // toggle to add extra line breaks when pasting HTML:
+            matchVisual: false,
+        },
+    }
+
+    /*
+    * Quill editor formats
+    * See https://quilljs.com/docs/formats/
+    */
+    const formats = [
+        'header',
+        'font',
+        'size',
+        'bold',
+        'italic',
+        'underline',
+        'strike',
+        'blockquote',
+        'list',
+        'bullet',
+        'indent',
+        'link',
+        'image',
+        'video',
+    ];
+
+    const handleEditorChange = (newContent) => {
+        setContent(newContent);
+    };
+    
+    return (
+        <div className="h-screen w-screen flex items-center flex-col">
+            <div className="m-10  flex flex-col items-center">
+                <span className="text-2xl text-center">
+                    Quill Rich Text Editor
+                </span> 
+                <div className='text-center'>Author : Soubhagyajit Borah</div>
+                <div className='text-center'>visit <a href="https://www.sjbtechcenter.online/" target='_blank' className="text-blue-500">www.sjbtechcenter.online</a> for more information</div>
+                </div>
+                <div className="h-full w-[90vw]">
+                <ReactQuill
+                    value={content}
+                    onChange={handleEditorChange}
+                    modules={modules}
+                    formats={formats}
+                    className="w-full h-[70%] mt-10 bg-white"
+                />
+            </div>
+        </div>
+    );
+}
+
 export default ContactUs;
