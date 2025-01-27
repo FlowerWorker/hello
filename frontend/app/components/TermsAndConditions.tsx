@@ -9,15 +9,15 @@ const TermsAndConditions = () => {
         <header className="relative z-30">
           <Navbar className="z-40" />
         </header>
-        <main className="flex flex-col w-full max-w-[1920px] mx-auto h-auto px-[2%] md:px-[12%] py-[80px] gap-[64px]">
+        <main className="flex flex-col w-full max-w-[1920px] mx-auto h-auto px-[2%] md:px-[12%] py-0 md:py-[80px] gap-8 md:gap-[64px]">
           
           <div className="container mx-auto">
             <InfoPageHeader title="Terms & Conditions" />
           </div>
 
           
-          <div className="flex flex-col h-auto px-4 gap-[80px]">
-            <p className="font-open-sans md:text-2xl">
+          <div className="flex flex-col h-auto px-4 gap-7 md:gap-[80px]">
+            <p className="font-open-sans text-sm md:text-2xl">
               Welcome to FlowerWorker. These Terms and Conditions (&quot;Terms&quot;) govern
               your use of our platform, including project management, recruitment, and
               payment services. By accessing or using FlowerWorker, you agree to comply
@@ -25,7 +25,7 @@ const TermsAndConditions = () => {
             </p>
 
             {/* Acceptance of Terms and Eligibility */}
-            <div className="flex gap-8 md:gap-56 ">
+            <div className="flex flex-col md:flex-row gap-7 md:gap-56 ">
               <div className="flex-1 max-w-sm">
                 <h2 className="md:text-2xl font-bold font-montserrat mb-4">Acceptance of Terms</h2>
                 <p className="text-sm md:text-base font-open-sans">
@@ -160,7 +160,7 @@ const TermsAndConditions = () => {
             </section>
 
             {/* Limitation of Liability and Disclaimers */}
-            <div className="flex gap-4 md:gap-28 relative">
+            <div className="flex flex-col md:flex-row gap-7 md:gap-28 relative">
               <div className="flex-1 max-w-sm">
                 <h2 className="md:text-2xl font-bold font-montserrat mb-4">Limitation of Liability</h2>
                 <p className="text-sm md:text-base font-open-sans">
@@ -172,8 +172,8 @@ const TermsAndConditions = () => {
               </div>
                 
               {/* Divider*/}
-              <div className="flex items-center">
-                <div className="h-[80%] w-[1px] bg-[#C5C1BB]"></div>
+              <div className="flex items-center justify-center">
+                <div className="h-[1px] w-[80%] md:h-[80%] md:w-[1px] bg-[#C5C1BB]"></div>
               </div>
 
               <div className="flex-1 max-w-sm">
@@ -184,8 +184,13 @@ const TermsAndConditions = () => {
               </div>
             </div>
 
+            {/* Divider for mobile only*/}
+            <div className="flex items-center justify-center md:hidden">
+              <div className="h-[1px] w-[80%] md:h-[80%] md:w-[1px] bg-[#C5C1BB]"></div>
+            </div>
+
             {/* Termination and Governing Law */}
-            <div className="flex gap-4 md:gap-28 relative">
+            <div className="flex flex-col md:flex-row gap-7 md:gap-28 relative">
               <div className="flex-1 max-w-sm">
                 <h2 className="md:text-2xl font-bold font-montserrat mb-4">Termination</h2>
                 <p className="text-sm md:text-base font-open-sans">
@@ -196,8 +201,8 @@ const TermsAndConditions = () => {
               </div>
 
               {/* Divider*/}
-              <div className="flex items-center">
-                <div className="h-[80%] w-[1px] bg-[#C5C1BB]"></div>
+              <div className="flex items-center justify-center">
+                <div className="h-[1px] w-[80%] md:h-[80%] md:w-[1px] bg-[#C5C1BB]"></div>
               </div>
 
               <div className="flex-1 max-w-sm">
@@ -210,8 +215,13 @@ const TermsAndConditions = () => {
               </div>
             </div>
 
+            {/* Divider for mobile only*/}
+            <div className="flex items-center justify-center md:hidden">
+              <div className="h-[1px] w-[80%] md:h-[80%] md:w-[1px] bg-[#C5C1BB]"></div>
+            </div>
+
             {/* Miscellaneous and Dispute Resolution */}
-            <div className="flex gap-4 md:gap-28 relative">
+            <div className="flex flex-col md:flex-row gap-7 md:gap-28 relative">
                 <div className="flex-1 max-w-sm">
                   <h2 className="md:text-2xl font-bold font-montserrat mb-4">Miscellaneous</h2>
                   <p className="text-sm md:text-base font-open-sans">
@@ -225,8 +235,8 @@ const TermsAndConditions = () => {
                 </div>
               
               {/* Divider*/}
-              <div className="flex items-center">
-                <div className="h-[80%] w-[1px] bg-[#C5C1BB]"></div>
+              <div className="flex items-center justify-center">
+                <div className="h-[1px] w-[80%] md:h-[80%] md:w-[1px] bg-[#C5C1BB]"></div>
               </div>
               
               <div className="flex-1 max-w-sm">
@@ -263,7 +273,7 @@ const TermsAndConditions = () => {
         
         {/* Acknowledgment */}
         <section className="w-full max-w-[1920px] mx-auto h-auto px-[2%] md:px-[12%] py-[16px]">
-          <p className="text-sm md:text-base font-open-sans text-right">By using FlowerWorker, you acknowledge that you have read and understood this Privacy Policy.</p>
+          <p className="text-xs md:text-base font-open-sans text-right">By using FlowerWorker, you acknowledge that you have read and understood this Privacy Policy.</p>
         </section>
         
         <footer>
