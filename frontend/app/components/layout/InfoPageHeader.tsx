@@ -15,32 +15,32 @@ const InfoPageHeader: React.FC<InfoPageHeaderProps> = ({ title }) => {
     
     return (
         <div className="flex flex-1 flex-col p-6 bg-gradient-to-r from-[#1C1819] to-[#BD71D4] rounded-lg
-            max-w-full h-[459px] pt-[80px] pr-[80px] pb-[24px] pl-[80px] gap-[80px]">
+            max-w-full h-[350px] md:h-[459px] px-6 md:px-[80px] pt-[50px] md:pt-[80px] pb-[12px] md:pb-[24px] space-y-12 lg:space-y-28">
             {/* Page Title */}
-            <h1 className="font-montserrat text-6xl font-bold text-white text-center">{title}</h1>
+            <h1 className="font-montserrat text-xl md:text-3xl lg:text-6xl font-bold text-white text-center">{title}</h1>
         
             <div className="flex flex-col items-center h-full justify-between">
                 {/* Navigation Links */}
-                <div className="flex justify-center gap-[160px]">
+                <div className="flex md:flex-row flex-col sm:text-sm md:text-lg lg:text-2xl justify-center gap-5 md:gap-[160px]">
                     <a href="/privacy-policy"
-                        className={`font-montserrat text-2xl text-white ${isActive('/privacy-policy') ? 'font-bold border-b-4 pb-2 w-[20%]' : ''} hover:underline`}
+                        className={`block font-montserrat text-white ${isActive('/privacy-policy') ? 'font-bold border-b-2 md:border-b-3 pb-3' : ''} hover:underline`}
                     >
                     Privacy Policy
                     </a>
                     <a href="/terms-and-conditions"
-                        className={`font-montserrat text-2xl text-white ${isActive('/terms-and-conditions') ? 'font-bold border-b-4 pb-3 inline-block ' : ''} hover:underline`}
+                        className={`block font-montserrat text-white ${isActive('/terms-and-conditions') ? 'font-bold border-b-2 md:border-b-3 pb-3 inline-block' : ''} hover:underline`}
                     >
                     Terms & Conditions
                     </a>
                     <a href="/contact-us"
-                        className={`font-montserrat text-2xl text-white ${isActive('/contact') ? 'font-bold border-b-4 pb-2 w-[20%]' : ''} hover:underline`}
+                        className={`block font-montserrat text-white ${isActive('/contact') ? 'font-bold border-b-2 md:border-b-3 pb-3' : ''} hover:underline`}
                     >
                     Contact Us
                     </a>
 
                 </div>
                 {/* Today's Date */}
-                <div className="text-white text-md font-open-sans self-start">Effective date: {today}</div>
+                <div className="text-white text-sm md:text-base font-open-sans self-start">Effective date: {today}</div>
             </div>
         </div>
     );
