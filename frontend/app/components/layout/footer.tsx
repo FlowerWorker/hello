@@ -53,7 +53,7 @@ const Footer = () => {
           />
         </Link>
         <Link href="/about-us" className="hover:underline">About FlowerWork</Link>
-        <Link href="#" className="hover:underline">Contact Us</Link>
+        <Link href="/contact-us" className="hover:underline">Contact Us</Link>
         <Link href="#" className="hover:underline">Terms & Conditions</Link>
         <Link href="#" className="hover:underline">Privacy Policy</Link>
       </div>
