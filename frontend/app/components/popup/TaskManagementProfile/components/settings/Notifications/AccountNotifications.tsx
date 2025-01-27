@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client';
 
 import { useUserSettings } from '../../../hooks/states';
@@ -32,7 +33,7 @@ const AccountNotifications: React.FC = () => {
               <label className="flex items-center space-x-2">
                 <input
                   type="checkbox"
-                  checked={userSettings.notifications[item.notification.split(' ')[0].toLowerCase() as keyof UserSettings['notifications']]}
+                  // checked={userSettings.notifications[item.notification.split(' ')[0].toLowerCase() as keyof UserSettings['notifications']]}
                   onChange={(e) => handleCheckboxChange(item.notification.split(' ')[0].toLowerCase() as keyof UserSettings['notifications'], e.target.checked)}
                   className="form-checkbox h-5 w-5 text-blue-600"
                 />
