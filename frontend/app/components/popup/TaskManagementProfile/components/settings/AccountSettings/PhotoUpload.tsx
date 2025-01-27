@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Button } from "../../common/Button";
 import profileImage from "@/app/public/user-icons/profileImage.png";
 
-
 export const PhotoUpload: React.FC<{ onImageUpload: (file: File | null) => void; currentImage: string }> = ({ onImageUpload, currentImage }) => {
   const [previewImage, setPreviewImage] = useState<string>(currentImage || profileImage.src);
 

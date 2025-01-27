@@ -5,9 +5,7 @@ import { STATUSOPTIONS } from '../hooks/constants';
 import arrowUpIcon from '@/app/public/arrowUpIcon.svg';
 import arrowDownIcon from '@/app/public/arrowDownIcon.svg';
 
-
 export const StatusDropdown = ({ status, isStatusOpen, toggleStatus, selectStatus }: StatusDropdownProps) => {
-
   return (
     <div>
       {/* Dropdown Status Header */}
