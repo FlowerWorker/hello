@@ -33,7 +33,7 @@ const InfoPageHeader: React.FC<InfoPageHeaderProps> = ({ title }) => {
                     Terms & Conditions
                     </a>
                     <a href="/contact-us"
-                        className={`block font-montserrat text-white ${isActive('/contact') ? 'font-bold border-b-2 md:border-b-3 pb-3' : ''} hover:underline`}
+                        className={`block font-montserrat text-white ${isActive('/contact-us') ? 'font-bold border-b-2 md:border-b-3 pb-3' : ''} hover:underline`}
                     >
                     Contact Us
                     </a>
