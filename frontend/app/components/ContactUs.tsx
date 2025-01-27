@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 'use client';
 
 import React, { useState } from 'react';
@@ -30,7 +29,7 @@ const ContactUs = () => {
                 </div>
                 <div className='max-w-full m-8'>
                     <p className='text-2xl font-regular font-opensans'>
-                        We're here to help! Whether you have questions, feedback, or need assistance, our team is ready to support you. Reach out to us anytime, and we’ll ensure you get the answers and solutions you need. Let’s connect and make great things happen together!
+                        We are here to help! Whether you have questions, feedback, or need assistance, our team is ready to support you. Reach out to us anytime, and we’ll ensure you get the answers and solutions you need. Let’s connect and make great things happen together!
                     </p>
                 </div>
 
@@ -61,7 +60,7 @@ const ContactInfoSection = () => {
                 alt='logo'
             />
             <p className='text-xl font-regular font-opensans'>
-                Get in touch with us. We're here to assist you.
+                Get in touch with us. We are here to assist you.
             </p>
         
             {/* Social Media Icons */}
@@ -93,15 +92,9 @@ const SocialMediaIcons = () => {
 }
 
 const ContactFormSection = () => {
-    const [content, setContent] = useState('');
-
-    const handleChange = (value: string) => {
-        setContent(value);
-    };
-
     return (
         <div className='flex-[1] flex flex-col space-y-3 p-8 sm:px-10 md:bg-white sm:bg-gradient'>
-            <p className='text-lg font-regular font-opensans'>Don't hesitate to reach out! We're happy to answer any questions you have, no matter how big or small.</p>
+            <p className='text-lg font-regular font-opensans'>Do not hesitate to reach out! We are happy to answer any questions you have, no matter how big or small.</p>
             <form className='w-full max-w-6xl mx-auto grid-inline gap-4 mb-10'>
                 {/* Form Inputs */}
                 <div className='grid grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4'>
@@ -148,7 +141,7 @@ const ContactFormSection = () => {
     )
 }
 
-const ReactQuill = dynamic(() => import('react-quill'));
+const ReactQuill = dynamic(() => import('react-quill'), { ssr:false });
 
 const RichTextEditor = () => {
     const [content, setContent] = useState('');
