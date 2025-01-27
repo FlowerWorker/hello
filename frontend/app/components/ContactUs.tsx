@@ -148,7 +148,7 @@ const ContactFormSection = () => {
     )
 }
 
-const ReactQuill = dynamic(() => import('react-quill'), { srr: false });
+const ReactQuill = dynamic(() => import('react-quill'));
 
 const RichTextEditor = () => {
     const [content, setContent] = useState('');
@@ -184,7 +184,7 @@ const RichTextEditor = () => {
         'image',
     ];
 
-    const handleEditorChange = (newContent) => {
+    const handleEditorChange = (newContent: React.SetStateAction<string>) => {
         setContent(newContent);
     };
     
