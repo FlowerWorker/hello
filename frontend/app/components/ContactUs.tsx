@@ -7,12 +7,14 @@ import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { Navbar, Footer, InfoPageHeader } from "./layout"
 import { Button } from "@/components/ui/button";
-import logo from "../public/LOGO_on_white.png";
-import TiktokIcon from "../public/Ticktok_on White.png";
-import InstagramIcon from "../public/Instagram_on White.png";
-import LinkedinIcon from "../public/LinkedIn_on White.png";
-import FacebookIcon from "../public/Facebook_on White.png";
-import TwitterIcon from "../public/X_on White.png";
+import logo from "../public/LOGO_on White.svg";
+import TiktokIcon from "../public/Tiktok_on White.svg";
+import InstagramIcon from "../public/Instagram_on White.svg";
+import LinkedinIcon from "../public/LinkedIn_on White.svg";
+import FacebookIcon from "../public/Facebook_on White.svg";
+import TwitterIcon from "../public/X_on White.svg";
+import EmailIcon from "../public/Mail full_on White.svg";
+import VectorIcon from "../public/Vector_on White.svg";
 
 const ContactUs = () => {
     return (
@@ -70,10 +72,11 @@ const ContactInfoSection = () => {
 
             <div className="flex flex-col">
                 <div className="flex flex-row">
-                    <Image src={email} />
+                    <Image src={EmailIcon} alt={"Email Icon"} />
+                    
                 </div>
                 <div className="flex flex-row">
-                    <Image src={Location} />
+                    <Image src={VectorIcon} alt={"Vector Icon"}/>
                     <p>Gothemburg & Stockholm</p>
                 </div>
             </div>
