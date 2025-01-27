@@ -4,9 +4,9 @@ import { SettingsSectionProps } from '../hooks/types';
 
 export const SettingsSection = ({ isSettingsOpen, toggleSettings }: SettingsSectionProps) => {
     return (
-        <div className="flex flex-col items-start gap-3">
+        <div className='flex flex-col items-start gap-3'>
             {/* Settings Popup */}
-            <button onClick={toggleSettings} className="text-xl font-medium font-mono hover:underline">
+            <button onClick={toggleSettings} className='text-xl font-medium font-mono hover:underline'>
                 Settings
             </button>
             {isSettingsOpen && (
@@ -14,8 +14,8 @@ export const SettingsSection = ({ isSettingsOpen, toggleSettings }: SettingsSect
             )}
 
             {/* Logout Section */}
-            <Link href="/logout" legacyBehavior>
-                <a className="text-xl font-medium font-mono hover:underline">
+            <Link href='/logout' legacyBehavior>
+                <a className='text-xl font-medium font-mono hover:underline'>
                     Log out of FlowerWorker
                 </a>
             </Link>

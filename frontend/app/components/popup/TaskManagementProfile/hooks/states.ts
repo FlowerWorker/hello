@@ -4,7 +4,7 @@ import { StatusOption, UserSettings } from './types';
 // Profile State
 export const useProfileState = () => {
     const [status, setStatus] = useState<StatusOption>({
-        label: "Update my status",
+        label: 'Update my status',
         icon: null,
     });
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -31,21 +31,21 @@ export const useTabState = (defaultTab: string) => {
 export const useUserSettings = () => {
     const [userSettings, setUserSettings] = useState<UserSettings>({
         profile: {
-            fullName: "User Name",  // Default values
-            jobTitle: "Job title",
-            email: "username@gmail.com",
-            department: "Team",
-            phoneNumber: "01231234532",
+            fullName: 'User Name',  // Default values
+            jobTitle: 'Job title',
+            email: 'username@gmail.com',
+            department: 'Team',
+            phoneNumber: '01231234532',
         },
-        profilePhoto: "",
+        profilePhoto: '',
         notifications: {
             allNewMessages: true,
             directMessages: true,
             threadReplies: false,
-            schedule: "Every day",
+            schedule: 'Every day',
             notificationHours: {
-                start: "9:00 AM",
-                end: "5:00 PM",
+                start: '9:00 AM',
+                end: '5:00 PM',
             },
         },
     });

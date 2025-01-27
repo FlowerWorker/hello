@@ -10,7 +10,7 @@ export const StatusDropdown = ({ status, isStatusOpen, toggleStatus, selectStatu
     <div>
       {/* Dropdown Status Header */}
       <button 
-        className="w-full flex items-center justify-between Montserrat text-xl font-medium"
+        className='w-full flex items-center justify-between Montserrat text-xl font-medium'
         onClick={toggleStatus}
       > 
         <span>
@@ -20,30 +20,30 @@ export const StatusDropdown = ({ status, isStatusOpen, toggleStatus, selectStatu
               alt={status.label} 
               width={20} 
               height={20} 
-              className="inline mr-2"
+              className='inline mr-2'
             />
           )}
           {status.label}
         </span>
         {isStatusOpen ? 
-          <Image src={arrowUpIcon} alt="Arrow up" /> : 
-          <Image src={arrowDownIcon} alt="Arrow down" />
+          <Image src={arrowUpIcon} alt='Arrow up' /> : 
+          <Image src={arrowDownIcon} alt='Arrow down' />
         }
       </button>
 
       {/* Dropdown Status Options */}
       {isStatusOpen && (
-      <ul className="w-full mt-1 rounded-md bg-white shadow-sm Montserrat text-lg font-medium">
+      <ul className='w-full mt-1 rounded-md bg-white shadow-sm Montserrat text-lg font-medium'>
         {STATUSOPTIONS.map((option: StatusOption) => (
           <li
             key={option.value}
-            className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
+            className='flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer'
             onClick={() => selectStatus(option)}
           >
             {option.icon && typeof option.icon === 'string' && (
-              <Image src={option.icon} alt={option.label} width={20} height={20} className="inline mr-2"/>
+              <Image src={option.icon} alt={option.label} width={20} height={20} className='inline mr-2'/>
             )}
-            <span className="ml-2">{option.label}</span>
+            <span className='ml-2'>{option.label}</span>
           </li>
         ))}
       </ul>
