@@ -1,8 +1,7 @@
-import Link from 'next/link';
 import ProfileSettings from '@/app/components/popup/TaskManagementProfile/components/settings/page';
 import { SettingsSectionProps } from '../hooks/types';
 
-export const SettingsSection = ({ isSettingsOpen, toggleSettings }: SettingsSectionProps) => {
+export const SettingsSection: React.FC<SettingsSectionProps> = ({ isSettingsOpen, toggleSettings }) => {
     return (
         <div className='flex flex-col items-start gap-3'>
             {/* Settings Popup */}
@@ -14,11 +13,9 @@ export const SettingsSection = ({ isSettingsOpen, toggleSettings }: SettingsSect
             )}
 
             {/* Logout Section */}
-            <Link href='/logout' legacyBehavior>
-                <a className='text-xl font-medium font-mono hover:underline'>
-                    Log out of FlowerWorker
-                </a>
-            </Link>
+            <button className='text-xl font-medium font-mono hover:underline'>
+                Log out of FlowerWorker
+            </button>
         </div>
     )
 }
