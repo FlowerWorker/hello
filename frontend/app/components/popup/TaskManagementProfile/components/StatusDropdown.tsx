@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { StatusOption, StatusDropdownProps } from '../hooks/types';
-import { STATUSOPTIONS } from '../hooks/constants';
+import { StatusOption, StatusDropdownProps, STATUSOPTIONS } from '../hooks';
 import arrowUpIcon from '@/app/public/arrowUpIcon.svg';
 import arrowDownIcon from '@/app/public/arrowDownIcon.svg';
 

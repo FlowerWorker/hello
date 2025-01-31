@@ -4,9 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '../../common/Button';
 import { PhotoUpload } from './PhotoUpload';
 import { FormField } from './FormField';
-import { useUserSettings } from '../../../hooks/states';
-import { UserSettings } from '../../../hooks/types';
-import { FORM_FIELDS } from '../../../hooks/constants';
+import { useUserSettings, UserSettings, FORM_FIELDS } from '../../../hooks';
 
 const AccountSettings: React.FC = () => {
   const { userSettings, updateUserSettings } = useUserSettings();

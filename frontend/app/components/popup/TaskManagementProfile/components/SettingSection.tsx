@@ -1,5 +1,5 @@
 import ProfileSettings from '@/app/components/popup/TaskManagementProfile/components/settings/page';
-import { SettingsSectionProps } from '../hooks/types';
+import { SettingsSectionProps } from '../hooks';
 
 export const SettingsSection: React.FC<SettingsSectionProps> = ({ isSettingsOpen, toggleSettings }) => {
     return (

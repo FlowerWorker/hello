@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useUserSettings } from '../../../hooks/states';
+import { useUserSettings } from '../../../hooks';
 import { Button } from '../../common/Button';
 
 const TimeZone: React.FC = () => {

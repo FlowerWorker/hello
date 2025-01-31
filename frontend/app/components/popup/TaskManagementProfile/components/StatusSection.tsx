@@ -1,6 +1,5 @@
 import React from 'react';
-import { StatusSectionProps, StatusOption } from '../hooks/types';
-import { useStatusState } from '../hooks/states';
+import { StatusSectionProps, StatusOption, useStatusState } from '../hooks';
 import { StatusDropdown } from './StatusDropdown';
 
 export const StatusSection: React.FC<StatusSectionProps> = ({ status, setStatus }) => {

@@ -1,9 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTabState } from '../../../hooks/states';
-import { useUserSettings } from '../../../hooks/states';
-import { UserSettings } from '../../../hooks/types';
+import { useTabState, useUserSettings } from '../../../hooks';
 import { NOTIFICATION_TABS } from '../../../hooks/constants';
 import AccountNotifications from './AccountNotifications';
 import EmailNotifications from './EmailNotifications';

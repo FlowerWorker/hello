@@ -1,7 +1,6 @@
 'use client';
 
-import { useUserSettings } from '../../../hooks/states';
-import { UserSettings } from '../../../hooks/types';
+import { useUserSettings, UserSettings } from '../../../hooks';
 
 const notificationCheckboxsList = [
   { id: 1, notification: 'All new messages' },

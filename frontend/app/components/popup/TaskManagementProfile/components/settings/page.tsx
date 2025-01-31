@@ -2,9 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ProfileSettingsProps } from '../../hooks/types';
-import { useTabState } from '../../hooks/states';
-import { SETTINGS_TABS } from '../../hooks/constants';
+import { ProfileSettingsProps, useTabState, SETTINGS_TABS } from '../../hooks';
 import AccountSettings from './AccountSettings/page';
 import Notifications from './Notifications/page';
 import TimeZone from './TimeZone/page';

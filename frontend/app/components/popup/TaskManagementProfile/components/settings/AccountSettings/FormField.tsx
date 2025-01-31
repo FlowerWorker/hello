@@ -1,4 +1,4 @@
-import { FormFieldProps } from '../../../hooks/types';
+import { FormFieldProps } from '../../../hooks';
 
 export const FormField: React.FC<FormFieldProps> = ({ label, placeholder, descr, value, onChange }) => (
   <label className='p4'>

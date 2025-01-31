@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { useProfileState, useUserSettings } from '@/app/components/popup/TaskManagementProfile/hooks/states';
+import { useProfileState, useUserSettings } from './hooks';
 import ProfileHeader from '@/app/components/popup/TaskManagementProfile/components/ProfileHeader';
 import { StatusSection } from '@/app/components/popup/TaskManagementProfile/components/StatusSection';
 import { ContactSection } from '@/app/components/popup/TaskManagementProfile/components/ContactSection';
