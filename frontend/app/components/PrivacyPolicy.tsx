@@ -125,7 +125,7 @@ const PrivacyPolicy = () => {
                     </div>
     
                     <div className="flex-1 max-w-sm">
-                        <h2 className="md:text-2xl font-bold font-montserrat mb-4">Children's Privacy</h2>
+                        <h2 className="md:text-2xl font-bold font-montserrat mb-4">Children&apos;s Privacy</h2>
                         <p className="text-sm md:text-base font-open-sans">
                             FlowerWorker is not intended for use by children under 16, and we do not knowingly collect information from them.
                         </p>
@@ -162,7 +162,7 @@ const PrivacyPolicy = () => {
                         <h2 className="md:text-2xl font-bold font-montserrat mb-4">Changes to This Policy</h2>
                         <p className="text-sm md:text-base font-open-sans">
                         We may update this Privacy Policy to reflect changes in our practices or legal requirements.
-                         Updates will be posted with the "Effective Date" at the top.
+                         Updates will be posted with the &quot;Effective Date&quot; at the top.
                         </p>
                     </div>
                 </section>
