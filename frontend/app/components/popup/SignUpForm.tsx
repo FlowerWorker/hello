@@ -323,10 +323,12 @@ export default function SignUpForm() {
                     required
                   />
                   I accept all the{" "}
-                  <span className="font-semibold ml-1">
-                    {" "}
-                    Terms & Conditions
-                  </span>
+                  <Link href="/terms-and-conditions">
+                    <span className="font-semibold ml-1">
+                      {" "}
+                      Terms & Conditions
+                    </span>
+                  </Link>
                   .
                 </label>
               </div>
