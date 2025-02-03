@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ProfileSettingsProps, useTabState, SETTINGS_TABS } from '@/app/components/popup/TaskManagementProfile/hooks';
+import type { ProfileSettingsProps} from '@/app/components/popup/TaskManagementProfile/hooks';
+import { useTabState, SETTINGS_TABS } from '@/app/components/popup/TaskManagementProfile/hooks';
 import AccountSettings from '@/app/components/popup/TaskManagementProfile/components/settings/AccountSettings/page';
 import Notifications from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/page';
 import TimeZone from '@/app/components/popup/TaskManagementProfile/components/settings/TimeZone/page';
