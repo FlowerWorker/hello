@@ -1,0 +1,9 @@
+/Users/davidbonillajaylen2022/hello/fwt_token/target/debug/deps/libsolana_instruction-dc1a26c9e6acbad6.rmeta: /Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/lib.rs /Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/account_meta.rs /Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/error.rs
+
+/Users/davidbonillajaylen2022/hello/fwt_token/target/debug/deps/libsolana_instruction-dc1a26c9e6acbad6.rlib: /Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/lib.rs /Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/account_meta.rs /Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/error.rs
+
+/Users/davidbonillajaylen2022/hello/fwt_token/target/debug/deps/solana_instruction-dc1a26c9e6acbad6.d: /Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/lib.rs /Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/account_meta.rs /Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/error.rs
+
+/Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/lib.rs:
+/Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/account_meta.rs:
+/Users/davidbonillajaylen2022/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-instruction-2.1.11/src/error.rs:

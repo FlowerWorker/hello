@@ -1,0 +1,24 @@
+[package]
+name = "fwt_token"
+version = "0.1.0"
+edition = "2021"
+description = "FWT Token Program"
+license = "MIT"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+solana-program = "2.1.7"
+spl-token = "7.0.0"
+serde = { version = "1.0", features = ["derive"] }
+reqwest = { version = "0.11", features = ["json"] }
+tokio = { version = "1", features = ["full"] }
+
+# Add Diesel for Postgres, plus migrations:
+diesel = { version = "2.2.2", features = ["postgres", "r2d2", "chrono"] }
+diesel_migrations = { version = "2.2.0", features = ["postgres"] }
+
+[dev-dependencies]
+wiremock = "0.6.2"
+tokio-test = "0.4.4"
