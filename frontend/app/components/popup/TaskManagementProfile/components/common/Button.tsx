@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonProps } from '../../hooks/types';
+import { ButtonProps } from '@/app/components/popup/TaskManagementProfile/hooks';
 
 export const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, className = '', type = 'button', ...props }) => {
   const baseStyles = 'px-4 py-2 rounded transition-colors duration-200';

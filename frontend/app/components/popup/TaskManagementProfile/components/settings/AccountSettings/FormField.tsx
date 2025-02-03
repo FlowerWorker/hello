@@ -1,4 +1,4 @@
-import { FormFieldProps } from '../../../hooks';
+import { FormFieldProps } from '@/app/components/popup/TaskManagementProfile/hooks';
 
 export const FormField: React.FC<FormFieldProps> = ({ label, placeholder, descr, value, onChange }) => (
   <label className='p4'>

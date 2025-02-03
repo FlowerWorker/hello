@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Button } from '../../common/Button';
+import { Button } from '@/app/components/popup/TaskManagementProfile/components/common/Button';
 import profileImage from '@/app/public/user-icons/profileImage.png';
 
 export const PhotoUpload: React.FC<{ onImageUpload: (file: File | null) => void; currentImage: string }> = ({ onImageUpload, currentImage }) => {

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useUserSettings } from '../../../hooks';
-import { Button } from '../../common/Button';
+import { useUserSettings } from '@/app/components/popup/TaskManagementProfile/hooks';
+import { Button } from '@/app/components/popup/TaskManagementProfile/components/common/Button';
 
 const TimeZone: React.FC = () => {
   const { userSettings, updateUserSettings } = useUserSettings();

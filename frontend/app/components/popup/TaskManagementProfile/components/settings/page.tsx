@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ProfileSettingsProps, useTabState, SETTINGS_TABS } from '../../hooks';
-import AccountSettings from './AccountSettings/page';
-import Notifications from './Notifications/page';
-import TimeZone from './TimeZone/page';
+import { ProfileSettingsProps, useTabState, SETTINGS_TABS } from '@/app/components/popup/TaskManagementProfile/hooks';
+import AccountSettings from '@/app/components/popup/TaskManagementProfile/components/settings/AccountSettings/page';
+import Notifications from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/page';
+import TimeZone from '@/app/components/popup/TaskManagementProfile/components/settings/TimeZone/page';
 import closeIcon from '@/app/public/closeIcon.png';
 
 const ProfileSettings: React.FC<ProfileSettingsProps> = ({ toggleSettings }) => {

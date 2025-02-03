@@ -1,6 +1,6 @@
 'use client';
 
-import { useUserSettings, UserSettings } from '../../../hooks';
+import { useUserSettings, UserSettings } from '@/app/components/popup/TaskManagementProfile/hooks';
 
 const notificationCheckboxsList = [
   { id: 1, notification: 'All new messages' },

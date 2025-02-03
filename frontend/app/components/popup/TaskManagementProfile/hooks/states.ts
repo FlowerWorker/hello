@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StatusOption, UserSettings } from './types';
+import { StatusOption, UserSettings } from '@/app/components/popup/TaskManagementProfile/hooks';
 
 // Profile State
 export const useProfileState = () => {

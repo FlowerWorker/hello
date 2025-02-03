@@ -1,12 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useTabState, useUserSettings } from '../../../hooks';
-import { NOTIFICATION_TABS } from '../../../hooks/constants';
-import AccountNotifications from './AccountNotifications';
-import EmailNotifications from './EmailNotifications';
-import SoundsAppearance from './SoundAppearance';
-import { Button } from '../../common/Button';
+import { useTabState, useUserSettings, NOTIFICATION_TABS } from '@/app/components/popup/TaskManagementProfile/hooks';
+import AccountNotifications from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/AccountNotifications';
+import EmailNotifications from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/EmailNotifications';
+import SoundsAppearance from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/SoundAppearance';
+import { Button } from '@/app/components/popup/TaskManagementProfile/components/common/Button';
 
 const Notifications: React.FC = () => {
   const { activeTab, setActiveTab } = useTabState(NOTIFICATION_TABS.ACCOUNT);

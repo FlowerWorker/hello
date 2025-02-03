@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { StatusOption, StatusDropdownProps, STATUSOPTIONS } from '../hooks';
+import { StatusOption, StatusDropdownProps, STATUSOPTIONS } from '@/app/components/popup/TaskManagementProfile/hooks';
 import arrowUpIcon from '@/app/public/arrowUpIcon.svg';
 import arrowDownIcon from '@/app/public/arrowDownIcon.svg';
 

@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '../../common/Button';
-import { PhotoUpload } from './PhotoUpload';
-import { FormField } from './FormField';
-import { useUserSettings, UserSettings, FORM_FIELDS } from '../../../hooks';
+import { Button } from '@/app/components/popup/TaskManagementProfile/components/common/Button';
+import { PhotoUpload } from '@/app/components/popup/TaskManagementProfile/components/settings/AccountSettings/PhotoUpload';
+import { FormField } from '@/app/components/popup/TaskManagementProfile/components/settings/AccountSettings/FormField';
+import { useUserSettings, UserSettings, FORM_FIELDS } from '@/app/components/popup/TaskManagementProfile/hooks';
 
 const AccountSettings: React.FC = () => {
   const { userSettings, updateUserSettings } = useUserSettings();

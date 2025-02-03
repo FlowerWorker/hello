@@ -1,6 +1,6 @@
 import React from 'react';
-import { StatusSectionProps, StatusOption, useStatusState } from '../hooks';
-import { StatusDropdown } from './StatusDropdown';
+import { StatusSectionProps, StatusOption, useStatusState } from '@/app/components/popup/TaskManagementProfile/hooks';
+import { StatusDropdown } from '@/app/components/popup/TaskManagementProfile/components/StatusDropdown';
 
 export const StatusSection: React.FC<StatusSectionProps> = ({ status, setStatus }) => {
   const { isStatusOpen, toggleStatus } = useStatusState();
