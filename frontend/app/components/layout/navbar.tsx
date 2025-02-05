@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -12,9 +14,12 @@ import { Share2 } from "lucide-react";
 import user from "../../public/user.png";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useAuth } from "@/lib/auth-context";
 
 interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> { }
 const Navbar: React.FC<NavbarProps> = ({ className, ...props }) => {
+  const { token } = useAuth();
+
   return (
     <div
       className={cn(
@@ -42,17 +47,19 @@ const Navbar: React.FC<NavbarProps> = ({ className, ...props }) => {
             </NavigationMenuLink>
           </NavigationMenuItem>
 
-          {/* Signp Up Button */}
-          <NavigationMenuItem>
-            <NavigationMenuLink asChild>
-              <Link
-                href="/sign-up"
-                className="flex items-center gap-2 text-white"
-              >
-                Sign up
-              </Link>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
+          {/* Sign Up Button */}
+          {!token && (
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link
+                  href="/sign-up"
+                  className="flex items-center gap-2 text-white"
+                >
+                  Sign up
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          )}
 
           {/* Login Button */}
           <NavigationMenuItem>
