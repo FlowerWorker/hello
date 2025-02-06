@@ -14,6 +14,12 @@ pub struct TaskAssignee {
     pub assigned_at: Option<chrono::NaiveDateTime>, 
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+pub struct TaskWithAssignees {
+    pub task: Task,
+    pub assignees: Vec<User>,
+}
+
 #[derive(Insertable)]
 #[diesel(table_name = task_assignees)]
 pub struct NewTaskAssignee {

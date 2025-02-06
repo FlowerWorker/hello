@@ -1,20 +1,15 @@
-use actix_service::boxed::service;
 use actix_web::{delete, get, patch, post, web, HttpResponse, Responder, ResponseError};
 
-use chrono::NaiveDate;
 use serde::{Deserialize, Serialize};
 
-use crate::database::error::DatabaseError;
 use crate::handlers::error::ApiError;
-use crate::models::task::{Priority, Progress, Task};
 use crate::models::task_assignee::TaskWithAssignedUsers;
 use crate::models::user::UserSub;
 use crate::run_async_query;
-use crate::schema::task_assignees;
-use crate::schema::tasks::dsl::tasks;
-use crate::services::task_service;
 use crate::services::user_service::get_user_id_by_email;
+use crate::services::task_service;
 use crate::{auth::auth_middleware, db::DbPool};
+use crate::tasks::enums::{Priority, Progress};
 
 #[derive(Serialize, Deserialize)]
 pub struct CreateTaskRequest {
@@ -34,6 +29,7 @@ pub struct UpdateTaskRequest {
     pub priority: Option<Priority>,
     pub due_date: Option<String>, 
     pub assigned_users: Option<Vec<i32>>, 
+    pub assign_access_users : Option<Vec<i32>>
 }
 
 
@@ -59,7 +55,8 @@ pub async fn create_task(
     let create_task = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
         // Use the service method to get user ID
         let user_id = get_user_id_by_email(&user_sub.0, conn).map_err(DatabaseError::from)?;
-        
+        // let parsed_due_date = parse_and_validate_due_date(task.due_date.clone())?;
+
         task_service::create_task(
             conn, 
             &task.description, 
@@ -80,12 +77,14 @@ pub async fn get_tasks(
 ) -> Result<impl Responder, impl ResponseError> {
     let ta = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
         // First, get the user ID by email
-        let users_id = get_user_id_by_email(&user_sub.0, conn).map_err(DatabaseError::from)?;
+        let users_id = get_user_id_by_email(&user_sub.0, conn).map_err(DatabaseError::from)?;        
         // Then, retrieve tasks using the user ID
         task_service::get_tasks(conn, &users_id).map_err(DatabaseError::from)
     })?;
     Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(ta))
 }
+
+
 
 #[get("/{id}")]
 pub async fn get_task_by_id(
@@ -123,6 +122,7 @@ pub async fn update_task(
             task_update.priority,
             task_update.due_date.clone(),
             task_update.assigned_users.clone(),
+            task_update.assign_access_users.clone(),
         )
         .map_err(DatabaseError::from)?;
 
@@ -153,9 +153,8 @@ pub async fn delete_task(
 mod tests {
     use crate::database::db;
     use crate::database::test_db::TestDb;
-    use crate::handlers::auth_handler::{auth_routes, login, LoginRequest};
+    use crate::handlers::auth_handler::{auth_routes, LoginRequest};
     use crate::services::project_service::create_project;
-    use crate::services::user_service;
     use crate::services::user_service::register_user;
     use actix_web::http::StatusCode;
     use actix_web::{test, App};
@@ -182,7 +181,7 @@ mod tests {
         let due_date = None;
 
 
-        let user = register_user(
+        let _ = register_user(
             &mut db.conn(),
             "test user",
             "testpassword",
@@ -217,13 +216,14 @@ mod tests {
                 reward,
                 project_id: 1,
                 title: title.to_string(),
+                // created_at,
                 due_date
             })
             .to_request();
 
         let resp = test::call_service(&app, req).await;
 
-        assert_eq!(resp.status(), StatusCode::CONFLICT);
+        assert_eq!(resp.status(), StatusCode::BAD_REQUEST);
     }
 
     #[actix_rt::test]
@@ -243,7 +243,7 @@ mod tests {
         let description = "test task";
         let reward = 100;
         let title = "Task title";
-        let due_date = Some("25-12-2024".to_string());
+        let due_date = Some("25-12-3024".to_string());
 
         let user = register_user(
             &mut db.conn(),
@@ -371,8 +371,9 @@ async fn test_update_task_success() {
             title: Some("updated title".to_string()),
             progress: Some(Progress::Completed),
             priority: Some(Priority::High),
-            due_date: Some("26-12-2024".to_string()),
+            due_date: Some("26-12-2029".to_string()),
             assigned_users: Some(vec![]),
+            assign_access_users:Some(vec!())
         })
         .to_request();
 
@@ -465,10 +466,7 @@ async fn test_delete_task_success() {
 
     // Verify the task is deleted
     let task_check = task_service::get_task_by_id(&mut db.conn(), task.id, &user.id);
-        // .filter(id.eq(task.id))
-        // .first::<Task>(&mut db.conn())
-        // .optional()
-        // .expect("Failed to query task");
+      
 
     assert!(task_check.is_err()); 
 }

@@ -57,9 +57,11 @@ pub fn get_project_by_id(conn: &mut PgConnection, project_id: &i32) -> Result<Pr
 }
 
 mod tests {
+    use chrono::Utc;
+
     use crate::database::test_db::TestDb;
-    use crate::services::task_service::create_task;
     use crate::services::user_service::register_user;
+    use crate::services::task_service::create_task;
 
     use super::*;
 
@@ -142,7 +144,7 @@ mod tests {
 
         let title = "Test Project";
         let description = "Test Project Description";
-        let due_date = Some("25-12-2024".to_string());
+        let due_date = Some("25-12-3000".to_string());
 
         let user_id = register_user(&mut conn, "testuser", "password123", "test@example.com")
             .expect("Failed to register user")

@@ -1,12 +1,16 @@
-use chrono::{NaiveDateTime, Utc};
 use diesel::prelude::*;
 use diesel::result::Error;
 
-use crate::models::task::{NewTask, Priority, Progress, SubTask, Task, TaskWithSubTasks};
-use crate::models::task_assignee::{TaskAssignee, TaskWithAssignedUsers};
+use crate::database::error::DatabaseError;
+use crate::models::sub_tasks::{SubTask, TaskWithSubTasks};
+use crate::models::task::{ NewTask, Task};
+use crate::models::task_assignee::TaskWithAssignedUsers;
 use crate::schema::{tasks, users};
 use crate::schema::tasks::dsl::{id,user_id as task_user_id};
 
+use crate::tasks::enums::{Priority, Progress};
+use crate::tasks::helpers::{ parse_and_validate_due_date, validate_task_ownership, validate_user_project_access};
+use crate::tasks::error::ValidationError;
 
 pub fn create_task(
     conn: &mut PgConnection,
@@ -15,63 +19,82 @@ pub fn create_task(
     project_id: i32,
     user_id: i32,
     title: &str,
-    due_date: Option<String>
-) -> Result<Task, Error> {
+    due_date: Option<String>,
+) -> Result<Task, ValidationError> {
 
-    let parsed_due_date = due_date.and_then(|date_str| {
-        NaiveDateTime::parse_from_str(&format!("{} 00:00:00", date_str), "%d-%m-%Y %H:%M:%S").ok()
-    });
+     // Ensure the user has user_project_access
+    validate_user_project_access(conn, user_id, project_id)
+    .map_err(|_| ValidationError::from(DatabaseError::PermissionDenied))?;
 
-    let new_task = NewTask {
+    // let timezone = Some("Europe/Stockholm".to_string()); <== hardcoded value for testing
+    let parsed_due_date=parse_and_validate_due_date(due_date,None)?;
+
+        let new_task = NewTask {
         description,
         reward,
         completed: false,
         project_id,
         user_id: Some(user_id),
         title,
-        progress:Progress::ToDo,
+        progress: Progress::ToDo,
         priority: Priority::Medium,
-        created_at: Utc::now().naive_utc(),
+        created_at: chrono::Utc::now().naive_utc(),
         due_date: parsed_due_date,
     };
-    let some = diesel::insert_into(tasks::table)
+
+   let some = diesel::insert_into(tasks::table)
         .values(&new_task)
         .returning(Task::as_returning())
-        .get_result(conn);
-    return some;
+        .get_result(conn)
+        .map_err(|e| ValidationError {
+            message: format!("Database error: {}", e),
+
+        });
+        return  some;
 }
 
-pub(crate) fn get_tasks(conn: &mut PgConnection, users_id: &i32) -> Result<Vec<Task>, Error> {
-    crate::schema::tasks::table
-        .filter(tasks::user_id.eq(users_id))
-        .load(conn)
+pub(crate) fn get_tasks(
+    conn: &mut PgConnection,
+    user_id: &i32,
+) -> Result<Vec<Task>, Error> {
+    use crate::schema::tasks;
+
+    // Fetch all tasks for the user
+    let tasks: Vec<Task> = tasks::table
+        .filter(tasks::user_id.eq(user_id))
+        .load(conn)?;
+
+    // Validate project access for each task
+    let tasks_with_valid_access = tasks.into_iter().filter(|task| {
+        // Validate that the user has access to the project's task
+        validate_user_project_access(conn, *user_id, task.project_id).is_ok()
+    }).collect::<Vec<Task>>();
+
+    Ok(tasks_with_valid_access)
 }
 
 pub(crate) fn get_task_by_id(
     conn: &mut PgConnection,
     task_id: i32,
     user: &i32,
-) -> Result<TaskWithSubTasks, Error> {
-    //make sure the task is within user project
-    let user_project = crate::schema::projects::table
-        .filter(crate::schema::projects::user_id.eq(user))
-        .first::<crate::models::project::Project>(conn)?;
+) -> Result<TaskWithSubTasks, DatabaseError> {  
 
-    let task: Task = crate::schema::tasks::table
-        .filter(crate::schema::tasks::project_id.eq(user_project.id))
-        .find(task_id)
-        .first::<Task>(conn)?;
+    // Ensure the user has access to the project & tasks
+    let task = validate_task_ownership(conn, task_id, *user)
+        .map_err(|_| DatabaseError::PermissionDenied)?;  
 
-        let associated_subtasks = SubTask::belonging_to(&task)
-        .load::<SubTask>(conn)?;
+    let _user_project = validate_user_project_access(conn, *user, task.project_id)
+        .map_err(|_| DatabaseError::PermissionDenied)?;  
 
-        Ok(TaskWithSubTasks {
-            task,
-            subtasks: associated_subtasks,
-        })
-    // Ok(task)
+    let associated_subtasks = SubTask::belonging_to(&task)
+        .load::<SubTask>(conn)
+        .map_err(DatabaseError::DieselError)?;  
+
+    Ok(TaskWithSubTasks {
+        task,
+        subtasks: associated_subtasks,
+    })
 }
-
 
 pub fn update_task(
     conn: &mut PgConnection,
@@ -85,10 +108,16 @@ pub fn update_task(
     priority: Option<Priority>,
     due_date: Option<String>,
     assigned_users: Option<Vec<i32>>,
-) -> QueryResult<TaskWithAssignedUsers> {
-    use crate::schema::{tasks, task_assignees};
+    assign_access_users: Option<Vec<i32>>,
+) -> Result<TaskWithAssignedUsers, ValidationError> {
+    use crate::schema::{tasks, task_assignees, task_access};
 
-    
+    // Ensure the user has access to the project & tasks
+    let task = validate_task_ownership(conn, task_id, *user_id)?;
+    let _user_project = validate_user_project_access(conn, *user_id, task.project_id)?;
+
+    let parsed_due_date = parse_and_validate_due_date(due_date,None)?;
+
     conn.transaction(|conn| {
         // Update the main task details
         let updated_task = diesel::update(tasks::table.filter(tasks::id.eq(task_id).and(tasks::user_id.eq(user_id))))
@@ -99,10 +128,8 @@ pub fn update_task(
                 title.map(|t| tasks::title.eq(t)),
                 progress.map(|prog| tasks::progress.eq(prog)),
                 priority.map(|pri| tasks::priority.eq(pri)),
-                due_date.map(|date| {
-                    let parsed_date = chrono::NaiveDate::parse_from_str(&date, "%d-%m-%Y").ok();
-                    parsed_date.and_then(|d| d.and_hms_opt(0, 0, 0))
-                }).map(|dt| tasks::due_date.eq(dt)),
+                // parsed_created_at.map(|dt| tasks::created_at.eq(dt)),
+                parsed_due_date.map(|dt| tasks::due_date.eq(dt)),
             ))
             .get_result::<Task>(conn)?;
 
@@ -122,7 +149,20 @@ pub fn update_task(
                 .values(new_assignments)
                 .execute(conn)?;
         }
-                // Query assigned users
+
+        // Assign access to new users if provided
+        if let Some(users) = assign_access_users {
+            let new_accesses: Vec<_> = users
+                .into_iter()
+                .map(|user_id| (task_access::task_id.eq(task_id), task_access::user_id.eq(user_id)))
+                .collect();
+
+            diesel::insert_into(task_access::table)
+                .values(new_accesses)
+                .execute(conn)?;
+        }
+
+        // Query assigned users
         let assigned_users_query = task_assignees::table
             .inner_join(users::table)
             .filter(task_assignees::task_id.eq(task_id))
@@ -134,24 +174,25 @@ pub fn update_task(
             assigned_users: assigned_users_query,
         })
     })
-        // Ok(updated_task)
-   
 }
+
 
 pub fn delete_task(
     conn: &mut PgConnection,
     task_id: i32,
     user_id: &i32,
-) -> Result<(), Error> {
+) -> Result<(), DatabaseError> {
+
+            // Ensure the user has access to the project & tasks
+            let task = validate_task_ownership(conn, task_id, *user_id)?;
+            let _user_project = validate_user_project_access(conn, *user_id, task.project_id)?;
+
     // Check if the user is the creator of the task
-    let task_creator_id: Option<i32> = crate::schema::tasks::table
+    let _task_creator_id: Option<i32> = crate::schema::tasks::table
         .filter(id.eq(task_id))
         .select(task_user_id)
         .first(conn)?;
 
-    if task_creator_id != Some(*user_id) {
-        return Err(Error::NotFound); // Return error if not the creator
-    }
 
     // Delete the task
     diesel::delete(crate::schema::tasks::table.filter(id.eq(task_id))).execute(conn)?;
@@ -161,6 +202,7 @@ pub fn delete_task(
 
 #[cfg(test)]
 mod tests {
+    use chrono::NaiveDateTime;
     use crate::database::test_db::TestDb;
     use crate::services::project_service::create_project;
     use crate::services::user_service::register_user;
@@ -174,7 +216,7 @@ mod tests {
         let description = "test task";
         let reward = 100;
         let title : &str= "Test Title";
-        let due_date = Some("25-12-2024".to_string());
+        let due_date = Some("25-12-3044".to_string());
 
         let user_id = register_user(
             &mut db.conn(),
@@ -185,7 +227,7 @@ mod tests {
         .expect("Failed to register user")
         .id;
 
-        let result = create_task(&mut db.conn(), description, reward, 1,user_id,title,due_date);
+        let result = create_task(&mut db.conn(), description, reward, 1, user_id, title, due_date);
 
         assert!(
             result.is_err(),
@@ -219,6 +261,7 @@ mod tests {
             .id;
 
         let result = create_task(&mut db.conn(), description, reward, project_id,user_id,title,due_date);
+
         assert!(
             result.is_ok(),
             "Task creation failed when it should have succeeded"
@@ -236,7 +279,7 @@ mod tests {
         let description = "test task";
         let reward = 100;
         let title = "title test";
-        let due_date = Some("25-12-2024".to_string());
+        let due_date = None;
 
 
         let user_id = register_user(
@@ -249,10 +292,10 @@ mod tests {
         .id;
 
         let project_id = create_project(&mut db.conn(), "test project", "100", &user_id)
-            .expect("Failed to create project")
-            .id;
+            .expect("Failed to create project");
 
-        let result = create_task(&mut db.conn(), description, reward, project_id,user_id,title,due_date);
+        let result = create_task(&mut db.conn(), description, reward, project_id.id,user_id,title,due_date);
+
         assert!(
             result.is_ok(),
             "Task creation failed when it should have succeeded"
@@ -289,7 +332,7 @@ mod tests {
         .expect("Failed to create project")
         .id;
 
-        let task = create_task(&mut db.conn(), "original_Description", reward, project_id, user_id,title, due_date);
+        let task = create_task(&mut db.conn(), "original_Description", reward, project_id, user_id,title,due_date);
 
 
         // Call patch_task to update description
@@ -298,6 +341,7 @@ mod tests {
             task.unwrap().id,
             &user_id,
             Some("Updated Description"),
+            None,
             None,
             None,
             None,
@@ -347,7 +391,9 @@ mod tests {
             None,
             None,
             None,
+            // None,
             Some("15-03-2025".to_string()),
+            None,
             None,
         ).unwrap();
         
