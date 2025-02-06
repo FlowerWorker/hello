@@ -24,6 +24,13 @@ import kevin from "../public/kevin.png"
 import rona from "../public/rona.jpg"
 import rukaiya from "../public/rukaiya.png"
 import stefan from "../public/stefan.png"
+import naryana from "../public/narayana.jpg"
+import kareem from "../public/kareem.jpg"
+import neha from "../public/neha.png"
+import hala from "../public/hala.jpg"
+import muhammed from "../public/muhammed.jpg"
+import zixi from "../public/zixi.jpg"
+import abdulmish from "../public/abdulmish.jpg"
 
 export const TEAM_MEMBERS = [
   {
@@ -32,24 +39,24 @@ export const TEAM_MEMBERS = [
     imageSrc: francisco,
   },
   {
-    name: "Rukaiya Mansoor",
-    role: "Project Manager",
-    imageSrc: rukaiya,
-  },
-  {
     name: "Carmen Schäfer",
     role: "UX/UI Designer",
     imageSrc: carmen,
   },
   {
-    name: "Hrigved Nair",
-    role: "Marketing and Growth",
-    imageSrc: hrigved,
+    name: "Narayana Swamy Vanganur",
+    role: "Project Manager",
+    imageSrc: naryana,
   },
   {
-    name: "Stefan Andrei",
+    name: "Rukaiya Mansoor",
+    role: "Project Manager",
+    imageSrc: rukaiya,
+  },
+  {
+    name: "Kareem Darweesh",
     role: "Full stack Developer",
-    imageSrc: stefan,
+    imageSrc: kareem,
   },
 ]
 
@@ -60,19 +67,24 @@ export const ALL_TEAM_MEMBERS = [
     imageSrc: francisco,
   },
   {
-    name: "Rukaiya Mansoor",
-    role: "Project Manager",
-    imageSrc: rukaiya,
-  },
-  {
     name: "Carmen Schäfer",
     role: "UX/UI Designer",
     imageSrc: carmen,
   },
   {
-    name: "Hrigved Nair",
-    role: "Marketing and Growth",
-    imageSrc: hrigved,
+    name: "Narayana Swamy Vanganur",
+    role: "Project Manager",
+    imageSrc: naryana,
+  },
+  {
+    name: "Rukaiya Mansoor",
+    role: "Project Manager",
+    imageSrc: rukaiya,
+  },
+  {
+    name: "Kareem Darweesh",
+    role: "Full stack Developer",
+    imageSrc: kareem,
   },
   {
     name: "Stefan Andrei",
@@ -80,14 +92,14 @@ export const ALL_TEAM_MEMBERS = [
     imageSrc: stefan,
   },
   {
+    name: "Hrigved Nair",
+    role: "Marketing and Growth",
+    imageSrc: hrigved,
+  },
+  {
     name: "Adam Louhichi",
     role: "UX/UI Designer",
     imageSrc: adam,
-  },
-  {
-    name: "Gabriela Beran",
-    role: "HR & Recruitment",
-    imageSrc: gabriela,
   },
   {
     name: "Kevin Kongpachith",
@@ -95,14 +107,44 @@ export const ALL_TEAM_MEMBERS = [
     imageSrc: kevin,
   },
   {
+    name: "Gabriela Beran",
+    role: "HR & Recruitment",
+    imageSrc: gabriela,
+  },
+  {
+    name: "Neha Joseph",
+    role: "Marketing and growth",
+    imageSrc: neha,
+  },
+  {
     name: "Iryna Voitsikhovska",
     role: "UX/UI Designer",
     imageSrc: iryna,
   },
   {
+    name: "Hala Khereebe",
+    role: "UX/UI Designer",
+    imageSrc: hala,
+  },
+  {
     name: "Rona Zong",
     role: "Fullstack Developer",
     imageSrc: rona,
+  },
+  {
+    name: "Abdulmish Nashef",
+    role: "Fullstack & ML Developer",
+    imageSrc: abdulmish,
+  },
+  {
+    name: "Zixi Wang",
+    role: "Fullstack Developer",
+    imageSrc: zixi,
+  },
+  {
+    name: "Mohammad Abdullah",
+    role: "Fullstack Developer",
+    imageSrc: muhammed,
   },
 ]
 
