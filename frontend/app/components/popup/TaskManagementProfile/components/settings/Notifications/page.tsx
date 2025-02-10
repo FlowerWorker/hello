@@ -1,15 +1,64 @@
 'use client';
 
 import { useState } from 'react';
-import { useTabState, useUserSettings, NOTIFICATION_TABS } from '@/app/components/popup/TaskManagementProfile/hooks';
 import AccountNotifications from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/AccountNotifications';
 import EmailNotifications from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/EmailNotifications';
 import SoundsAppearance from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/SoundAppearance';
-import { Button } from '@/app/components/popup/TaskManagementProfile/components/common/Button';
+
+interface UserSettings {
+  profile: {
+      fullName: string;
+      jobTitle: string;
+      email: string;
+      department: string;
+      phoneNumber: string;
+  };
+  profilePhoto: string,
+  notifications: {
+      allNewMessages: boolean;
+      directMessages: boolean;
+      threadReplies: boolean;
+      schedule: string;
+      notificationHours: {
+          start: string;
+          end: string;
+      };
+  };
+}
+
+const NOTIFICATION_TABS = {
+  ACCOUNT: 'account-notifications',
+  EMAIL: 'email-notification',
+  SOUNDS: 'sounds-appearance',
+}
 
 const Notifications: React.FC = () => {
-  const { activeTab, setActiveTab } = useTabState(NOTIFICATION_TABS.ACCOUNT);
-  const { userSettings, updateUserSettings } = useUserSettings();
+  const [activeTab, setActiveTab] = useState(NOTIFICATION_TABS.ACCOUNT);
+
+  const [userSettings, setUserSettings] = useState<UserSettings>({
+    profile: {
+      fullName: 'User Name',  // Default values
+      jobTitle: 'Job title',
+      email: 'username@gmail.com',
+      department: 'Team',
+      phoneNumber: '01231234532',
+    },
+    profilePhoto: '',
+    notifications: {
+      allNewMessages: true,
+      directMessages: true,
+      threadReplies: false,
+      schedule: 'Every day',
+      notificationHours: {
+          start: '9:00 AM',
+          end: '5:00 PM',
+      },
+    },
+  });
+
+  const updateUserSettings = (newSettings: Partial<UserSettings>) => {
+      setUserSettings(prev => ({ ...prev, ...newSettings }));
+  };
 
   const [tempSettings, setTempSettings] = useState(userSettings.notifications);
 
@@ -64,8 +113,8 @@ const Notifications: React.FC = () => {
 
       {/* Footer Buttons */}
       <div className='flex justify-end p-4 space-x-4'>
-        <Button variant='secondary' onClick={handleCancel}>Cancel</Button>
-        <Button variant='primary' onClick={handleSave}>Save</Button>
+        <button className='px-4 py-2 rounded transition-colors duration-200 bg-gray-300 text-gray-700 hover:bg-gray-400' onClick={handleCancel}>Cancel</button>
+        <button className='px-4 py-2 rounded transition-colors duration-200 bg-purple-500 text-white hover:bg-purple-600' onClick={handleSave}>Save</button>
       </div>
     </div>
   );

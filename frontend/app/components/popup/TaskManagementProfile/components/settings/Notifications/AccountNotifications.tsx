@@ -1,6 +1,28 @@
 'use client';
 
-import { useUserSettings, UserSettings } from '@/app/components/popup/TaskManagementProfile/hooks';
+import { useState } from 'react';
+// import { useUserSettings, UserSettings } from '@/app/components/popup/TaskManagementProfile/hooks';
+
+interface UserSettings {
+  profile: {
+      fullName: string;
+      jobTitle: string;
+      email: string;
+      department: string;
+      phoneNumber: string;
+  };
+  profilePhoto: string,
+  notifications: {
+      allNewMessages: boolean;
+      directMessages: boolean;
+      threadReplies: boolean;
+      schedule: string;
+      notificationHours: {
+          start: string;
+          end: string;
+      };
+  };
+}
 
 const notificationCheckboxsList = [
   { id: 1, notification: 'All new messages' },
@@ -9,7 +31,30 @@ const notificationCheckboxsList = [
 ];
 
 const AccountNotifications: React.FC = () => {
-  const { userSettings, updateUserSettings } = useUserSettings();
+  const [userSettings, setUserSettings] = useState<UserSettings>({
+      profile: {
+          fullName: 'User Name',  // Default values
+          jobTitle: 'Job title',
+          email: 'username@gmail.com',
+          department: 'Team',
+          phoneNumber: '01231234532',
+      },
+      profilePhoto: '',
+      notifications: {
+          allNewMessages: true,
+          directMessages: true,
+          threadReplies: false,
+          schedule: 'Every day',
+          notificationHours: {
+              start: '9:00 AM',
+              end: '5:00 PM',
+          },
+      },
+  });
+
+  const updateUserSettings = (newSettings: Partial<UserSettings>) => {
+      setUserSettings(prev => ({ ...prev, ...newSettings }));
+  };
 
   const handleCheckboxChange = (field: keyof UserSettings['notifications'], value: boolean) => {
     updateUserSettings({

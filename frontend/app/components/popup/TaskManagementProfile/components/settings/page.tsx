@@ -1,16 +1,24 @@
 'use client'
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import type { ProfileSettingsProps} from '@/app/components/popup/TaskManagementProfile/hooks';
-import { useTabState, SETTINGS_TABS } from '@/app/components/popup/TaskManagementProfile/hooks';
 import AccountSettings from '@/app/components/popup/TaskManagementProfile/components/settings/AccountSettings/page';
 import Notifications from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/page';
 import TimeZone from '@/app/components/popup/TaskManagementProfile/components/settings/TimeZone/page';
 import closeIcon from '@/app/public/closeIcon.png';
 
+interface ProfileSettingsProps {
+  toggleSettings: () => void;
+}
+
+const SETTINGS_TABS = {
+  ACCOUNT: 'account-settings',
+  NOTIFICATIONS: 'notifications',
+  TIMEZONE: 'time-zone',
+}
+
 const ProfileSettings: React.FC<ProfileSettingsProps> = ({ toggleSettings }) => {
-  const { activeTab, setActiveTab } = useTabState(SETTINGS_TABS.ACCOUNT);
+  const [activeTab, setActiveTab] = useState(SETTINGS_TABS.ACCOUNT);
 
   return (
     <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>

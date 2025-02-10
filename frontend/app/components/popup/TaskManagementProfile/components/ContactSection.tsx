@@ -57,5 +57,5 @@ export const ContactSection = () => {
           </div>
         </div>
       </div>
-    )
-}
+    );
+};

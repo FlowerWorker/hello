@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Button } from '@/app/components/popup/TaskManagementProfile/components/common/Button';
+// import { Button } from '@/app/components/popup/TaskManagementProfile/components/common/Button';
 import profileImage from '@/app/public/user-icons/profileImage.png';
 
 export const PhotoUpload: React.FC<{ onImageUpload: (file: File | null) => void; currentImage: string }> = ({ onImageUpload, currentImage }) => {
@@ -38,12 +38,12 @@ export const PhotoUpload: React.FC<{ onImageUpload: (file: File | null) => void;
           style={{ display: 'none' }}
           onChange={handleFileChange}
         />
-        <Button variant='primary' className='text-xs' onClick={() => document.getElementById('file-input')?.click()}>
+        <button className='text-xs px-4 py-2 rounded transition-colors duration-200 bg-purple-500 text-white hover:bg-purple-600' onClick={() => document.getElementById('file-input')?.click()}>
           Upload Photo
-        </Button>
-        <Button variant='secondary' className='text-xs underline italic' onClick={handleRemoveImage}>
+        </button>
+        <button className='text-xs underline italic px-4 py-2 rounded transition-colors duration-200 bg-gray-300 text-gray-700 hover:bg-gray-400' onClick={handleRemoveImage}>
           Remove Photo
-        </Button>
+        </button>
       </div>
     </div>
   );

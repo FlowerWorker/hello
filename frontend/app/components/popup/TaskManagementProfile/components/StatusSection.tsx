@@ -1,9 +1,20 @@
-import React from 'react';
-import { StatusSectionProps, StatusOption, useStatusState } from '@/app/components/popup/TaskManagementProfile/hooks';
+import React, { useState } from 'react';
 import { StatusDropdown } from '@/app/components/popup/TaskManagementProfile/components/StatusDropdown';
 
+interface StatusOption {
+    value?: string;
+    label: string;
+    icon: string | null;
+};
+
+interface StatusSectionProps {
+    status: StatusOption;
+    setStatus: (status: StatusOption) => void;
+}
+
 export const StatusSection: React.FC<StatusSectionProps> = ({ status, setStatus }) => {
-  const { isStatusOpen, toggleStatus } = useStatusState();
+    const [isStatusOpen, setIsStatusOpen] = useState(false);
+    const toggleStatus = () => setIsStatusOpen(prev => !prev);
 
     return (
         <div className='relative mt-4 mb-6'>
@@ -12,8 +23,8 @@ export const StatusSection: React.FC<StatusSectionProps> = ({ status, setStatus 
                 isStatusOpen={isStatusOpen}
                 toggleStatus={toggleStatus}
                 selectStatus={(option: StatusOption) => {
-                  setStatus(option);
-                  toggleStatus();
+                    setStatus(option);
+                    toggleStatus();
                 }}
             />
             

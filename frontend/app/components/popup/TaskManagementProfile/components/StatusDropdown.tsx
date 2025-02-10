@@ -1,10 +1,31 @@
 import React from 'react';
 import Image from 'next/image';
-import { StatusOption, StatusDropdownProps, STATUSOPTIONS } from '@/app/components/popup/TaskManagementProfile/hooks';
 import arrowUpIcon from '@/app/public/arrowUpIcon.svg';
 import arrowDownIcon from '@/app/public/arrowDownIcon.svg';
+import activeIcon from '@/app/public/activeIcon.svg';
 
-export const StatusDropdown = ({ status, isStatusOpen, toggleStatus, selectStatus }: StatusDropdownProps) => {
+interface StatusOption {
+    value?: string;
+    label: string;
+    icon: string | null;
+};
+
+interface StatusDropdownProps {
+    status: StatusOption;
+    isStatusOpen: boolean;
+    toggleStatus: () => void;
+    selectStatus: (option: StatusOption) => void;
+};
+
+const STATUSOPTIONS = [
+    { value: 'Active', label: 'Active', icon: activeIcon },
+    { value: 'Busy', label: 'Busy', icon: activeIcon },
+    { value: 'On a call', label: 'On a call', icon: activeIcon },
+    { value: 'In a meeting', label: 'In a meeting', icon: activeIcon },
+    { value: 'Out for lunch', label: 'Out for lunch', icon: activeIcon },
+];
+
+export const StatusDropdown: React.FC<StatusDropdownProps> = ({ status, isStatusOpen, toggleStatus, selectStatus }) => {
   return (
     <div>
       {/* Dropdown Status Header */}
@@ -48,5 +69,5 @@ export const StatusDropdown = ({ status, isStatusOpen, toggleStatus, selectStatu
       </ul>
       )}
     </div>
-  )
-}
+  );
+;}
