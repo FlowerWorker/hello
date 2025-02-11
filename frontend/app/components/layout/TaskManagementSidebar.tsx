@@ -23,16 +23,16 @@ const TaskManagementSidebar: React.FC<SidebarProps> = ({
 }) => {
     return (
         <div
-            className={`bg-gradient-to-b from-[#282625] to-[#6E1F87] h-[550px] rounded-b-[20px] transition-all duration-1300 p-4 z-10 sm:z-0  ${isLeftDivRetracted
+            className={`bg-gradient-to-b from-[#282625] to-[#6E1F87] h-[550px] rounded-b-[20px] transition-all duration-1300 pt-2 px-4 z-10 sm:z-0  ${isLeftDivRetracted
                     ? "min-w-0 w-1/20"
-                    : "min-w-full sm:min-w-[260px] w-1/6"
+                    : "min-w-full md:min-w-[250px] max-w-[260px] w-1/6"
                 } absolute sm:relative`}
         >
             {isLeftDivRetracted && (
                 <Image
                     src={rightArrow}
                     alt="right arrow icon"
-                    className="cursor-pointer absolute -right-5 top-24 transform -translate-y-1/2  block"
+                    className="cursor-pointer absolute -right-5 top-28 transform -translate-y-1/2  block"
                     onClick={toggleLeftDiv}
                     style={{ width: "auto", height: "auto" }}
                 />
@@ -44,12 +44,15 @@ const TaskManagementSidebar: React.FC<SidebarProps> = ({
             >
                 {/* Top sidebar container */}
                 <div>
-                    <div className="flex items-center pb-10 px-1">
+                    
+                    <h1 className="font-bold text-base py-2 ml-2">Workspaces</h1>
+                    
+                    <div className="flex items-center pt-8 pb-10 px-1">
                         <Image
                             src={userIcon}
                             alt="user icon"
-                            className="w-10 h-10"
-                            style={{ width: "auto", height: "auto" }}
+                            className="w-10 h-10 rounded-md"
+                            style={{ width: "auto", height: "auto"}}
                         />
 
                         <h1 className="font-bold text-xl ml-2">Workspace name</h1>
@@ -57,7 +60,7 @@ const TaskManagementSidebar: React.FC<SidebarProps> = ({
                         <Image
                             src={arrowLeft}
                             alt="left arrow icon"
-                            className="cursor-pointer absolute right-0 sm:-right-3 top-12 transform -translate-y-1/2  block"
+                            className="cursor-pointer absolute right-0 sm:-right-3 top-28 transform -translate-y-1/2  block"
                             onClick={toggleLeftDiv}
                             style={{ width: "auto", height: "auto" }}
                         />

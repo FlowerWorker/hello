@@ -26,7 +26,7 @@ import mockTasks from "../sampleData/mockTasks";
 // Components imports
 import { TaskList } from "../components/drag-drop/DropTaskContainer";
 import TaskContainer from "../components/ui/TaskContainer";
-import TaskManagementNavbar from "../components/layout/TaskManagementNavbar";
+import Navbar from "../components/layout/navbar";
 import TaskManagementSidebar from "../components/layout/TaskManagementSidebar";
 import ListActionsCard from "../components/ui/ListActionsCard";
 import AddAssignees from "../components/ui/AddAssignees";
@@ -170,7 +170,7 @@ export default function TaskManagementDashboard() {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="flex flex-col justify-center items-center">
-        <TaskManagementNavbar />
+        <Navbar />
 
         {/* Overlay for greyed out background */}
         {isListActionsCardVisible && (
@@ -187,8 +187,11 @@ export default function TaskManagementDashboard() {
           />
 
           {/* Right side container  */}
-          <div className="w-full h-full ml-11 mr-2 sm:mx-4 ">
-            <div className="flex flex-col rounded-[20px] w-full px-4 bg-gray-100 mt-2 shadow-lg shadow-neutral-400 ">
+          <div className="w-full h-full ">
+            {/* Black bar */}
+            <div className="w-full h-10 md:h-49 bg-[#282624]"></div>
+
+            <div className="flex flex-col rounded-[20px] w-full ml-11 mr-2 sm:mx-4 px-4 bg-gray-100 mt-2 shadow-lg shadow-neutral-400 ">
               {/* Project header section */}
               <div className="py-2 flex justify-between flex-wrap">
                 {/* Project name and progress bar */}
