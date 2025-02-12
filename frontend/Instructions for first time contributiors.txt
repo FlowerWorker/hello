@@ -1,0 +1,74 @@
+1. There are two ways to clone the repository:
+Option 1: Clone the repository from FlowerWorker/hello
+git clone <repo-url>
+
+Option 2: Fork the repository to make a copy of your own, and select "Copy the main branch only" (Recommended)
+Clone your forked repository
+git clone <your-repo-url>
+
+
+2. Check your current remotes:
+git remote -v
+
+You should see something like this:
+
+Continue from option 1:
+origin  https://github.com/your-username/repo-name.git (fetch)
+origin  https://github.com/your-username/repo-name.git (push)
+
+then, add the remote upstream
+git remote add upstream <original-repo-url>
+git remote add upstream https://github.com/FlowerWorker/hello.git
+
+Continue from option 2:
+origin    https://github.com/your-username/repo-name.git (fetch)
+origin    https://github.com/your-username/repo-name.git (push)
+upstream  https://github.com/original-owner/repo-name.git (fetch)
+upstream  https://github.com/original-owner/repo-name.git (push)
+
+
+3. Fetch update from upstream (Only for option 2)
+This fetches the branches and their commits from the upstream repository.
+git fetch upstream
+
+or you can use github desktop to fetch upstream.
+
+
+4. Checkout to the branch we are working on right now. (It is "develop", not "main" by default)
+git checkout develop
+
+or you can find the checkout button on VS code.
+
+
+5. Create and Checkout a new branch from develop.
+git checkout -b <branch-name>
+(replace <branch-name> with the name you want)
+
+or you can use the checkout button on VS code and select "Create a new branch from ..."
+
+
+6. Merge or Rebase updates
+After fetching, you can update your local branches with the upstream changes.
+
+Merge upstream changes into your branch:
+git checkout <branch-name>
+git merge upstream/develop
+
+Rebase with upstream changes:
+Alternatively, you can rebase your branch with the upstram branch:
+git checkout <branch-name>
+git rebase upstream/develop
+
+
+7. Push changes to your fork 
+After merging or rebasing, push the updated branch to your fork.
+git add .
+git commit -m "Description of changes"
+git push origin <branch-name>
+
+or do it in the source control in VS code
+or with the github desktop.
+
+
+8. Create a Pull Request (PR)
+Once your branch is pushed, you can create a PR to merge your branch into the target branch (develop).

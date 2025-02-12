@@ -1,6 +1,7 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { Button } from "@/components/ui/button";
+import { useRouter } from 'next/navigation';
 
 interface SubSection {
     title: string;
@@ -14,6 +15,7 @@ interface SectionComponentProps {
     sectionDescription: string;
     subSections: SubSection[];
     buttonText: string;
+    buttonTargetPage: string;
     backgroundClassName: string;
     placeholderImage: StaticImageData;
     idstring: string;
@@ -26,10 +28,16 @@ const SectionComponent: React.FC<SectionComponentProps> = ({
     sectionDescription,
     subSections,
     buttonText,
+    buttonTargetPage,
     backgroundClassName,
     placeholderImage,
     idstring,
 }) => {
+    const router = useRouter();
+    const handleRedirect = () => {
+        router.push(buttonTargetPage); // Redirect to your desired page
+      };
+
     return (
         <div id={`${idstring}`} className={`w-full py-20 ${backgroundClassName}`}>
             <div className="max-w-[1440px] mx-auto px-6 h-auto flex flex-col space-y-8">
@@ -74,7 +82,10 @@ const SectionComponent: React.FC<SectionComponentProps> = ({
 
                 {/* Button Section */}
                 <div className="flex justify-start">
-                    <Button className="w-full sm:w-auto px-8 py-4 text-black bg-white font-medium rounded-lg text-lg shadow-md hover:shadow-lg hover:bg-greyv1">
+                    <Button 
+                        className="w-full sm:w-auto px-8 py-4 text-black bg-white font-medium rounded-lg text-lg shadow-md hover:shadow-lg hover:bg-greyv1"
+                        onClick={handleRedirect}
+                    >
                         {buttonText}
                     </Button>
                 </div>

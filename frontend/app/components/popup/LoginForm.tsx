@@ -9,6 +9,7 @@ import signupLogo from "@/app/public/signupLogo.svg";
 import signupWallpaper from "@/app/public/signupWallpaper.png";
 import googleIcon from "@/app/public/googleIcon.svg";
 import showPasswordIcon from "@/app/public/showPasswordIcon.svg";
+import { useAuth } from "@/lib/auth-context";
 
 /**
  * LoginForm is a client-side component that renders a form for users to log in.
@@ -27,6 +28,7 @@ export default function LoginForm() {
   const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
+  const { login } = useAuth();
 
   /**
    * Handles the "Log in with Google" button click. This function should be
@@ -80,8 +82,8 @@ export default function LoginForm() {
       const token = response.headers.get("Authorization")?.split(" ")[1]; // This will get the Bearer token part
 
       if (token) {
-        // Save the token in localStorage
-        localStorage.setItem("token", token);
+        // Save the token using the login function from the context
+        login(token);
       }
 
       console.log("Login successful:", data);
@@ -89,8 +91,8 @@ export default function LoginForm() {
       // Clear previous errors
       setError(null);
 
-      // Redirect or update the UI upon successful login
-      router.push("/");
+      // Redirect upon successful login
+      router.push("/task-management-dashboard");
     } catch (error) {
       // Handle any errors that occur during the API call
       console.error("Login error:", error);

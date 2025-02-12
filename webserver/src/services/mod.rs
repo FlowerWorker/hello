@@ -1,6 +1,7 @@
 pub mod job_service;
 pub mod project_service;
-pub mod task_service;
 pub mod user_service;
 pub mod search_service;
 pub mod linkedin_service;
+pub mod task_service;
+pub mod sub_tasks_service;

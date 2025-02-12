@@ -78,6 +78,20 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%
   }
+
+  .bg-gradient {
+    background: 
+      linear-gradient(to top, 
+        rgba(63, 220, 208, 0.5), 
+        rgba(113, 126, 212, 0.5), 
+        rgba(155, 122, 255, 0.5), 
+        rgba(208, 99, 241, 0.5), 
+        rgba(255, 255, 255, 0.5)), /* Bottom-to-top gradient with opacity */
+      linear-gradient(to right, 
+        rgba(255, 255, 255, 0), 
+        white); /* Left-to-right gradient with opacity */
+    background-blend-mode: screen;
+  }
 }
 @layer base {
   * {
