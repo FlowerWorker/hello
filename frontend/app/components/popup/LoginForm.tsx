@@ -91,8 +91,8 @@ export default function LoginForm() {
       // Clear previous errors
       setError(null);
 
-      // Redirect or update the UI upon successful login
-      router.push("/");
+      // Redirect upon successful login
+      router.push("/task-management-dashboard");
     } catch (error) {
       // Handle any errors that occur during the API call
       console.error("Login error:", error);

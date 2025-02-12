@@ -122,6 +122,9 @@ export default function SignUpForm() {
       );
 
       if (!response.ok) {
+        if (response.status === 409) {
+          throw new Error("This email is already registered. Please log in or use a different email.");
+        }
         throw new Error("Failed to sign up. Please try again.");
       }
 
