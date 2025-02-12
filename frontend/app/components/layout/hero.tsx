@@ -7,6 +7,7 @@ import iconsample from "../../public/management_logo.png";
 import iconsample2 from "../../public/search.png";
 import placeholderImageSample from '../../public/section1demo_image.png';
 import placeholderImageSample2 from '../../public/section2demo_image.png';
+import { useAuth } from "@/lib/auth-context";
 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
@@ -46,7 +47,15 @@ const subSections2 = [
 ];
 
 const Hero = () => {
+  const {token} = useAuth();
   const [hasScrolled, setHasScrolled] = useState(false);
+  
+  var redirectionPage="";
+  if(token){
+    redirectionPage="/task-management-dashboard";
+  }else{
+    redirectionPage="/login";
+  }
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
@@ -114,6 +123,7 @@ const Hero = () => {
           sectionDescription="With FlowerWork’s flexible and intuitive platform, you can effortlessly assign tasks, set timelines, and track milestones all in your collaborative workspace."
           subSections={subSections1}
           buttonText="Start boosting my team today"
+          buttonTargetPage={redirectionPage}
           backgroundClassName="bg-bgdarkv7"
           placeholderImage={placeholderImageSample}
           idstring="section1"
@@ -126,6 +136,7 @@ const Hero = () => {
           sectionDescription="We want you to focus on what's important: growing your company."
           subSections={subSections2}
           buttonText="Elevate Your Team"
+          buttonTargetPage={redirectionPage}
           backgroundClassName="bg-bgdarkv8"
           placeholderImage={placeholderImageSample2}
           idstring="section2"

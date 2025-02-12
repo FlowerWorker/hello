@@ -25,7 +25,7 @@ export default function Home() {
 
         {/* Mobile Screen Content */}
         <div
-          className="block md:hidden bg-cover bg-center relative w-full h-auto flex flex-col items-center justify-start px-4 py-8 space-y-6"
+          className="md:hidden bg-cover bg-center relative w-full h-auto flex flex-col items-center justify-start px-4 py-8 space-y-6"
           style={{
             backgroundImage: `url('${mobileBackground.src}')`, // Background Image
           }}

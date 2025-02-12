@@ -191,7 +191,7 @@ export default function TaskManagementDashboard() {
             {/* Black bar */}
             <div className="w-full h-10 md:h-49 bg-[#282624]"></div>
 
-            <div className="flex flex-col rounded-[20px] w-full ml-11 mr-2 sm:mx-4 px-4 bg-gray-100 mt-2 shadow-lg shadow-neutral-400 ">
+            <div className="flex-grow flex-col rounded-[20px] max-w-full pl-9 sm:mx-4 px-6  bg-gray-100 mt-2 shadow-lg shadow-neutral-400 ">
               {/* Project header section */}
               <div className="py-2 flex justify-between flex-wrap">
                 {/* Project name and progress bar */}

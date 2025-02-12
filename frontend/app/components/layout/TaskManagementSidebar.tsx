@@ -23,7 +23,7 @@ const TaskManagementSidebar: React.FC<SidebarProps> = ({
 }) => {
     return (
         <div
-            className={`bg-gradient-to-b from-[#282625] to-[#6E1F87] h-[550px] rounded-b-[20px] transition-all duration-1300 pt-2 px-4 z-10 sm:z-0  ${isLeftDivRetracted
+            className={`bg-gradient-to-b from-[#282625] to-[#6E1F87] h-[550px] rounded-b-[20px] transition-all duration-1300 pt-2 px-4 ${isLeftDivRetracted
                     ? "min-w-0 w-1/20"
                     : "min-w-full md:min-w-[250px] max-w-[260px] w-1/6"
                 } absolute sm:relative`}
