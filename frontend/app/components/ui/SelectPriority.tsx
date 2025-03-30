@@ -22,7 +22,7 @@ const PrioritySelector: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center">
+    <div className="min-h-screen bg-black text-white flex items-center justify-center relative">
       <div className="space-y-8">
         {/* Button to select priority */}
         <button
@@ -34,13 +34,13 @@ const PrioritySelector: React.FC = () => {
 
         {/* Code Display Modal */}
         {showCode && (
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center">
-            <div className="bg-white text-black rounded-lg p-6 w-96 space-y-4">
-              <div className="flex justify-between items-center bg-black text-white p-2 rounded-t-md">
+          <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center z-50">
+            <div className="bg-white text-black rounded-lg p-6 w-[90%] md:w-2/3 lg:w-1/2 max-h-[80vh] overflow-auto shadow-lg">
+              <div className="flex justify-between items-center bg-black text-white p-3 rounded-t-md">
                 <h3 className="text-lg font-bold">Priority Selector Code</h3>
                 <button
                   onClick={() => setShowCode(false)}
-                  className="text-gray-500 hover:text-white"
+                  className="text-gray-500 hover:text-white text-2xl"
                 >
                   &times;
                 </button>
