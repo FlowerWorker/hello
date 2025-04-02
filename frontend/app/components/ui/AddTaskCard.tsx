@@ -172,8 +172,8 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
                     </button>
                     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
                              {/* Render Priority Selector Only When Needed */}
-                            {isPriorityVisible && <PrioritySelector />}
-                            </div>   
+                      {isPriorityVisible && <PrioritySelector />}
+                    </div>   
                     <button onClick={toggleDescription} className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px]">
                     <Image src={descriptionIcon} alt="attach file icon" width={20} height={20} className="w-auto h-auto"/>
                     <span className="ml-2">Add a description</span>

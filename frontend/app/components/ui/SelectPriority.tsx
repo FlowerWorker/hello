@@ -13,32 +13,42 @@ const PrioritySelector: React.FC = () => {
 
   const handlePriorityClick = (priority: string) => {
     setSelectedPriority(priority);
-    setIsEditing(false);
+    setIsEditing(false); // Close the modal after selection
   };
 
   const handleClearPriority = () => {
     setSelectedPriority(null);
   };
 
+  const toggleModal = () => {
+    setIsEditing((prev) => !prev); // Toggle the modal visibility
+  };
+
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center relative">
       <div className="space-y-8 text-center">
-        {/* Select Priority Button */}
+        {/* Toggle Select Priority Button */}
         <button
-          onClick={() => setIsEditing(true)}
+          onClick={toggleModal}
           className="bg-gray-700 px-4 py-2 rounded-md text-white hover:bg-gray-600"
         >
-          Select a priority
+          {isEditing ? "Close" : "Select a priority"}
         </button>
 
         {/* Priority Selection Modal */}
         {isEditing && (
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center">
-            <div className="bg-white text-black rounded-lg p-6 w-72 space-y-4 shadow-lg">
+          <div
+            className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center"
+            onClick={toggleModal} // Close modal when clicking outside
+          >
+            <div
+              className="bg-white text-black rounded-lg p-6 w-72 space-y-4 shadow-lg"
+              onClick={(e) => e.stopPropagation()} // Prevent click inside modal from closing it
+            >
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-bold">Priority</h3>
                 <button
-                  onClick={() => setIsEditing(false)}
+                  onClick={toggleModal} // Close the modal
                   className="text-gray-500 hover:text-black text-2xl"
                 >
                   &times;
@@ -88,7 +98,7 @@ const PrioritySelector: React.FC = () => {
             >
               <span>{selectedPriority}</span>
               <button
-                onClick={() => setIsEditing(true)}
+                onClick={toggleModal}
                 className="underline text-sm hover:opacity-80"
               >
                 ✏️
