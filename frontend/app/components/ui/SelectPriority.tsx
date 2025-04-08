@@ -1,116 +1,66 @@
-import React, { useState } from "react";
+"use client";
 
-const PrioritySelector: React.FC = () => {
-  const [selectedPriority, setSelectedPriority] = useState<string | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
+import React from "react";
+import { IoClose } from "react-icons/io5"; // Import the close icon from react-icons
 
-  const priorities = [
-    { label: "Critical", color: "bg-red-500" },
-    { label: "High", color: "bg-orange-400" },
-    { label: "Medium", color: "bg-yellow-300" },
-    { label: "Low", color: "bg-green-400" },
+interface SelectPriorityProps {
+  togglePriority: () => void; // Function to close the modal
+  onSelectPriority: (priority: string | null) => void; // Function to handle priority selection
+}
+
+export default function SelectPriority({ togglePriority, onSelectPriority }: SelectPriorityProps) {
+  const priorityOptions = [
+    { name: "Critical", color: "bg-[#FF3B30]" }, // Red
+    { name: "High", color: "bg-[#FF9500]" }, // Orange
+    { name: "Medium", color: "bg-[#FFCC00]" }, // Yellow
+    { name: "Low", color: "bg-[#34C759]" }, // Green
   ];
 
-  const handlePriorityClick = (priority: string) => {
-    setSelectedPriority(priority);
-    setIsEditing(false); // Close the modal after selection
-  };
-
-  const handleClearPriority = () => {
-    setSelectedPriority(null);
-  };
-
-  const toggleModal = () => {
-    setIsEditing((prev) => !prev); // Toggle the modal visibility
-  };
-
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center relative">
-      <div className="space-y-8 text-center">
-        {/* Toggle Select Priority Button */}
-        <button
-          onClick={toggleModal}
-          className="bg-gray-700 px-4 py-2 rounded-md text-white hover:bg-gray-600"
-        >
-          {isEditing ? "Close" : "Select a priority"}
-        </button>
-
-        {/* Priority Selection Modal */}
-        {isEditing && (
-          <div
-            className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center"
-            onClick={toggleModal} // Close modal when clicking outside
-          >
-            <div
-              className="bg-white text-black rounded-lg p-6 w-72 space-y-4 shadow-lg"
-              onClick={(e) => e.stopPropagation()} // Prevent click inside modal from closing it
-            >
-              <div className="flex justify-between items-center">
-                <h3 className="text-lg font-bold">Priority</h3>
-                <button
-                  onClick={toggleModal} // Close the modal
-                  className="text-gray-500 hover:text-black text-2xl"
-                >
-                  &times;
-                </button>
-              </div>
-              <p>Select a priority.</p>
-              <div className="space-y-2">
-                {priorities.map((priority) => (
-                  <button
-                    key={priority.label}
-                    onClick={() => handlePriorityClick(priority.label)}
-                    className={`${priority.color} w-full text-white py-2 rounded-md hover:opacity-80 font-bold`}
-                  >
-                    {priority.label}
-                  </button>
-                ))}
-              </div>
-              <button
-                onClick={handleClearPriority}
-                className="w-full bg-gray-200 text-black py-2 rounded-md hover:bg-gray-300"
-              >
-                Clear priority
-              </button>
-            </div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+      <div className="bg-white rounded-[20px] p-6 w-[300px] shadow-lg">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <h2 className="text-lg font-semibold">Priority</h2>
+            <p className="text-sm text-gray-500">Select a priority.</p>
           </div>
-        )}
+          <button
+            onClick={togglePriority}
+            aria-label="Close priority modal"
+            className="focus:outline-none"
+          >
+            <IoClose className="w-5 h-5 text-gray-500 hover:text-gray-700" />
+          </button>
+        </div>
 
-        {/* Display Available Priorities */}
-        <div className="border border-purple-500 p-4 rounded-lg space-y-2">
-          {priorities.map((priority) => (
-            <div
-              key={priority.label}
-              className={`${priority.color} w-48 text-white px-4 py-2 rounded-md font-bold text-center`}
+        {/* Priority Options */}
+        <div className="flex flex-col gap-3">
+          {priorityOptions.map((option) => (
+            <button
+              key={option.name}
+              className={`w-full py-2 rounded-full text-white font-semibold ${option.color} hover:opacity-80 transition-opacity`}
+              onClick={() => {
+                onSelectPriority(option.name); // Pass selected priority
+                togglePriority(); // Close modal after selection
+              }}
             >
-              {priority.label}
-            </div>
+              {option.name}
+            </button>
           ))}
         </div>
 
-        {/* Selected Priority Display */}
-        <div className="border border-purple-500 p-4 rounded-lg space-y-2">
-          {selectedPriority ? (
-            <div
-              className={`${
-                priorities.find((p) => p.label === selectedPriority)?.color
-              } w-48 text-white px-4 py-2 rounded-md flex justify-between items-center font-bold`}
-            >
-              <span>{selectedPriority}</span>
-              <button
-                onClick={toggleModal}
-                className="underline text-sm hover:opacity-80"
-              >
-                ✏️
-              </button>
-            </div>
-          ) : (
-            <div className="text-gray-500">No priority selected.</div>
-          )}
-        </div>
+        {/* Clear Priority Button */}
+        <button
+          className="w-full py-2 mt-3 border border-gray-300 rounded-full text-gray-700 font-semibold hover:bg-gray-100 transition-colors"
+          onClick={() => {
+            onSelectPriority(null); // Clear priority
+            togglePriority(); // Close modal
+          }}
+        >
+          Clear priority
+        </button>
       </div>
     </div>
   );
-};
-
-export default PrioritySelector;
+}
