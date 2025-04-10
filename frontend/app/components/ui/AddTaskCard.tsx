@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import AddAssignees from "./AddAssignees";
 import AddDescription from "./AddDescription";
+import AddWatcher from "./AddWatcher";
 
 // Icon imports
 import assigneesIcon from "@/app/public/assigneesIcon.svg";
@@ -33,7 +34,7 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
     const [showAssignees, setShowAssignees] = useState<boolean>(false);
     const [showDescription, setShowDescription] = useState<boolean>(false);
-
+    const [showWatcher, setShowWatcher] = useState<boolean>(false);
     // Handle title change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
@@ -58,7 +59,9 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
     const toggleAssignees = () => {
         setShowAssignees((prev) => !prev);
     };
-
+    const toggleWatcher =() =>{
+        setShowWatcher((prev) => !prev);
+    };
     // Toggle desciption visibility
     const toggleDescription = () => {
         setShowDescription((prev) => !prev);
@@ -196,7 +199,9 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
                             <span className="ml-2">Attach a file</span>
                         </button>
 
-                        <button className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px]">
+                        <button 
+                        onClick={toggleWatcher}
+                        className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px]">
                             <Image
                                 src={watchersIcon}
                                 alt="watchers icon"
@@ -207,7 +212,10 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
                             <span className="ml-2">Add watchers</span>
                         </button>
 
-                        <button className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px]">
+                        <button 
+                        
+                        className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px]">
+                       
                             <Image
                                 src={labelIcon}
                                 alt="label icon"
@@ -267,6 +275,15 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
                 {showDescription && (
                     <div className="absolute bottom-[100px] -right-[500px] z-30  w-[1120px]">
                         <AddDescription toggleDescription={toggleDescription} />
+                    </div>
+                )}
+            </div>
+
+            <div className="relative">
+                {/* Show AddWatcher component when toggled */}
+                {showWatcher && (
+                    <div className="absolute -bottom-[100px] left-0 z-10">
+                        <AddWatcher toggleWatcher={toggleWatcher} />
                     </div>
                 )}
             </div>
