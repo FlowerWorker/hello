@@ -110,6 +110,25 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
 
       {/* Task name & icons container */}
       <div>
+        {/* Display selected labels as colored bars above the title */}
+        {selectedLabels.length > 0 && (
+  <div className="flex flex-row gap-x-2 mb-2">
+    {selectedLabels.map((labelName, index) => {
+      const label = labels.find((l) => l.name === labelName);
+      return label ? (
+        <div
+          key={index}
+          className="h-2 w-10 rounded-md"
+          style={{
+            backgroundColor: label.color,
+          }}
+        ></div>
+      ) : null;
+    })}
+  </div>
+)}
+
+
         <div className="flex justify-between items-center">
           {isEditing ? (
             <input
@@ -138,26 +157,6 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
             height={20}
             className="w-auto h-auto"
           />
-        </div>
-
-        {/* Display selected labels */}
-        <div className="flex gap-2 mt-2">
-          {selectedLabels.map((labelName, index) => {
-            const label = labels.find((l) => l.name === labelName);
-            return label ? (
-              <div
-                key={index}
-                className="flex items-center space-x-1 px-2 py-1 rounded"
-                style={{ backgroundColor: `${label.color}33` }}
-              >
-                <div
-                  className="w-8 h-4 rounded"
-                  style={{ backgroundColor: label.color }}
-                ></div>
-                <span className="text-sm">{label.name}</span>
-              </div>
-            ) : null;
-          })}
         </div>
 
         <div className="flex gap-1 items-center text-sm font-light mb-1">
@@ -248,7 +247,7 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
             </button>
 
             <button
-              onClick={toggleLabelManager} // Changed to toggleLabelManager to show the AddLabels component
+              onClick={toggleLabelManager}
               className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px] mt-4"
             >
               <Image
