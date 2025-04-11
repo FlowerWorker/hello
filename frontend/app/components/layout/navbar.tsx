@@ -17,7 +17,7 @@ import user from "../../public/user.png";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
-
+import { useStatusContext } from "@/lib/status-context";
 import activeIcon from "@/app/public/activeIcon.svg";
 import activeNotificationIcon from "@/app/public/activeNotification.svg";
 import userIcon from "@/app/public/user-icons/userIcon3.svg";
@@ -28,7 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({ className, ...props }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const toggleProfile = () => setIsProfileOpen((prev) => !prev);
   const { token } = useAuth();
-
+  const { status } = useStatusContext();
   return (
     <div
       className={cn(
@@ -74,8 +74,18 @@ const Navbar: React.FC<NavbarProps> = ({ className, ...props }) => {
                   Sign up
                 </Link>
               ) :(
-                <Image className= "h-4 w-4 md:h-6 md:w-6"src={activeIcon} alt="active icon" />
-              )}
+                <div className="flex items-center gap-2 text-white">
+                    {status.icon && (
+                      <Image
+                        src={status.icon}
+                        alt={status.label}
+                        width={30}
+                        height={30}
+                        className={`rounded-full ${status.invert ? "invert" : ""}`}
+                      />
+                    )}
+                  </div>
+                 )}   
             </NavigationMenuLink>
           </NavigationMenuItem>
 

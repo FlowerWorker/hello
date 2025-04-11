@@ -6,12 +6,6 @@ import { StatusSection } from "@/app/components/popup/TaskManagementProfile/comp
 import { ContactSection } from "@/app/components/popup/TaskManagementProfile/components/ContactSection";
 import { SettingsSection } from "@/app/components/popup/TaskManagementProfile/components/SettingSection";
 
-interface StatusOption {
-    value?: string;
-    label: string;
-    icon: string | null;
-}
-
 interface UserSettings {
     profile: {
         fullName: string;
@@ -33,12 +27,7 @@ interface UserSettings {
     };
 }
 
-const TaskManagementProfilePage = () => {
-    const [status, setStatus] = useState<StatusOption>({
-        label: "Update my status",
-        icon: null,
-    });
-
+const TaskManagementProfilePage: React.FC = () => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const toggleSettings = () => setIsSettingsOpen((prev) => !prev);
 
@@ -84,7 +73,7 @@ const TaskManagementProfilePage = () => {
 
                 <hr className="border border-gray-200 my-5" />
 
-                <StatusSection status={status} setStatus={setStatus} />
+                <StatusSection />
                 <ContactSection />
 
                 <hr className="border border-gray-200 my-5" />
