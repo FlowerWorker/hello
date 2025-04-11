@@ -15,11 +15,13 @@ import descriptionDarkIcon from "@/app/public/descriptionDarkIcon.svg";
 
 // Define the props type for the component
 interface AddSubtasksProps {
+    toggleSubtasks: () => void;
     subtaskTitle: string;
     listName: string;
 }
 
 export default function AddSubtasks({
+    toggleSubtasks,
     subtaskTitle,
     listName,
 }: AddSubtasksProps) {
@@ -36,7 +38,7 @@ export default function AddSubtasks({
         >
             <div className="flex justify-around">
                 <h1 className="font-bold text-[24px] -mt-2.5">Add Subtasks</h1>
-                <CloseIcon className="absolute top-5 right-5 cursor-pointer" />
+                <CloseIcon className="absolute top-5 right-5 cursor-pointer" onClick={toggleSubtasks}/>
             </div>
 
             <hr className="border-[1px]" />
