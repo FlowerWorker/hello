@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import AddAssignees from "./AddAssignees";
 import AddDescription from "./AddDescription";
+import AddSubtasks from "./AddSubtasks";
 
 // Icon imports
 import assigneesIcon from "@/app/public/assigneesIcon.svg";
@@ -33,6 +34,7 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
     const [showAssignees, setShowAssignees] = useState<boolean>(false);
     const [showDescription, setShowDescription] = useState<boolean>(false);
+    const [showSubtasks, setShowSubtasks] = useState<boolean>(false);
 
     // Handle title change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,9 +61,14 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
         setShowAssignees((prev) => !prev);
     };
 
-    // Toggle desciption visibility
+    // Toggle AddDesciptions visibility
     const toggleDescription = () => {
         setShowDescription((prev) => !prev);
+    };
+
+    // Toggle AddSubtasks visibility
+    const toggleSubtasks = () => {
+        setShowSubtasks((prev) => !prev);
     };
 
     return (
@@ -218,7 +225,10 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
                             <span className="ml-2">Add labels</span>
                         </button>
 
-                        <button className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px]">
+                        <button 
+                            onClick={toggleSubtasks}
+                            className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px]"
+                        >
                             <Image
                                 src={subtasksIcon}
                                 alt="subtasks icon"
@@ -263,10 +273,19 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
             </div>
 
             <div className="relative">
-                {/* Show AddAssignees component when toggled */}
+                {/* Show AddDescription component when toggled */}
                 {showDescription && (
                     <div className="absolute bottom-[100px] -right-[500px] z-30  w-[1120px]">
                         <AddDescription toggleDescription={toggleDescription} />
+                    </div>
+                )}
+            </div>
+
+            <div className="relative">
+                {/* Show AddSubtasks component when toggled */}
+                {showSubtasks && (
+                    <div className="absolute bottom-[100px] -right-[500px] z-30  w-[1120px]">
+                        <AddSubtasks toggleSubtasks={toggleSubtasks} subtaskTitle={""} listName={""} />
                     </div>
                 )}
             </div>
