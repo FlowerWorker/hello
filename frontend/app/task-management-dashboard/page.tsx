@@ -32,7 +32,7 @@ import ListActionsCard from "../components/ui/ListActionsCard";
 import AddAssignees from "../components/ui/AddAssignees";
 import AddDescription from "../components/ui/AddDescription";
 import AddSubtasks from "../components/ui/AddSubtasks";
-
+import SelectPriority from "../components/ui/SelectPriority";
 // Icon imports
 import lock from "../public/lock-icon.svg";
 import projects from "../public/projects-icon.svg";
