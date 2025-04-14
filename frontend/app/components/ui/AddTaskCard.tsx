@@ -227,7 +227,7 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
       {isPriorityOpen && (
         <SelectPriority
           togglePriority={() => setIsPriorityOpen(false)}
-          onSelectPriority={handleSelectPriority}
+          onSelectPriority ={handleSelectPriority}
         />
       )}
     </div>
