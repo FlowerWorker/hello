@@ -1,21 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import {
     Box,
+    Button,
+    Chip,
     IconButton,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
     Paper,
-    TextareaAutosize,
     Typography,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import {
+    AttachFile as AttachFileIcon,
+    CloseIcon as CloseIcon,
+    Delete as DeleteIcon,
+    InsertDriveFile as FileIcon,
+  } from '@mui/icons-material';
 
 import xIcon from "@/app/public/x-icon.svg";
 import attachIcon from "@/app/public/attachIcon.svg";
 import attachIcon2 from "@/app/public/attachIcon2.svg";
 
 export default function AttachFile({ toggleAttachments }: { toggleAttachments: () => void }) {
+    const [files, setFiles] = useState([]);
+    const [error, setError] = useState('');
+    const fileInputRef = useRef(null);
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFiles = event.target.files;
+    
     return (
         <Paper
             elevation={3}
