@@ -33,6 +33,7 @@ mod schema;
 mod services;
 mod search;
 mod tasks;
+mod validators;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -71,10 +72,10 @@ async fn main() -> std::io::Result<()> {
         let cors = Cors::permissive();
 
         App::new()
+            .wrap(cors)
             .app_data(Data::new(pool.clone()))
             .app_data(Data::new(search_state.clone()))
             .configure(routes::init)
-            .wrap(cors)
             .app_data(web::Data::from(app_state.clone()))
             .app_data(web::Data::new(server.clone()))
             .wrap(Logger::default())

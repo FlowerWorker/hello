@@ -1,6 +1,14 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
+    availability_status (user_id) {
+        user_id -> Int4,
+        status -> Varchar,
+        updated_at -> Timestamp,
+    }
+}
+
+diesel::table! {
     jobs (id) {
         id -> Int4,
         user_id -> Int4,
@@ -106,10 +114,15 @@ diesel::table! {
 }
 
 diesel::table! {
-    user_tasks (id) {
-        id -> Int4,
+    user_profiles (user_id) {
         user_id -> Int4,
-        task_id -> Int4,
+        full_name -> Varchar,
+        email -> Varchar,
+        phone_number -> Varchar,
+        department_or_team -> Varchar,
+        job_title -> Varchar,
+        created_at -> Timestamp,
+        updated_at -> Timestamp,
     }
 }
 
@@ -123,6 +136,7 @@ diesel::table! {
     }
 }
 
+diesel::joinable!(availability_status -> users (user_id));
 diesel::joinable!(jobs -> users (user_id));
 diesel::joinable!(projects -> users (user_id));
 diesel::joinable!(sub_tasks -> tasks (task_id));
@@ -136,10 +150,10 @@ diesel::joinable!(task_assignees -> tasks (task_id));
 diesel::joinable!(task_assignees -> users (user_id));
 diesel::joinable!(tasks -> projects (project_id));
 diesel::joinable!(tasks -> users (user_id));
-diesel::joinable!(user_tasks -> tasks (task_id));
-diesel::joinable!(user_tasks -> users (user_id));
+diesel::joinable!(user_profiles -> users (user_id));
 
 diesel::allow_tables_to_appear_in_same_query!(
+    availability_status,
     jobs,
     projects,
     sub_tasks,
@@ -147,6 +161,6 @@ diesel::allow_tables_to_appear_in_same_query!(
     task_access,
     task_assignees,
     tasks,
-    user_tasks,
+    user_profiles,
     users,
 );

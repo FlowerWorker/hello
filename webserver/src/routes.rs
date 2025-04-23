@@ -15,6 +15,7 @@ use crate::{
     chat::{chat_routes::chat_route_auth, get_count},
     handlers::*,
 };
+use crate::handlers::user_profile_handler::user_profile_routes;
 
 pub fn init(cfg: &mut web::ServiceConfig) {
     cfg.service(
@@ -28,6 +29,7 @@ pub fn init(cfg: &mut web::ServiceConfig) {
             .configure(health_routes)
             .configure(linkedin_routes)
             .configure(sub_task_routes)
+            .configure(user_profile_routes)
             .route("/count", web::get().to(get_count)),
     );
     cfg.service(

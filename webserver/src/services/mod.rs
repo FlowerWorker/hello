@@ -5,3 +5,4 @@ pub mod search_service;
 pub mod linkedin_service;
 pub mod task_service;
 pub mod sub_tasks_service;
+pub mod user_profile_service;
