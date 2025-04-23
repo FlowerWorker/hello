@@ -1,4 +1,6 @@
 use diesel::prelude::*;
+use crate::database::error::DatabaseError;
+use crate::database::error::DatabaseError::DieselError;
 use crate::models::availability_status::{AvailabilityStatus, NewAvailabilityStatus};
 use crate::schema::availability_status::dsl::*;
 
@@ -22,8 +24,14 @@ pub fn set_status(
 pub fn get_status(
     conn: &mut PgConnection,
     uid: i32,
-) -> QueryResult<AvailabilityStatus> {
+) -> Result<AvailabilityStatus, DatabaseError> {
     availability_status
         .filter(user_id.eq(uid))
         .first::<AvailabilityStatus>(conn)
+        .map_err(|e| {
+            match e {
+                diesel::NotFound => DatabaseError::NotFound,
+                _ => DieselError(e),
+            }
+        })
 }

@@ -2,6 +2,7 @@ use actix_web::{get, post, web, HttpResponse, Responder, ResponseError};
 use serde::Serialize;
 use crate::auth::auth_middleware;
 use crate::database::db::DbPool;
+use crate::database::error::DatabaseError;
 use crate::handlers::error::ApiError;
 use crate::models::availability_status::{NewAvailabilityStatus, StatusUpdate};
 use crate::services::availability_status_service::{get_status, set_status};
@@ -15,19 +16,31 @@ pub struct AvailabilityStatusResponse {
 }
 
 #[get("")]
-async fn fetch_status(
+pub async fn fetch_status(
     pool: web::Data<DbPool>,
     user_sub: UserSub,
-) -> Result<impl Responder, impl ResponseError> {
+) -> Result<impl Responder, ApiError> {
+
     let status = run_async_query!(pool, |conn: &mut diesel::PgConnection| {
         let user_id = get_user_id_by_email(&user_sub.0, conn).expect("Failed to get user id");
-        get_status(conn, user_id) .map_err(DatabaseError::from)
+        get_status(conn, user_id)
 
-    } )?;
-    let response = AvailabilityStatusResponse {
-        status: status.status,
-    };
-      Ok::<HttpResponse, ApiError>(HttpResponse::Ok().json(response))
+    });
+
+    match status {
+        Ok(status) => {
+            let response = AvailabilityStatusResponse {
+                status: status.status,
+            };
+            Ok(HttpResponse::Ok().json(response))
+        }
+        Err(DatabaseError::NotFound) => Ok(HttpResponse::Ok().json(
+            AvailabilityStatusResponse {
+                status: "".parse().unwrap()
+            },
+        )),
+        _ => Ok(HttpResponse::InternalServerError().finish()),
+    }
 
 }
 
