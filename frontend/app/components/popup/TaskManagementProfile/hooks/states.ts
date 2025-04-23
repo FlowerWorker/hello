@@ -31,11 +31,11 @@ export const useTabState = (defaultTab: string) => {
 export const useUserSettings = () => {
     const [userSettings, setUserSettings] = useState<UserSettings>({
         profile: {
-            fullName: 'User Name',  // Default values
-            jobTitle: 'Job title',
-            email: 'username@gmail.com',
-            department: 'Team',
-            phoneNumber: '01231234532',
+            fullName: '',  // Default values
+            jobTitle: '',
+            email: '',
+            department: '',
+            phoneNumber: '',
         },
         profilePhoto: '',
         notifications: {
