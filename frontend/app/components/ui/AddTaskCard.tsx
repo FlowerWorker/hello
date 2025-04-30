@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import AddAssignees from "./AddAssignees";
 import AddDescription from "./AddDescription";
-import AttachFile from "./AttachFile";
+import AddDeadline from "./AddDeadline";
 
 // Icon imports
 import assigneesIcon from "@/app/public/assigneesIcon.svg";
@@ -34,11 +34,11 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
     const [showAssignees, setShowAssignees] = useState<boolean>(false);
     const [showDescription, setShowDescription] = useState<boolean>(false);
-    const [showAttachments, setShowAttachments] = useState<boolean>(false);
-    const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
-    const [isEditingAttachments, setIsEditingAttachments] = useState(false);
-
-
+    const [showDeadline, setShowDeadline] = useState<boolean>(false);
+    const [deadline, setDeadline] = useState<{ date: Date | null; time: string | null }>({
+        date: null,
+        time: null,
+    });
 
     // Handle title change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,21 +70,14 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
         setShowDescription((prev) => !prev);
     };
 
-    // Toggle AddAttachments visibility
-    const toggleAttachments = () => {
-        if (showAttachments) {
-            // When closing, reset edit mode
-            setIsEditingAttachments(false);
-        } else {
-            // When opening, set edit mode if we have files
-            setIsEditingAttachments(attachedFiles.length > 0);
-        }
-        setShowAttachments((prev) => !prev);
+    // Toggle deadline visibility
+    const toggleDeadline = () => {
+        setShowDeadline((prev) => !prev);
     };
 
-    const handleFilesChange = (files: File[]) => {
-        console.log('Selected files:', files);
-        setAttachedFiles(files);
+    const handleSaveDeadline = (date: Date | null, time: string | null) => {
+        setDeadline({ date, time });
+        setShowDeadline(false);
     };
 
     return (
@@ -169,7 +162,9 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
                     <span className="ml-[8px]">Add assignees</span>
                 </button>
 
-                <button className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px]">
+                <button
+                    onClick={toggleDeadline}
+                    className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px]">
                     <Image
                         src={deadlineIcon}
                         alt="deadline icon"
@@ -298,21 +293,10 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
             </div>
 
             <div className="relative">
-                {/* Show AddAttachments component when toggled */}
-                {showAttachments && (
+                {/* Show AddDeadline component when toggled */}
+                {showDeadline && (
                     <div className="absolute bottom-[100px] -right-[500px] z-30  w-[1120px]">
-                        <AttachFile
-                            accept='*/*' // Accept all file types
-                            maxFileSize={25 * 1024 * 1024} // 25MB
-                            initialFiles={attachedFiles}
-                            onFilesChange={handleFilesChange}
-                            toggleAttachments={toggleAttachments}
-                            onSave={(files) => {
-                                console.log('Saving files:', files);
-                                toggleAttachments();
-                            }}
-                            mode={isEditingAttachments ? 'edit' : 'create'}
-                        />
+                        <AddDeadline onSave={handleSaveDeadline} toggleDeadline={toggleDeadline}/>
                     </div>
                 )}
             </div>
