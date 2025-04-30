@@ -71,6 +71,11 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
         setShowAttachments((prev) => !prev);
     };
 
+    const handleFilesChange = (files) => {
+        console.log('Selected files:', files);
+        // You can handle file uploads here
+    };
+
     return (
         <div
             className={`cursor-pointer flex flex-col bg-gray-50 sm:w-[330px] 
@@ -285,7 +290,12 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
                 {/* Show AddAttachments component when toggled */}
                 {showAttachments && (
                     <div className="absolute bottom-[100px] -right-[500px] z-30  w-[1120px]">
-                        <AttachFile toggleAttachments={toggleAttachments} />
+                        <AttachFile 
+                            accept= '*/*' // Accept all file types
+                            maxFileSize={25 * 1024 * 1024} // 25MB
+                            onFilesChange={handleFilesChange}
+                            toggleAttachments={toggleAttachments} 
+                        />
                     </div>
                 )}
             </div>
