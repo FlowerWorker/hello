@@ -105,17 +105,17 @@ pub fn send_reset_email(email: &str, token: &str) -> Result<Response, ReqwestErr
 
     let recipient = Recipient{
         email: email.to_string(),
-        name: "FlowerWork Client".to_string(),
+        name: "Gaddr Client".to_string(),
     };
     let sender = Sender {
         email: from_email.to_string(),
-        name: "FlowerWork".to_string(),
+        name: "Gaddr".to_string(),
     };
 
     let email_body = EmailRequest {
         sender,
         to: [recipient].to_vec(),
-        subject: "FlowerWork Password Reset Request".to_string(),
+        subject: "Gaddr Password Reset Request".to_string(),
         textContent: format!(
             "You requested a password reset. Please click the link to reset your password:\n\n{}",
             reset_url

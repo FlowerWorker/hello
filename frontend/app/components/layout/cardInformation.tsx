@@ -13,7 +13,7 @@ export const HERO_INFO_BODY_1_1 = "Streamline your workflow with the centralized
 export const HERO_INFO_BODY_1_2 = "Effortless task management and team collaboration"
 export const HERO_INFO_BODY_1_3 = "Keep your team in sync and projects on track, regardless of size"
 
-export const HERO_INFO_BODY_2_1 = "Post job ADs on your personal or FlowerWork’s LinkedIn"
+export const HERO_INFO_BODY_2_1 = "Post job ADs on your personal or Gaddr’s LinkedIn"
 export const HERO_INFO_BODY_2_2 = "Get access to the unlimited talent pool"
 export const HERO_INFO_BODY_2_3 = "Follow the hiring process on your dashboard"
 

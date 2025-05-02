@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
 import { Navbar, Footer, InfoPageHeader } from './layout'
 import { Button } from '@/components/ui/button';
-import logo from '../public/LOGO_on White.svg';
+import logo from '../public/Gaddr_Logo-Angle_Purple 2.png';
 import TiktokIcon from '../public/Tiktok_on White.svg';
 import InstagramIcon from '../public/Instagram_on White.svg';
 import LinkedinIcon from '../public/LinkedIn_on White.svg';
@@ -68,7 +68,7 @@ const ContactInfoSection = () => {
 
             <div className='flex flex-row'>
                 <Image src={EmailIcon} alt={'Email Icon'} />
-                <p className='px-2'>Info@flowerworker.com</p>
+                <p className='px-2'>Info@gaddr.com</p>
             </div>
 
             <div className='flex flex-row'>

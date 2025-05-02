@@ -5,11 +5,11 @@ import iconsample from "../../public/management_logo.png";
 
 export const SECTION_TITLE = "Boost your team's productivity";
 export const SECTION_SUBTITLE = "Create a Project, Manage Tasks, and Boost Team Productivity";
-export const SECTION_DESCRIPTION = "Simple, flexible and powerful. Flowerwork's task management is all it takes to get a clear view of who’s doing what and what still needs to be done.";
+export const SECTION_DESCRIPTION = "Simple, flexible and powerful. Gaddr's task management is all it takes to get a clear view of who’s doing what and what still needs to be done.";
 export const SUB_SECTION_TITLE = "Projects";
-export const SUB_SECTION_DESCRIPTION = "Flowerwork projects keep all your tasks and subtasks organized and work moving forward. In a glance, see everything from “still to do” to “team, we did it!”";
+export const SUB_SECTION_DESCRIPTION = "Gaddr projects keep all your tasks and subtasks organized and work moving forward. In a glance, see everything from “still to do” to “team, we did it!”";
 export const SUB_SECTION_TITLE2 = "Lists";
-export const SUB_SECTION_DESCRIPTION2 = "Move tasks into different stages, depending on their evolution. Start with To do, In progress and Completed, or customize your workflow however your team needs. Flowerwork is editable to suit all team needs :)";
+export const SUB_SECTION_DESCRIPTION2 = "Move tasks into different stages, depending on their evolution. Start with To do, In progress and Completed, or customize your workflow however your team needs. Gaddr is editable to suit all team needs :)";
 export const SUB_SECTION_TITLE3 = "Tasks & Subtasks";
 export const SUB_SECTION_DESCRIPTION3 = "Divide your ideas into tasks and subtasks and hold all that information in a card to get the job done. Chat, attachments, descriptions and all activity around tasks & subtasks are visible in the same place.";
 export const BUTTON_TEXT = "Start boosting my team today";

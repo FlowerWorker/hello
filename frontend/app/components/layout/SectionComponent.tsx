@@ -74,7 +74,7 @@ const SectionComponent: React.FC<SectionComponentProps> = ({
                             <Image
                                 src={placeholderImage}
                                 alt="Placeholder Image"
-                                className="w-[790px] h-[450px] rounded-lg object-cover"
+                                className="w-[600px] h-[310px] rounded-lg object-cover"
                             />
                         </div>
                     </div>

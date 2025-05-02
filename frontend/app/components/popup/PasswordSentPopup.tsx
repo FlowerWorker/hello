@@ -21,7 +21,7 @@ export default function PasswordSentPopup({ email }: PasswordSentPopupProps) {
         {/* Message */}
         <p className="text-[22px] font-light mt-3 max-w-[540px] leading-9 break-words">
           We`ve sent a password reset email to ({email}). If that`s your
-          Flowerworker.com account, follow the instructions to create a new
+          Gaddr.com account, follow the instructions to create a new
           password.
         </p>
 

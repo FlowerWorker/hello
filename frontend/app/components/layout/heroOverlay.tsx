@@ -3,7 +3,7 @@ import Navbar2 from "./navbar2";
 import bigtext from "../../public/text_logo_big.png";
 
 export const TITLE = "From Idea to Execution!";
-export const DESCRIPTION_2 = "FlowerWork revolutionizes project management with AI-powered task optimization and blockchain-secured tracking.";
+export const DESCRIPTION_2 = "Gaddr revolutionizes project management with AI-powered task optimization and blockchain-secured tracking.";
 
 const HeroOverlay = () => {
     return (
@@ -24,7 +24,7 @@ const HeroOverlay = () => {
             {/* Bottom-Aligned Text Content */}
             <div className="text-white leading-relaxed text-left hidden md:block ml-20 mb-36"> {/* Reduced bottom margin */}
                 <p className="mb-2 text-3xl font-semibold">{TITLE}</p> {/* Reduced bottom margin */}
-                <p className="font-semibold text-base">FlowerWork revolutionizes project management</p>
+                <p className="font-semibold text-base">Gaddr revolutionizes project management</p>
                 <p className="font-semibold text-base">with AI-powered task optimization and</p>
                 <p className="font-semibold text-base">blockchain-secured tracking.</p>
             </div>
