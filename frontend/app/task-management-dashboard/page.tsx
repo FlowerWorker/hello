@@ -46,7 +46,7 @@ import grayBellIcon from "../public/grayBellIcon.svg";
 import dynamic from "next/dynamic";
 
 
-// 动态加载 mobile 组件（防止 SSR 问题）
+// Dynamically load mobile components
 const TaskManagementDashboardMobile = dynamic(
   () => import("@/app/task-management-dashboard/TaskManagementDashboardMobile"),
   { ssr: false }
@@ -56,7 +56,7 @@ const containerNames = ["todo", "inProgress", "completed"];
 
 export default function TaskManagementDashboard() {
   // State declarations
-  const [isMobile, setIsMobile] = useState(false); // ✅ 新增
+  const [isMobile, setIsMobile] = useState(false); 
   const [isClient, setIsClient] = useState<boolean>(false);
   const [isLeftDivRetracted, setIsLeftDivRetracted] = useState<boolean>(false);
   const [tasks, setTasks] = useState<TaskList>(mockTasks);
