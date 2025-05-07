@@ -43,11 +43,20 @@ import boardIcon from "../public/boardIcon.svg";
 import calendarIcon from "../public/calendarIcon.svg";
 import moreViewsIcon from "../public/moreViewsIcon.svg";
 import grayBellIcon from "../public/grayBellIcon.svg";
+import dynamic from "next/dynamic";
+
+
+// 动态加载 mobile 组件（防止 SSR 问题）
+const TaskManagementDashboardMobile = dynamic(
+  () => import("@/app/task-management-dashboard/TaskManagementDashboardMobile"),
+  { ssr: false }
+);
 
 const containerNames = ["todo", "inProgress", "completed"];
 
 export default function TaskManagementDashboard() {
   // State declarations
+  const [isMobile, setIsMobile] = useState(false); // ✅ 新增
   const [isClient, setIsClient] = useState<boolean>(false);
   const [isLeftDivRetracted, setIsLeftDivRetracted] = useState<boolean>(false);
   const [tasks, setTasks] = useState<TaskList>(mockTasks);
@@ -92,13 +101,23 @@ export default function TaskManagementDashboard() {
     if (savedTasks) {
       setTasks(JSON.parse(savedTasks));
     }
-    // Resize sidebar when adjusting screen size
+  
+    // add logic for determining whether is mobile
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mediaQuery.matches);
+  
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mediaQuery.addEventListener("change", handler);
+  
     handleResize();
     window.addEventListener("resize", handleResize);
+  
     return () => {
+      mediaQuery.removeEventListener("change", handler);
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  
 
   /**
    * Effect to save tasks to localStorage when they change
@@ -166,7 +185,10 @@ export default function TaskManagementDashboard() {
   if (!isClient) {
     return null;
   }
-
+  if (isMobile) {
+    return <TaskManagementDashboardMobile />;
+  }
+  
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="flex flex-col justify-center items-center">
