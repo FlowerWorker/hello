@@ -80,6 +80,18 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
         setShowDeadline(false);
     };
 
+    const formatDeadline = (date: Date | null, time: string | null) => {
+        if (!date || !time) return null;
+        
+        const formattedDate = date.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+        });
+        
+        return `${formattedDate} at ${time}`;
+    };
+    
+
     return (
         <div
             className={`cursor-pointer flex flex-col bg-gray-50 sm:w-[330px] 
@@ -172,7 +184,11 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
                         height={20}
                         className="w-auto h-auto"
                     />
-                    <span className="ml-[8px]">Add a deadline</span>
+                    <span className="ml-[8px]">
+                        {deadline.date ?
+                            formatDeadline(deadline.date, deadline.time) :
+                            "Add a deadline"}
+                    </span>
                 </button>
 
                 {/* Collapsible buttons */}
@@ -296,7 +312,7 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
                 {/* Show AddDeadline component when toggled */}
                 {showDeadline && (
                     <div className="absolute bottom-[100px] -right-[500px] z-30  w-[1120px]">
-                        <AddDeadline onSave={handleSaveDeadline} toggleDeadline={toggleDeadline}/>
+                        <AddDeadline onSave={handleSaveDeadline} toggleDeadline={toggleDeadline} />
                     </div>
                 )}
             </div>
