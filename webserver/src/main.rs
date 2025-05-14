@@ -33,6 +33,7 @@ mod schema;
 mod services;
 mod search;
 mod tasks;
+mod utils;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

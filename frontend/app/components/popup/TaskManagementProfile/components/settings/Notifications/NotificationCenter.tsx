@@ -1,71 +1,99 @@
 'use client';
 
-import { useState } from 'react';
-import { useTabState, useUserSettings, NOTIFICATION_TABS } from '@/app/components/popup/TaskManagementProfile/hooks';
+import { useEffect, useState } from 'react';
+import { useTabState, NOTIFICATION_TABS } from '@/app/components/popup/TaskManagementProfile/hooks';
+import { useUserNotificationsContext } from '@/lib/user-notifications-settings-context';
 import AccountNotifications from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/AccountNotifications';
 import EmailNotifications from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/EmailNotifications';
 import SoundsAppearance from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/SoundAppearance';
-import { Button } from '@/app/components/popup/TaskManagementProfile/components/common/Button';
+import { Toast } from '@/app/components/popup/TaskManagementProfile/components/settings/Notifications/Toast';
 
 const Notifications: React.FC = () => {
-    const { activeTab, setActiveTab } = useTabState(NOTIFICATION_TABS.ACCOUNT);
-    const { userSettings, updateUserSettings } = useUserSettings();
+  const { activeTab, setActiveTab } = useTabState(NOTIFICATION_TABS.ACCOUNT);
+  const { notifications, updateNotifications, refreshNotifications } = useUserNotificationsContext();
+  const [tempSettings, setTempSettings] = useState(notifications);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
-    const [tempSettings, setTempSettings] = useState(userSettings.notifications);
+  const showToast = (message: string, type: 'success' | 'error') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  };
 
-    const handleSave = () => {
-        updateUserSettings({ notifications: tempSettings });
-        alert('Settings saved successfully!');
-    };
+  useEffect(() => {
+    if (notifications) {
+      setTempSettings(notifications);
+    }
+  }, [notifications]);
 
-    const handleCancel = () => {
-        setTempSettings(userSettings.notifications); // Reset to original settings
-        alert('Changes discarded!');
-    };
+  const handleSave = async () => {
+    if (!tempSettings) return;
+    const success = await updateNotifications(tempSettings);
+    if (success) {
+      await refreshNotifications();
+      showToast('Settings saved successfully!', 'success');
+    } else {
+      showToast('Failed to save settings.', 'error');
+    }
+  };
 
-    return (
-        <div className='flex flex-col h-auto max-h-screen'>
-            <div className='flex'>
-                {/* Sidebar */}
-                <div className='w-1/4 bg-white p-4 space-y-4 flex flex-col justify-start mt-6'>
-                    <button
-                        className={`w-full text-lg p-2 rounded-md text-center font-normal ${activeTab === NOTIFICATION_TABS.ACCOUNT ? 'bg-[#E9E7E5] text-black' : 'bg-white text-gray-600'
-                            }`}
-                        onClick={() => setActiveTab(NOTIFICATION_TABS.ACCOUNT)}
-                    >
-                        Account notifications
-                    </button>
-                    <button
-                        className={`w-full text-lg p-2 rounded-md text-center font-normal ${activeTab === NOTIFICATION_TABS.SOUNDS ? 'bg-[#E9E7E5] text-black' : 'bg-white text-gray-600'
-                            }`}
-                        onClick={() => setActiveTab(NOTIFICATION_TABS.SOUNDS)}
-                    >
-                        Sounds and appearance
-                    </button>
-                    <button
-                        className={`w-full text-lg p-2 rounded-md text-center font-normal ${activeTab === NOTIFICATION_TABS.EMAIL ? 'bg-[#E9E7E5] text-black' : 'bg-white text-gray-600'
-                            }`}
-                        onClick={() => setActiveTab(NOTIFICATION_TABS.EMAIL)}
-                    >
-                        Email notification
-                    </button>
-                </div>
+  const handleCancel = () => {
+    setTempSettings(notifications);
+    showToast('Changes discarded!', 'error');
+  };
 
-                {/* Content */}
-                <div className='w-2/3 p-6 flex flex-col justify-start mt-6'>
-                    {activeTab === NOTIFICATION_TABS.ACCOUNT && <AccountNotifications />}
-                    {activeTab === NOTIFICATION_TABS.EMAIL && <EmailNotifications />}
-                    {activeTab === NOTIFICATION_TABS.SOUNDS && <SoundsAppearance />}
-                </div>
-            </div>
-
-            {/* Footer Buttons */}
-            <div className='flex justify-end p-4 space-x-4'>
-                <Button variant='secondary' onClick={handleCancel}>Cancel</Button>
-                <Button variant='primary' onClick={handleSave}>Save</Button>
-            </div>
+  return (
+    <div className="flex flex-col min-h-screen overflow-y-auto bg-gray-50">
+      <div className="flex flex-col md:flex-row flex-grow w-full max-w-7xl mx-auto px-8 py-8 space-y-6 md:space-y-0 md:space-x-8">
+        {/* Sidebar */}
+        <div className="w-full md:w-1/3 bg-white rounded-md shadow p-6">
+          {[
+            { label: 'Account Notifications', tab: NOTIFICATION_TABS.ACCOUNT },
+            { label: 'Email Notifications', tab: NOTIFICATION_TABS.EMAIL },
+            { label: 'Sounds Appearance', tab: NOTIFICATION_TABS.SOUNDS },
+          ].map(({ label, tab }) => (
+            <button
+              key={tab}
+              className={`w-full text-left py-3 px-4 rounded-lg text-2xl ${
+                activeTab === tab
+                  ? 'bg-gray-100 font-medium text-gray-800'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+              onClick={() => setActiveTab(tab)}
+            >
+              {label}
+            </button>
+          ))}
         </div>
-    );
+
+        {/* Content Area */}
+        <div className="w-full md:w-2/3 bg-white rounded-md shadow p-8 overflow-y-auto max-w-full">
+          {activeTab === NOTIFICATION_TABS.ACCOUNT && tempSettings && (
+            <AccountNotifications
+              tempSettings={tempSettings}
+              setTempSettings={setTempSettings}
+              onSave={handleSave}
+              onCancel={handleCancel}
+            />
+          )}
+          {activeTab === NOTIFICATION_TABS.EMAIL && (
+            <EmailNotifications onSave={handleSave} onCancel={handleCancel} />
+          )}
+          {activeTab === NOTIFICATION_TABS.SOUNDS && tempSettings && (
+            <SoundsAppearance
+              tempSettings={tempSettings}
+              setTempSettings={setTempSettings}
+              onSave={handleSave}
+              onCancel={handleCancel}
+
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Toast Notification */}
+      {toast && <Toast message={toast.message} type={toast.type} />}
+    </div>
+  );
 };
 
 export default Notifications;
