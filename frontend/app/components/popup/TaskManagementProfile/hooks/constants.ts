@@ -25,13 +25,13 @@ export const FORM_FIELDS = [
         id: 1, 
         label: 'Full name', 
         placeholder: 'Enter your name...', 
-        descr: 'Your name may appear around FlowerWork where you contribute or are mentioned. You can change it at any time.' 
+        descr: 'Your name may appear around Gaddr where you contribute or are mentioned. You can change it at any time.' 
     },
     { 
         id: 2, 
         label: 'Job title', 
         placeholder: 'Enter your job title...', 
-        descr: 'Your Job title may appear around FlowerWork where you contribute or are mentioned. You can change it at any time.' 
+        descr: 'Your Job title may appear around Gaddr where you contribute or are mentioned. You can change it at any time.' 
     },
     { 
         id: 3, 
@@ -43,7 +43,7 @@ export const FORM_FIELDS = [
         id: 4, 
         label: 'Department or team', 
         placeholder: 'Enter your Department or team', 
-        descr: 'Your Department or team may appear around FlowerWork where you contribute.' 
+        descr: 'Your Department or team may appear around Gaddr where you contribute.' 
     },
     { 
         id: 5, 

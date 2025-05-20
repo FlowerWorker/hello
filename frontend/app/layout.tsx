@@ -6,10 +6,10 @@ import { AuthProvider } from "@/lib/auth-context";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "FlowerWork",
+  title: "Gaddr",
   description: "Hire workforce effortlessly and streamline workflows",
   icons: {
-    icon: "/favicon.ico", // Standard favicon
+    icon: "/favicon.png", // Standard favicon
   },
 };
 

@@ -18,9 +18,9 @@ const TermsAndConditions = () => {
           
           <div className="flex flex-col h-auto px-4 gap-7 md:gap-[80px]">
             <p className="font-open-sans text-sm md:text-2xl">
-              Welcome to FlowerWorker. These Terms and Conditions (&quot;Terms&quot;) govern
+              Welcome to Gaddr. These Terms and Conditions (&quot;Terms&quot;) govern
               your use of our platform, including project management, recruitment, and
-              payment services. By accessing or using FlowerWorker, you agree to comply
+              payment services. By accessing or using Gaddr, you agree to comply
               with these Terms. If you do not agree, you may not use the platform.
             </p>
 
@@ -29,7 +29,7 @@ const TermsAndConditions = () => {
               <div className="flex-1 max-w-sm">
                 <h2 className="md:text-2xl font-bold font-montserrat mb-4">Acceptance of Terms</h2>
                 <p className="text-sm md:text-base font-open-sans">
-                  By creating an account or using FlowerWorker, you agree to these
+                  By creating an account or using Gaddr, you agree to these
                   Terms and our Privacy Policy. We reserve the right to update or
                   modify these Terms at any time. Continued use of the platform after
                   changes signifies your acceptance of the updated Terms.
@@ -40,7 +40,7 @@ const TermsAndConditions = () => {
                 <h2 className="sm:text-lg md:text-2xl font-bold font-montserrat mb-4">Eligibility</h2>
                 <p className="text-sm md:text-base font-open-sans">
                   You must be at least 18 years old and have the legal capacity to
-                  enter into binding agreements to use FlowerWorker. If you are using
+                  enter into binding agreements to use Gaddr. If you are using
                   the platform on behalf of a company, you represent that you are
                   authorized to bind that entity to these Terms.
                 </p>
@@ -76,7 +76,7 @@ const TermsAndConditions = () => {
               <div>
                 <h2 className="md:text-2xl font-bold font-montserrat mb-4">Use of the Platform</h2>
                 <p className="text-sm md:text-base font-open-sans">
-                  You agree to use FlowerWorker only for lawful purposes and in compliance
+                  You agree to use Gaddr only for lawful purposes and in compliance
                   with these Terms. Prohibited activities include but are not limited to:
                 </p>
               </div>
@@ -96,7 +96,7 @@ const TermsAndConditions = () => {
                   <h3 className="font-open-sans">For Employers and Recruiters</h3>
                   <p className="font-open-sans">
                     Employers and recruiters are solely responsible for the accuracy of
-                    job postings and recruitment activities.<br/> FlowerWorker does not
+                    job postings and recruitment activities.<br/> Gaddr does not
                     guarantee the suitability of candidates or the success of hiring
                     processes.
                   </p>
@@ -105,7 +105,7 @@ const TermsAndConditions = () => {
                   <h3 className="font-open-sans mt-4">For Job Seekers</h3>
                   <p className="font-open-sans">
                     Job seekers are responsible for ensuring the accuracy of resumes,
-                    profiles, and other submitted information.<br/> FlowerWorker does not
+                    profiles, and other submitted information.<br/> Gaddr does not
                     guarantee employment opportunities or outcomes.
                   </p>
                 </li>
@@ -143,7 +143,7 @@ const TermsAndConditions = () => {
                   <h3 className="font-open-sans">Platform Content</h3>
                   <p className="font-open-sans">
                     All content on the platform, including logos, text, graphics, and
-                    software, is the property of FlowerWorker or its licensors.<br/> You
+                    software, is the property of Gaddr or its licensors.<br/> You
                     may not copy, modify, distribute, or reproduce platform content
                     without our explicit consent.
                   </p>
@@ -164,7 +164,7 @@ const TermsAndConditions = () => {
               <div className="flex-1 max-w-sm">
                 <h2 className="md:text-2xl font-bold font-montserrat mb-4">Limitation of Liability</h2>
                 <p className="text-sm md:text-base font-open-sans">
-                  To the fullest extent permitted by law, FlowerWorker is not liable for:
+                  To the fullest extent permitted by law, Gaddr is not liable for:
                   <br/> indirect, incidental, or consequential damages. Loss of data, 
                   employment opportunities, or revenue.<br/> Errors, interruptions, or 
                   failures of the platform.
@@ -179,7 +179,7 @@ const TermsAndConditions = () => {
               <div className="flex-1 max-w-sm">
                 <h2 className="md:text-2xl font-bold font-montserrat mb-4">Disclaimers</h2>
                 <p className="text-sm md:text-base font-open-sans">
-                  FlowerWorker is provided &quot;as-is&quot; and &quot;as available&quot; without warranties of any kind, either express or implied. We do not guarantee that the platform will meet your expectations or be error-free.
+                  Gaddr is provided &quot;as-is&quot; and &quot;as available&quot; without warranties of any kind, either express or implied. We do not guarantee that the platform will meet your expectations or be error-free.
                 </p>
               </div>
             </div>
@@ -230,7 +230,7 @@ const TermsAndConditions = () => {
                     No Waiver: Failure to enforce any provision of these Terms does not
                     constitute a waiver of that right.<br />
                     Entire Agreement: These Terms, along with our Privacy Policy,
-                    constitute the entire agreement between you and FlowerWorker.
+                    constitute the entire agreement between you and Gaddr.
                   </p>
                 </div>
               
@@ -256,9 +256,8 @@ const TermsAndConditions = () => {
                 {/* Email */}
                 <div className="flex items-center gap-3 text-base">
                   <FaEnvelope className="h-4 w-4 md:h-5 md:w-5 text-white" />
-                  <p className="text-sm md:text-base">Info@flowerworker.com</p>
+                  <p className="text-sm md:text-base">Info@gaddr.com</p>
                 </div>
-
                 {/* Location */}
                 <div className="flex items-center gap-2 text-base">
                   <FaMapMarkerAlt className="h-4 w-4 md:h-5 md:w-5 text-white" />
@@ -273,7 +272,7 @@ const TermsAndConditions = () => {
         
         {/* Acknowledgment */}
         <section className="w-full max-w-[1920px] mx-auto h-auto px-[2%] md:px-[12%] py-[16px]">
-          <p className="text-xs md:text-base font-open-sans text-right">By using FlowerWorker, you acknowledge that you have read and understood this Privacy Policy.</p>
+          <p className="text-xs md:text-base font-open-sans text-right">By using Gaddr, you acknowledge that you have read and understood this Privacy Policy.</p>
         </section>
         
         <footer>

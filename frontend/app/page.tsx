@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Footer, Hero, Navbar, HeroOverlay, Welcome } from "./components";
-import heroimage from "./public/temp_herotextandimage.png";
-import logo from "./public/LOGO.png"
+import heroimage from "./public/landingpageheronew.png";
+import logo from "./public/gaddr.png"
 import mobileBackground from "./public/landingpagehero.jpg";
 
 export default function Home() {
@@ -48,7 +48,7 @@ export default function Home() {
           <div className="text-white text-center z-10">
             <p className="font-semibold text-lg">All in One Innovative Platform</p>
             <p className="text-sm mt-2">
-              <span className="font-bold text-purplev1">FlowerWork </span>
+              <span className="font-bold text-purplev1">Gaddr</span>
               allows you to define workflows, connect with skilled talents, collaborate seamlessly, assign tasks efficiently, and track progress securely.
             </p>
           </div>
@@ -64,7 +64,7 @@ export default function Home() {
       {/* Footer */}
       <footer>
         <Footer />
-      </footer>
+      </footer> 
     </div>
   );
 }
