@@ -37,6 +37,30 @@ diesel::table! {
 }
 
 diesel::table! {
+    notification_settings (user_id) {
+        user_id -> Int4,
+        all_new_messages -> Nullable<Bool>,
+        direct_messages -> Nullable<Bool>,
+        thread_replies -> Nullable<Bool>,
+        schedule -> Nullable<Text>,
+        start_hour -> Nullable<Time>,
+        end_hour -> Nullable<Time>,
+        remind_at -> Nullable<Time>,
+        mobile_frequency -> Nullable<Text>,
+        incoming_pref -> Nullable<Text>,
+        outgoing_pref -> Nullable<Text>,
+        mute_all_sounds -> Nullable<Bool>,
+        email_frequency -> Nullable<Text>,
+        time_zone -> Nullable<Text>,
+        created_at -> Nullable<Timestamp>,
+        updated_at -> Nullable<Timestamp>,
+        incoming_sound -> Nullable<Text>,
+        outgoing_sound -> Nullable<Text>,
+        auto_time_zone -> Bool,
+    }
+}
+
+diesel::table! {
     projects (id) {
         id -> Int4,
         user_id -> Int4,
@@ -106,10 +130,15 @@ diesel::table! {
 }
 
 diesel::table! {
-    user_tasks (id) {
-        id -> Int4,
+    user_profiles (user_id) {
         user_id -> Int4,
-        task_id -> Int4,
+        full_name -> Varchar,
+        email -> Varchar,
+        phone_number -> Varchar,
+        department_or_team -> Varchar,
+        job_title -> Varchar,
+        created_at -> Timestamp,
+        updated_at -> Timestamp,
     }
 }
 
@@ -124,6 +153,7 @@ diesel::table! {
 }
 
 diesel::joinable!(jobs -> users (user_id));
+diesel::joinable!(notification_settings -> users (user_id));
 diesel::joinable!(projects -> users (user_id));
 diesel::joinable!(sub_tasks -> tasks (task_id));
 diesel::joinable!(sub_tasks -> users (user_id));
@@ -136,17 +166,17 @@ diesel::joinable!(task_assignees -> tasks (task_id));
 diesel::joinable!(task_assignees -> users (user_id));
 diesel::joinable!(tasks -> projects (project_id));
 diesel::joinable!(tasks -> users (user_id));
-diesel::joinable!(user_tasks -> tasks (task_id));
-diesel::joinable!(user_tasks -> users (user_id));
+diesel::joinable!(user_profiles -> users (user_id));
 
 diesel::allow_tables_to_appear_in_same_query!(
     jobs,
+    notification_settings,
     projects,
     sub_tasks,
     subtask_assignees,
     task_access,
     task_assignees,
     tasks,
-    user_tasks,
+    user_profiles,
     users,
 );
