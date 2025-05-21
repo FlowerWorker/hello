@@ -11,7 +11,7 @@ import {
   NavigationMenuList,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
-import logo from "../../public/LOGO.png";
+import logo from "../../public/newlogo.png";
 import { Share2 } from "lucide-react";
 import user from "../../public/user.png";
 import { cn } from "@/lib/utils";
@@ -40,12 +40,50 @@ const Navbar: React.FC<NavbarProps> = ({ className, ...props }) => {
       {/* Logo and Text */}
       <Link href="#" className="flex items-center space-x-2">
         <span className="text-white text-lg font-semibold">
-          <Image src={logo} alt="logo" className="inline-block" />
+          <Image src={logo} alt="logo" width={200} height={200} className="inline-block" />
         </span>
       </Link>
 
       {/* Navigation Menu */}
+      <div className="flex items-center justify-center flex-1">
       <NavigationMenu>
+
+        <NavigationMenuList className="hidden md:flex items-center gap-4">
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+              <Link href="/products" className="text-white flex items-center gap-2">
+                Products
+              </Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+              <Link href="/about-us" className="text-white flex items-center gap-2">
+                About Gaddr
+              </Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+              <Link href="/collaborate"className="text-white flex items-center gap-2">
+                Collaborate With Us
+              </Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+              <Link href="contact-us" className="text-white flex items-center gap-2">
+                Contact Us
+              </Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+        </div>
+     <NavigationMenu>
         <NavigationMenuList className="flex items-center gap-4">
           {/* Share Link */}
           <NavigationMenuItem>

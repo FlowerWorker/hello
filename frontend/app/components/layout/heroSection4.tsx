@@ -5,7 +5,7 @@ import iconsample from "../../public/outsourcing_icon.png";
 
 export const SECTION_TITLE = "Hire the best freelancers for any job, online";
 export const SECTION_SUBTITLE = "Post Projects or Outsource Tasks with Ease";
-export const SECTION_DESCRIPTION = "Esay and time saving. Flowerwork’s outsourcing tool is all you need to get high-quality results while focusing on your core objectives. ";
+export const SECTION_DESCRIPTION = "Esay and time saving. Gaddr’s outsourcing tool is all you need to get high-quality results while focusing on your core objectives. ";
 export const SUB_SECTION_TITLE = "Post a project";
 export const SUB_SECTION_DESCRIPTION = "Create and post a project or start a contest to find the perfect professional match for your needs ";
 export const SUB_SECTION_TITLE2 = "Outsource an intern task";

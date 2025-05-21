@@ -18,7 +18,7 @@ export const CARDSELECTION_BUTTON_TEXT4 = "Try for free"
 
 export const CARDSELECTION_DESCRIPTION_TEXT1 = "Unlock full access to the platform and experience seamless efficiency with us."
 export const CARDSELECTION_DESCRIPTION_TEXT2 = "Access AI tools for higher productivity, obtain collaboration opportunity, and optimize talent outsourcing."
-export const CARDSELECTION_DESCRIPTION_TEXT3 = "Become a core contributor with exclusive access and enjoy FlowerWork as a collaborator."
+export const CARDSELECTION_DESCRIPTION_TEXT3 = "Become a core contributor with exclusive access and enjoy Gaddr as a collaborator."
 export const CARDSELECTION_DESCRIPTION_TEXT4 = "Designed for power users who need complete control over project management."
 
 export const CARDSELECTION_BENEFIT1_TEXT1 = "Full access to current features and tools"

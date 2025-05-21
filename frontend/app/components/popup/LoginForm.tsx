@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import navLogo from "@/app/public/signupNavLogo.svg";
-import signupLogo from "@/app/public/signupLogo.svg";
+import navLogo from "@/app/public/Gaddr Logo - Gradient 3.png";
+import signupLogo from "@/app/public/Gaddr_Logo-Angle_Purple 2.png";
 import signupWallpaper from "@/app/public/signupWallpaper.png";
 import googleIcon from "@/app/public/googleIcon.svg";
 import showPasswordIcon from "@/app/public/showPasswordIcon.svg";
@@ -135,7 +135,7 @@ export default function LoginForm() {
           <Image
             src={navLogo}
             alt="Logo linking to the homepage"
-            className="w-[40px] h-[40px]"
+            className="w-[70px] h-[50px]"
             priority
           />
         </Link>

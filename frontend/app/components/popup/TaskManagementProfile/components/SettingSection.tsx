@@ -34,7 +34,7 @@ export const SettingsSection: React.FC<SettingsSectionProps> = ({ isSettingsOpen
 
             {/* Logout Section */}
             <button onClick={handleLogout} className='text-xl font-medium font-mono hover:underline'>
-                Log out of FlowerWorker
+                Log out of Gaddr
             </button>
         </div>
     )

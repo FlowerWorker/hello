@@ -29,7 +29,7 @@ const SoundsAppearance: React.FC = () => {
           className='h-5 w-5 rounded'
         />
         <label htmlFor='mute' className='ml-3 text-gray-800'>
-          Mute all messages sounds from FlowerWorker
+          Mute all messages sounds from Gaddr
         </label>
       </div>
     </div>

@@ -8,9 +8,9 @@ import TiktokIcon from '../icons/TiktokIcon';
 import LinkedinIcon from '../icons/LinkedinIcon';
 import FacebookIcon from '../icons/FacebookIcon';
 import InstagramIcon from '../icons/InstagramIcon';
-import logo from '../../public/_Logo.png';
+import logo from '../../public/Gaddr_Logo-Angle_Purple 6.png';
 
-export const NEWSLETTER_TEXT_TITLE = "Explore FlowerWork and future task management";
+export const NEWSLETTER_TEXT_TITLE = "Explore Gaddr and future task management";
 export const NEWSLETTER_TEXT_INFO = "Subscribe to our email newsletters for upcoming features and offers";
 export const NEWSLETTER_TEXT = "Subscribe";
 
@@ -49,10 +49,10 @@ const Footer = () => {
           <Image
             src={logo}
             alt="FlowerWork Logo"
-            className="w-10 h-10 hover:opacity-80 transition-opacity duration-300"
+            className="w-[70px] h-[50px] hover:opacity-80 transition-opacity duration-300"
           />
         </Link>
-        <Link href="/about-us" className="hover:underline">About FlowerWork</Link>
+        <Link href="/about-us" className="hover:underline">About Gaddr</Link>
         <Link href="/contact-us" className="hover:underline">Contact Us</Link>
         <Link href="/terms-and-conditions" className="hover:underline">Terms & Conditions</Link>
         <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>

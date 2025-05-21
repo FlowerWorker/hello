@@ -8,9 +8,9 @@ import { Footer, Navbar } from "./layout";
 import { Button } from "@/components/ui/button";
 import TeamProfile from "./TeamProfile";
 
-import background from "../public/aboutpage_text.png";
-import heroimage from "../public/aboutpagehero.png";
-import logo from "../public/LOGO.png";
+import background from "../public/landingpageheronew.png";
+import heroimage from "../public/landingpageheronew.png";
+import logo from "../public/gaddr.png";
 import offer from "../public/offer.jpeg"
 import mission from "../public/mission.png"
 import flowerwork from "../public/flowerwork.webp"
@@ -207,7 +207,7 @@ const AboutUs = () => {
             <div className="flex flex-col space-y-6">
               <div className="flex flex-row pb-2 gap-4">
                 <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Efficient Project Management</p>
-                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Organize tasks, timelines, and resources - all in one place with FlowerWork’s intuitive dashboard, keeping deadlines and progress on track.</p>
+                <p className="flex-[2] font-semibold text-base md:text-lg lg:text-xl">Organize tasks, timelines, and resources - all in one place with Gaddr's intuitive dashboard, keeping deadlines and progress on track.</p>
               </div>
               <div className="flex flex-row pb-2 gap-4">
                 <p className="flex-[1] font-bold text-lg md:text-xl lg:text-2xl">Flexible Talent and Scalability</p>
@@ -274,7 +274,7 @@ const AboutUs = () => {
         <section className="flex flex-col lg:flex-row items-center justify-center gap-6 mx-8 py-6">
           <div className="flex-1">
             <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl leading-relaxed">
-              Upcoming Features on <span className="text-purplev1 font-bold">FlowerWork</span>
+              Upcoming Features on <span className="text-purplev1 font-bold">Gaddr</span>
             </h1>
             <hr className="border-t-4 md:border-t-6 mt-4 mb-6"></hr>
             <div className="flex flex-col space-y-6">
@@ -339,7 +339,7 @@ const AboutUs = () => {
       {/* Join Us Container */}
       <div suppressHydrationWarning={true} className="pb-10 flex flex-col items-center">
         <h1 className="font-montserrat text-2xl sm:text-[32px] font-bold text-white mb-4 sm:mb-6 sm:mt-16">
-          You can be one os us too!
+          You can be one of us too!
         </h1>
         <Button className="bg-purplev1 hover:bg-purplev-700 text-white font-bold px-6 py-3">
           <Link href="/collaborate">

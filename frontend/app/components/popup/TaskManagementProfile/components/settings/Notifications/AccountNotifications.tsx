@@ -110,7 +110,7 @@ const AccountNotifications: React.FC = () => {
                             className='form-checkbox h-5 w-5 text-blue-600'
                         />
                         <span className='text-gray-800'>
-                            Mute all message sounds from FlowerWorker
+                            Mute all message sounds from Gaddr
                         </span>
                     </label>
                 </li>
