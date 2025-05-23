@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import home from "@/app/public/homeIcon.svg";
 import sample from "../../public/sample1.jpg";
 import sponsorLogo7 from "../../public/hemmet.png";
 import sponsorLogo6 from "../../public/ljus.png";
@@ -79,5 +81,19 @@ const welcome = () => {
     </div>
   );
 };
+
+<div className="font-medium">
+  <Link href="/welcome">
+    <div className="flex items-center py-2 px-2 cursor-pointer hover:bg-gray-100 rounded-md transition">
+      <Image
+        src={home}
+        alt="home icon"
+        className="w-5 h-5 md:w-6 md:h-6"
+        style={{ width: "auto", height: "auto" }}
+      />
+      <p className="ml-4 text-xl">Home</p>
+    </div>
+  </Link>
+</div>
 
 export default welcome;

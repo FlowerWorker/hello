@@ -43,6 +43,7 @@ import boardIcon from "../public/boardIcon.svg";
 import calendarIcon from "../public/calendarIcon.svg";
 import moreViewsIcon from "../public/moreViewsIcon.svg";
 import grayBellIcon from "../public/grayBellIcon.svg";
+import trashIcon from "../public/closeIcon.png"
 
 const containerNames = ["todo", "inProgress", "completed"];
 
@@ -90,6 +91,8 @@ export default function TaskManagementDashboard() {
     setIsClient(true);
     const savedTasks = localStorage.getItem("tasks");
     if (savedTasks) {
+
+
       setTasks(JSON.parse(savedTasks));
     }
     // Resize sidebar when adjusting screen size
@@ -99,6 +102,23 @@ export default function TaskManagementDashboard() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+const handleDeleteTask = (taskId: string, containerName: keyof TaskList) => {
+  const confirmed = window.confirm("Are you sure you want to delete this task?");
+  if (!confirmed) return;
+
+  setTasks((prevTasks) => {
+    const updatedContainer = prevTasks[containerName].filter(
+      (task) => task.id !== taskId
+    );
+    return {
+      ...prevTasks,
+      [containerName]: updatedContainer,
+    };
+  });
+};
+
+
+
 
   /**
    * Effect to save tasks to localStorage when they change
@@ -323,6 +343,7 @@ export default function TaskManagementDashboard() {
                         </div>
                       )}
 
+
                     <TaskContainer
                       title={`${containerName
                         .charAt(0)
@@ -341,6 +362,7 @@ export default function TaskManagementDashboard() {
                         handleToggleCollapse(containerName)
                       }
                       showAddTask={showAddTask}
+                      handleDeleteTask={handleDeleteTask}
                     />
                   </div>
                 ))}
