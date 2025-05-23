@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link"
 import userIcon from "@/app/public/user-icon.png";
 import leftArrow from "@/app/public/left-arrow.svg";
 import rightArrow from "@/app/public/right-arrow.svg";
@@ -69,6 +70,7 @@ const TaskManagementSidebar: React.FC<SidebarProps> = ({
                     {/* Mid sidebar container */}
 
                     <div className="font-medium">
+                    <Link href="../frontend/app/components/layout/welcome.tsx" passHref></Link>
                         <div className="flex items-center py-2 px-2">
                             <Image
                                 src={home}
