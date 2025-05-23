@@ -17,7 +17,8 @@ import user from "../../public/user.png";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
-
+import { useUserProfileContext } from "@/lib/user-profile-settings-context";
+import defaultUserIcon from '@/app/public/user-icons/profileImage.png';
 import activeIcon from "@/app/public/activeIcon.svg";
 import activeNotificationIcon from "@/app/public/activeNotification.svg";
 import userIcon from "@/app/public/user-icons/userIcon3.svg";
@@ -28,6 +29,10 @@ const Navbar: React.FC<NavbarProps> = ({ className, ...props }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const toggleProfile = () => setIsProfileOpen((prev) => !prev);
   const { token } = useAuth();
+  const { profile } = useUserProfileContext();
+  const avatarUrl = profile?.profile_picture
+    ? `${process.env.NEXT_PUBLIC_API_URL}/public/image?key=${encodeURIComponent(profile.profile_picture)}`
+    : defaultUserIcon.src;
 
   return (
     <div
@@ -82,24 +87,27 @@ const Navbar: React.FC<NavbarProps> = ({ className, ...props }) => {
           {/* Login Button */}
           <NavigationMenuItem>
             <NavigationMenuLink asChild>
-              {!token ? (
-                <Link href="login">
-                  <Button className="bg-purplev1 text-black px-2 py-1 md:px-4 md:py-2 rounded-lg flex items-center justify-center min-w-[30px] min-h-[30px] md:min-w-[40px] md:min-h-[40px] hover:bg-purplev2">
-                    <Image
-                      src={user}
-                      alt="usericon"
-                      className="h-4 w-4 md:h-5 md:w-5 object-contain"
+                  {!token ? (
+                    <Link href="login">
+                      <Button className="bg-purplev1 text-black px-2 py-1 md:px-4 md:py-2 rounded-lg flex items-center justify-center min-w-[30px] min-h-[30px] md:min-w-[40px] md:min-h-[40px] hover:bg-purplev2">
+                        <Image
+                          src={user}
+                          alt="usericon"
+                          className="h-4 w-4 md:h-5 md:w-5 object-contain"
+                        />
+                      </Button>
+                    </Link>
+                  ) : (
+                    <img
+                      src={avatarUrl}
+                      alt="User avatar"
+                      onClick={toggleProfile}
+                      className="w-10 h-10 rounded-full object-cover cursor-pointer"
+                      onError={(e) => {
+                        e.currentTarget.src = userIcon.src;
+                      }}
                     />
-                  </Button>
-                </Link>
-              ) : (
-                <Image
-                  src={userIcon}
-                  alt="user icon"
-                  onClick={toggleProfile}
-                  className="w-10 h-10 sm:h-auto sm:w-auto"
-                />
-              )}
+                  )}
             </NavigationMenuLink>
 
             {isProfileOpen && (
