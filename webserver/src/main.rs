@@ -19,7 +19,7 @@ use search::data_sync;
 use search::state::{self, SearchState};
 
 use crate::database::db;
-
+use crate::s3_client::create_s3_client;
 mod auth;
 mod chat;
 mod config;
@@ -34,6 +34,8 @@ mod services;
 mod search;
 mod tasks;
 mod utils;
+mod s3_client;
+mod validators;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -65,7 +67,7 @@ async fn main() -> std::io::Result<()> {
             search_state_clone,
         );
     }).await.expect("Failed to initialize typesense client.");
-
+    let s3_client = create_s3_client();
     let server = chat_server::ChatServer::new(app_state.clone()).start();
     log::debug!("Starting HTTP server at http://127.0.0.1:8080");
     HttpServer::new(move || {
@@ -78,6 +80,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(cors)
             .app_data(web::Data::from(app_state.clone()))
             .app_data(web::Data::new(server.clone()))
+            .app_data(Data::new(s3_client.clone()))
             .wrap(Logger::default())
     })
     .workers(4)
