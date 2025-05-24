@@ -7,3 +7,4 @@ pub mod sub_tasks;
 pub mod sub_tasks_assignee;
 pub mod task_accsses;
 pub mod notification_settings;
+pub mod availability_status;

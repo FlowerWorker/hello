@@ -1,6 +1,13 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
+    availability_status (user_id) {
+        user_id -> Int4,
+        status -> Varchar,
+        updated_at -> Timestamp,
+    }
+}
+diesel::table! {
     jobs (id) {
         id -> Int4,
         user_id -> Int4,
@@ -152,6 +159,7 @@ diesel::table! {
     }
 }
 
+diesel::joinable!(availability_status -> users (user_id));
 diesel::joinable!(jobs -> users (user_id));
 diesel::joinable!(notification_settings -> users (user_id));
 diesel::joinable!(projects -> users (user_id));
@@ -169,6 +177,7 @@ diesel::joinable!(tasks -> users (user_id));
 diesel::joinable!(user_profiles -> users (user_id));
 
 diesel::allow_tables_to_appear_in_same_query!(
+    availability_status,
     jobs,
     notification_settings,
     projects,
