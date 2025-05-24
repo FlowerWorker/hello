@@ -12,8 +12,9 @@ use crate::routes::health_handler::health_routes;
 use crate::handlers::sub_tasks_handler::sub_task_routes;
 use crate::handlers::task_handler::task_routes;
 use crate::handlers::notification_settings_handler::notification_settings_routes;
+use crate::handlers::availability_status_handler::availability_routes;
+
 use crate::{
-use crate::handlers::availability_status_handler::availability_routes;use crate::{
     chat::{chat_routes::chat_route_auth, get_count},
     handlers::*,
 };
