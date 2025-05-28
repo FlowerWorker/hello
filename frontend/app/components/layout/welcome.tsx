@@ -20,7 +20,6 @@ export const WELCOME_SIGNUP_TEXT = "Subscribe"
 
 const sponsorLogos = [
   sponsorLogo1,
-  sponsorLogo2,
   sponsorLogo3,
   sponsorLogo4,
   sponsorLogo5,

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import AddAssignees from "./AddAssignees";
 import AddDescription from "./AddDescription";
+import AttachFile from "./AttachFile";
 
 // Icon imports
 import assigneesIcon from "@/app/public/assigneesIcon.svg";
@@ -33,6 +34,11 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
     const [showAssignees, setShowAssignees] = useState<boolean>(false);
     const [showDescription, setShowDescription] = useState<boolean>(false);
+    const [showAttachments, setShowAttachments] = useState<boolean>(false);
+    const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
+    const [isEditingAttachments, setIsEditingAttachments] = useState(false);
+
+
 
     // Handle title change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,9 +65,26 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
         setShowAssignees((prev) => !prev);
     };
 
-    // Toggle desciption visibility
+    // Toggle Desciption visibility
     const toggleDescription = () => {
         setShowDescription((prev) => !prev);
+    };
+
+    // Toggle AddAttachments visibility
+    const toggleAttachments = () => {
+        if (showAttachments) {
+            // When closing, reset edit mode
+            setIsEditingAttachments(false);
+        } else {
+            // When opening, set edit mode if we have files
+            setIsEditingAttachments(attachedFiles.length > 0);
+        }
+        setShowAttachments((prev) => !prev);
+    };
+
+    const handleFilesChange = (files: File[]) => {
+        console.log('Selected files:', files);
+        setAttachedFiles(files);
     };
 
     return (
@@ -177,7 +200,7 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
                         >
                             <Image
                                 src={descriptionIcon}
-                                alt="attach file icon"
+                                alt="description icon"
                                 width={20}
                                 height={20}
                                 className="w-auto h-auto"
@@ -185,10 +208,13 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
                             <span className="ml-2">Add a description</span>
                         </button>
 
-                        <button className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px]">
+                        <button
+                            onClick={toggleAttachments}
+                            className="flex items-center hover:bg-[#dddcdb] hover:rounded-lg py-1 px-2 max-w-[200px]"
+                        >
                             <Image
                                 src={attachFileIcon}
-                                alt="description icon"
+                                alt="attach file icon"
                                 width={20}
                                 height={20}
                                 className="w-auto h-auto"
@@ -263,10 +289,30 @@ export default function AddTaskCard({ listName }: AddTaskCardProps) {
             </div>
 
             <div className="relative">
-                {/* Show AddAssignees component when toggled */}
+                {/* Show AddDescription component when toggled */}
                 {showDescription && (
                     <div className="absolute bottom-[100px] -right-[500px] z-30  w-[1120px]">
                         <AddDescription toggleDescription={toggleDescription} />
+                    </div>
+                )}
+            </div>
+
+            <div className="relative">
+                {/* Show AddAttachments component when toggled */}
+                {showAttachments && (
+                    <div className="absolute bottom-[100px] -right-[500px] z-30  w-[1120px]">
+                        <AttachFile
+                            accept='*/*' // Accept all file types
+                            maxFileSize={25 * 1024 * 1024} // 25MB
+                            initialFiles={attachedFiles}
+                            onFilesChange={handleFilesChange}
+                            toggleAttachments={toggleAttachments}
+                            onSave={(files) => {
+                                console.log('Saving files:', files);
+                                toggleAttachments();
+                            }}
+                            mode={isEditingAttachments ? 'edit' : 'create'}
+                        />
                     </div>
                 )}
             </div>

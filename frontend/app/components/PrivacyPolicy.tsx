@@ -18,10 +18,10 @@ const PrivacyPolicy = () => {
             
             <div className="flex flex-col h-auto px-4 gap-8 md:gap-[80px]">
                 <p className="font-open-sans text-sm md:text-2xl">
-                    We at FlowerWorker value your privacy and are committed to protecting the personal information you share with us.<br></br>
+                    We at Gaddr value your privacy and are committed to protecting the personal information you share with us.<br></br>
                     This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform,
                     including project management, recruitment, and payment functionalities.<br></br><br></br>
-                    By accessing or using FlowerWorker, you agree to the practices described in this Privacy Policy.
+                    By accessing or using Gaddr, you agree to the practices described in this Privacy Policy.
                 </p>
   
                 {/* Data gathering */}
@@ -105,7 +105,7 @@ const PrivacyPolicy = () => {
                         <li>Withdraw consent where processing is based on consent.</li>
                     </ul>
                     <p className="text-sm md:text-base font-open-sans">
-                        To exercise these rights, contact us at info@flowerworker.com
+                        To exercise these rights, contact us at info@gaddr.com
                     </p>
                 </section>
   
@@ -127,7 +127,7 @@ const PrivacyPolicy = () => {
                     <div className="flex-1 max-w-sm">
                         <h2 className="md:text-2xl font-bold font-montserrat mb-4">Children&apos;s Privacy</h2>
                         <p className="text-sm md:text-base font-open-sans">
-                            FlowerWorker is not intended for use by children under 16, and we do not knowingly collect information from them.
+                            Gaddr is not intended for use by children under 16, and we do not knowingly collect information from them.
                         </p>
                     </div>
                 </div>
@@ -174,7 +174,7 @@ const PrivacyPolicy = () => {
                     {/* Email */}
                     <div className="flex items-center gap-3 text-base">
                         <FaEnvelope className="h-4 w-4 md:h-5 md:w-5 text-white" />
-                        <p className="text-sm md:text-base">Info@flowerworker.com</p>
+                        <p className="text-sm md:text-base">Info@gaddr.com</p>
                     </div>
     
                     {/* Location */}
@@ -191,7 +191,7 @@ const PrivacyPolicy = () => {
           
           {/* Acknowledgment */}
           <section className="w-full max-w-[1920px] mx-auto h-auto px-[2%] md:px-[12%] py-[16px]">
-            <p className="text-xs md:text-base font-open-sans text-right">By using FlowerWorker, you acknowledge that you have read and understood this Privacy Policy.</p>
+            <p className="text-xs md:text-base font-open-sans text-right">By using Gaddr, you acknowledge that you have read and understood this Privacy Policy.</p>
           </section>
           
           <footer>

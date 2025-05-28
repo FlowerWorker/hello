@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import navLogo from "@/app/public/signupNavLogo.svg";
-import signupLogo from "@/app/public/signupLogo.svg";
+import navLogo from "@/app/public/Gaddr Logo - Gradient 3.png";
+import signupLogo from "@/app/public/Gaddr_Logo-Angle_Purple 2.png";
 import signupWallpaper from "@/app/public/signupWallpaper.png";
 import showPasswordIcon from "@/app/public/showPasswordIcon.svg";
 import { useRouter } from "next/navigation";

@@ -5,7 +5,7 @@ import { CardSection, InfoSection, SectionComponent3, SectionComponent4, Section
 import SectionComponent from './SectionComponent';
 import iconsample from "../../public/management_logo.png";
 import iconsample2 from "../../public/search.png";
-import placeholderImageSample from '../../public/section1demo_image.png';
+import placeholderImageSample from '../../public/Screenshot.png';
 import placeholderImageSample2 from '../../public/section2demo_image.png';
 import { useAuth } from "@/lib/auth-context";
 
@@ -34,11 +34,11 @@ const subSections1 = [
 const subSections2 = [
   {
     title: "Instant Access to Top Talent",
-    description: "Your job listings can be posted directly on FlowerWork or LinkedIn. This give you access to our global pool of qualified professionals. You can reach the right candidates quickly with our diverse and extensive talent network.",
+    description: "Your job listings can be posted directly on Gaddr or LinkedIn. This give you access to our global pool of qualified professionals. You can reach the right candidates quickly with our diverse and extensive talent network.",
   },
   {
     title: "Streamlined Hiring Made Simple",
-    description: "You deserve a faster, more efficient way to find the right talent.With FlowerWork, optimize job postings, track candidates, and customize ads to attract the best. Simplify your hiring process with our intuitive dashboard, keeping everything organized and chaos-free.",
+    description: "You deserve a faster, more efficient way to find the right talent.With Gaddr, optimize job postings, track candidates, and customize ads to attract the best. Simplify your hiring process with our intuitive dashboard, keeping everything organized and chaos-free.",
   },
   {
     title: "Tailored Solutions for Your Growth",
@@ -120,7 +120,7 @@ const Hero = () => {
           icon={iconsample}
           sectionTitle="Boost Your Team’s Productivity"
           sectionSubtitle="Simplify Project Management, Empower Collaboration, Achieve More"
-          sectionDescription="With FlowerWork’s flexible and intuitive platform, you can effortlessly assign tasks, set timelines, and track milestones all in your collaborative workspace."
+          sectionDescription="With Gaddr’s flexible and intuitive platform, you can effortlessly assign tasks, set timelines, and track milestones all in your collaborative workspace."
           subSections={subSections1}
           buttonText="Start boosting my team today"
           buttonTargetPage={redirectionPage}

@@ -13,14 +13,14 @@ import LinkedinIcon from '../components/icons/LinkedinIcon';
 import FacebookIcon from '../components/icons/FacebookIcon';
 import InstagramIcon from '../components/icons/InstagramIcon';
 
-import logo from '../public/_Logo.png';
+import logo from '@/app/public/Gaddr Logo - Gradient 3.png';
 
 export const FILE_DROP = "Drag & drop any images or documents that might be helpful in explaining your brief here. (Max 25 MB)";
 export const BECOME_PART = "Become a part of our team";
 export const PART_TEXT = "Are you ready to take your career to the next level? Join our team and become part of a group of passionate, driven, and innovative individuals dedicated to making a difference. We value creativity, collaboration, and a commitment to excellence in everything we do.";
 export const WHICH_PART = "Which team would you like to be a part of?";
 export const RECOMEND_SOMEONE = "Know someone who would be a great fit for our team?";
-export const THANKS = "Thank you for applying to Flowerwork!"
+export const THANKS = "Thank you for applying to Gaddr!"
 export const CATCH = "Your info has been submitted, we'll catch up with you soon!";
 
 const Collaborate = () => {
@@ -440,7 +440,7 @@ const Collaborate = () => {
               className="w-10 h-10 hover:opacity-80 transition-opacity duration-300"
             />
           </Link>
-          <Link href="/about-us" className="hover:underline">About FlowerWork</Link>
+          <Link href="/about-us" className="hover:underline">About Gaddr</Link>
           <Link href="#" className="hover:underline">Contact Us</Link>
           <Link href="#" className="hover:underline">Terms & Conditions</Link>
           <Link href="#" className="hover:underline">Privacy Policy</Link>
