@@ -6,7 +6,8 @@ export const useProfileState = () => {
     const [status, setStatus] = useState<StatusOption>({
         label: 'Update my status',
         icon: null,
-    });
+        value: 'default'
+      });   
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const toggleSettings = () => setIsSettingsOpen(prev => !prev);
 

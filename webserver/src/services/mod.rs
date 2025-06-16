@@ -7,3 +7,4 @@ pub mod task_service;
 pub mod sub_tasks_service;
 pub mod notification_settings_service;
 pub mod notification_email_service;
+pub mod availability_status_service;

@@ -1,3 +1,4 @@
+import { StatusOption } from "./constants";
 // Component Props Interfaces
 export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -5,18 +6,6 @@ export interface ButtonProps
     children: React.ReactNode;
     className?: string;
     type?: "button" | "submit" | "reset";
-}
-
-export interface StatusSectionProps {
-    status: StatusOption;
-    setStatus: (status: StatusOption) => void;
-}
-
-export interface StatusDropdownProps {
-    status: StatusOption;
-    isStatusOpen: boolean;
-    toggleStatus: () => void;
-    selectStatus: (option: StatusOption) => void;
 }
 
 export interface SettingsSectionProps {
@@ -47,11 +36,6 @@ export interface NotificationProps {
 }
 
 // Data Type Interfaces
-export interface StatusOption {
-    value?: string;
-    label: string;
-    icon: string | null;
-}
 
 // State Interfaces
 export interface StatusState {

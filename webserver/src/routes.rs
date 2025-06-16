@@ -12,6 +12,8 @@ use crate::routes::health_handler::health_routes;
 use crate::handlers::sub_tasks_handler::sub_task_routes;
 use crate::handlers::task_handler::task_routes;
 use crate::handlers::notification_settings_handler::notification_settings_routes;
+use crate::handlers::availability_status_handler::availability_routes;
+
 use crate::{
     chat::{chat_routes::chat_route_auth, get_count},
     handlers::*,
@@ -30,6 +32,7 @@ pub fn init(cfg: &mut web::ServiceConfig) {
             .configure(linkedin_routes)
             .configure(sub_task_routes)
             .configure(notification_settings_routes)
+            .configure(availability_routes)
             .route("/count", web::get().to(get_count)),
     );
     cfg.service(

@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { StatusSectionProps, StatusOption, useStatusState } from '@/app/components/popup/TaskManagementProfile/hooks';
-import { StatusDropdown } from '@/app/components/popup/TaskManagementProfile/components/StatusDropdown';
+import { StatusDropdown } from "@/app/components/popup/TaskManagementProfile/components/StatusDropdown";
+import { useAvailabilityStatus } from "../hooks/useAvailabilityStatus";
 import { DateTime } from 'luxon';
+import { useStatusContext } from "@/lib/status-context";
 import { useUserNotificationsContext } from '@/lib/user-notifications-settings-context';
-export const StatusSection: React.FC<StatusSectionProps> = ({ status, setStatus }) => {
+export const StatusSection: React.FC= () => {
     const { isStatusOpen, toggleStatus } = useStatusState();
     const { notifications } = useUserNotificationsContext();
-    const [localTime, setLocalTime] = useState('');
+  const { updateAvailabilityStatus } = useAvailabilityStatus();
+  const { status, setStatus } = useStatusContext();
+
+  const [localTime, setLocalTime] = useState('');
+  const handleAvailabilityStatusChange = async (option: StatusOption) => {
+    setStatus(option);
+    toggleStatus();
+
+    if (option.value) {
+      await updateAvailabilityStatus(option.value);
+    }
+  };
     useEffect(() => {
         const updateLocalTime = () => {
             const zone = notifications?.time_zone || 'UTC';
@@ -25,10 +38,7 @@ export const StatusSection: React.FC<StatusSectionProps> = ({ status, setStatus 
                 status={status}
                 isStatusOpen={isStatusOpen}
                 toggleStatus={toggleStatus}
-                selectStatus={(option: StatusOption) => {
-                    setStatus(option);
-                    toggleStatus();
-                }}
+                selectStatus={handleAvailabilityStatusChange}
             />
 
             {/* Current local time */}

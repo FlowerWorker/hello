@@ -1,15 +1,16 @@
 import Image from "next/image";
-import { Footer, Hero, Navbar, HeroOverlay, Welcome } from "./components";
+import { Footer, Hero, Welcome } from "./components";
 import heroimage from "./public/temp_herotextandimage.png";
 import logo from "./public/LOGO.png"
 import mobileBackground from "./public/landingpagehero.jpg";
+import Navbar from "./components/layout/navbar";
 
 export default function Home() {
   return (
     <div className="w-full">
       {/* Header Section */}
       <header className="relative">
-        <Navbar className="" />
+     <Navbar />
       </header>
 
       {/* Hero Image Container */}
