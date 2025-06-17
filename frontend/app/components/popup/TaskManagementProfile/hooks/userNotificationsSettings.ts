@@ -39,6 +39,10 @@ export const useUserNotificationsSettings = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      if (res.status === 404){
+        return null;
+      }
      
       if (!res.ok) {
         console.error("❌ Notifications fetch failed:", await res.text());

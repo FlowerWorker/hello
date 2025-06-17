@@ -9,4 +9,6 @@ pub mod search_handler;
 pub mod linkedin_handler;
 pub mod sub_tasks_handler;
 pub mod task_handler;
+pub mod user_photo_uploads_handler;
+pub mod user_profile_handler;
 pub mod notification_settings_handler;

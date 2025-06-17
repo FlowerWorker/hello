@@ -130,6 +130,16 @@ diesel::table! {
 }
 
 diesel::table! {
+    user_photo_uploads (id) {
+        id -> Int4,
+        user_id -> Int4,
+        image_url -> Text,
+        uploaded_at -> Timestamp,
+        updated_at -> Timestamp,
+    }
+}
+
+diesel::table! {
     user_profiles (user_id) {
         user_id -> Int4,
         full_name -> Varchar,
@@ -166,6 +176,7 @@ diesel::joinable!(task_assignees -> tasks (task_id));
 diesel::joinable!(task_assignees -> users (user_id));
 diesel::joinable!(tasks -> projects (project_id));
 diesel::joinable!(tasks -> users (user_id));
+diesel::joinable!(user_photo_uploads -> users (user_id));
 diesel::joinable!(user_profiles -> users (user_id));
 
 diesel::allow_tables_to_appear_in_same_query!(
@@ -177,6 +188,7 @@ diesel::allow_tables_to_appear_in_same_query!(
     task_access,
     task_assignees,
     tasks,
+    user_photo_uploads,
     user_profiles,
     users,
 );

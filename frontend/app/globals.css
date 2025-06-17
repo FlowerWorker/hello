@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --sonner-z-index: 9999;
+}
+[data-sonner-toast] {
+  border: 2px solid red;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
