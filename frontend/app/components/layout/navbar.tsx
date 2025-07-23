@@ -75,6 +75,14 @@ const Navbar: React.FC<NavbarProps> = ({ className, ...props }) => {
 
           <NavigationMenuItem>
             <NavigationMenuLink asChild>
+              <Link href="/jobs" className="text-white flex items-center gap-2">
+                💼 Jobs
+              </Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
               <Link href="contact-us" className="text-white flex items-center gap-2">
                 Contact Us
               </Link>
