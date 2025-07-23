@@ -12,12 +12,12 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
+ useEffect(() => {
+
+  const mockToken = "mock-token";
+  setToken(mockToken);
+  localStorage.setItem("token", mockToken);
+}, []);
 
   const login = (token: string) => {
     localStorage.setItem("token", token);
