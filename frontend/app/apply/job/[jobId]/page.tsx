@@ -1,5 +1,5 @@
 // Update the import path if ApplyJobForm is located elsewhere, for example:
-import ApplyJobForm from "../../../components/TaskApplication/ApplyJobForm";
+import ApplyJobForm from "../../../components/JobApplication/ApplyJobForm";
 // Or ensure that '../../../components/ApplyJobForm.tsx' exists at the specified path.
 
 export default function ApplyPage({ params }: { params: { jobId: string } }) {
