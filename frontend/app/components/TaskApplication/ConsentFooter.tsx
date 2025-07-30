@@ -1,13 +1,23 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
 export default function ConsentFooter() {
   return (
     <div className="space-y-4">
       <label className="flex items-start gap-2 text-sm">
         <input type="checkbox" className="mt-1" />
-        <span>I agree to the <span className="underline">terms and conditions</span> and <span className="underline">privacy policy</span></span>
+        <span>
+          I agree to the{" "}
+          <Link href="/terms-and-conditions" className="underline text-blue-600 hover:text-blue-800" target="_blank">
+            terms and conditions
+          </Link>{" "}
+          and{" "}
+          <Link href="/privacy-policy" className="underline text-blue-600 hover:text-blue-800" target="_blank">
+            privacy policy
+          </Link>
+        </span>
       </label>
 
       <div className="flex justify-between items-center">
